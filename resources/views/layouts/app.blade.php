@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -12,14 +13,20 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="..." crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+        integrity="..." crossorigin="anonymous" />
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    <style>
+        .bg-pink {
+            background-color: #f53cf5 !important;
+        }
+    </style>
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        {{-- <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
@@ -71,11 +78,39 @@
                     </ul>
                 </div>
             </div>
-        </nav>
+        </nav> --}}
+        <!-- ✅ カスタムヘッダー -->
+        <header class="navbar bg-white shadow-sm px-4 d-flex justify-content-between align-items-center"
+            style="height: 70px; border-bottom: 5px solid #1D80E7;">
+            <div class="d-flex align-items-center">
+                <!-- ロゴ画像 -->
+                <img src="{{ asset('images/fg.png') }}" alt="FeedGrow" height="50" class="me-2">
+            </div>
+
+            <div class="d-flex align-items-center">
+                <!-- 通知ベル -->
+                <div class="position-relative me-3">
+                    <i class="fa-solid fa-bell fa-lg text-secondary"></i>
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-pink"
+                        style="font-size: 10px;">
+                        11
+                    </span>
+                </div>
+
+                <!-- ユーザー表示 -->
+                @auth
+                    <img src="{{ asset('images/daiki_icon.jpg') }}" alt="user" class="rounded-circle"
+                        style="width: 35px; height: 35px;">
+                    <span class="ms-2 text-secondary fw-bold">{{ Auth::user()->name }}</span>
+                    <i class="fa-solid fa-caret-down ms-1 text-secondary"></i>
+                @endauth
+            </div>
+        </header>
 
         <main class="py-4">
             @yield('content')
         </main>
     </div>
 </body>
+
 </html>

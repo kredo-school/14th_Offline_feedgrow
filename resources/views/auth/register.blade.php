@@ -2,80 +2,71 @@
 
 @section('content')
     <style>
-        /* １．ページ全体背景を青に、ナビは白のまま */
-        html,
         body {
-            height: 100%;
-            margin: 0;
-            background-color: #377dff;
+            background-color: #1D80E7;
+            /* 青背景 */
+            color: white;
+            height: 100vh;
+            font-family: 'PT Sans', sans-serif;
+            font-weight: 700;
         }
 
-        /* ２．フォーム部分だけをナビ下から中央に配置 */
-        .register-page {
-            position: absolute;
-            top: 56px;
-            /* Breeze の nav 高さ */
-            left: 0;
-            right: 0;
-            bottom: 0;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            /* 縦中央 */
-            align-items: center;
-            /* 横中央 */
-            text-align: center;
+        .form-control::placeholder {
+            color: #A0A0A0;
         }
 
-        /* ３．フォーム幅の制限 */
-        .register-box {
-            max-width: 400px;
-            width: 100%;
+        .logo {
+            width: 300px;
+            margin-bottom: 20px;
+            margin-top: 20px;
+        }
+
+        .form-label {
+            color: white;
+        }
+
+        .btn-register {
+            border: 2px solid #DCBF7D;
+            color: white;
+        }
+
+        .btn-register:hover {
+            background-color: #DCBF7D;
+            color: #1D80E7;
+        }
+
+        a {
+            color: #DCBF7D;
+            text-decoration: none;
         }
 
         /* ４．共通：アイコンと入力欄を透過＆白字に */
+        .auth-input .input-group {
+            background: transparent;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 2px solid #fff;
+        }
+
         .auth-input .input-group-text,
         .auth-input .form-control {
             background: transparent;
             border: none;
             color: #fff;
         }
-
-        /* ５．共通：丸枠スタイル */
-        .auth-input .input-group {
-            border: 2px solid #fff;
-            border-radius: 50px;
-            overflow: hidden;
-        }
-
-        /* ６．プレースホルダー半透明 */
-        .auth-input .form-control::placeholder {
-            color: rgba(255, 255, 255, 0.7);
-        }
-
-        /* ７．ボタンの丸枠 */
-        .auth-btn {
-            border-radius: 50px;
-            border: 2px solid #f5c518;
-        }
-
-        .auth-btn,
-        .auth-btn:hover {
-            color: #fff;
-        }
     </style>
 
-    <div class="register-page">
-        {{-- タイトル --}}
-        <h1 class="text-white fw-bold mb-3">Register</h1>
-        <p class="text-white mb-4">
-            Please enter your Name, Login and your Password
-        </p>
+    <div class="container d-flex flex-column align-items-center justify-content-center h-100">
+        <!-- ✅ ロゴ部分 -->
+        <img src="{{ asset('images/feedgrow_logo.png') }}" alt="FeedGrow Logo" class="logo">
 
-        <div class="register-box">
+        <!-- ✅ 登録フォーム -->
+        <div class="form-container text-center">
+            <h1 class="mb-3 fw-bold">Register</h1>
+            <p>Please enter your Name, Login and your Password</p>
+
             <form method="POST" action="{{ route('register') }}">
                 @csrf
-
                 {{-- Role --}}
                 <div class="mb-3 auth-input">
                     <div class="input-group align-items-center">
@@ -94,8 +85,6 @@
                         <div class="invalid-feedback d-block">{{ $message }}</div>
                     @enderror
                 </div>
-
-
                 {{-- Username --}}
                 <div class="mb-3 auth-input">
                     <div class="input-group align-items-center">
@@ -110,7 +99,6 @@
                         <div class="invalid-feedback d-block">{{ $message }}</div>
                     @enderror
                 </div>
-
                 {{-- Email --}}
                 <div class="mb-3 auth-input">
                     <div class="input-group align-items-center">
@@ -125,7 +113,6 @@
                         <div class="invalid-feedback d-block">{{ $message }}</div>
                     @enderror
                 </div>
-
                 {{-- Password --}}
                 <div class="mb-3 auth-input">
                     <div class="input-group align-items-center">
@@ -139,7 +126,6 @@
                         <div class="invalid-feedback d-block">{{ $message }}</div>
                     @enderror
                 </div>
-
                 {{-- Confirm Password --}}
                 <div class="mb-4 auth-input">
                     <div class="input-group align-items-center">
@@ -150,16 +136,10 @@
                             autocomplete="new-password" placeholder="Re-enter Password" class="form-control">
                     </div>
                 </div>
-
-                {{-- Register ボタン --}}
-                <button type="submit" class="btn btn-outline-warning auth-btn w-100 py-2 fw-bold mb-2">
-                    Register
-                </button>
-
-                {{-- ログインリンク --}}
-                <p class="text-center mb-0">
+                <button type="submit" class="btn btn-register w-100">Register</button>
+                <p class="text-center mt-3">
                     <span class="text-white">Already have an Account?</span>
-                    <a href="{{ route('login') }}" class="text-warning fw-semibold">
+                    <a href="{{ route('login') }}">
                         Login!
                     </a>
                 </p>
