@@ -1,9 +1,9 @@
 <!-- タスク -->
 <div class="box task-section">
     <div class="d-flex justify-content-between align-items-center">
-        <div class="d-flex">
-            <i class="fa-solid fa-list-check fa-2x" style="color: white;"></i>
-            <h2 class="ms-2 fw-bold">TASK</h2>
+        <div class="d-flex mb-2">
+            <i class="fa-solid fa-list-check fa-2x mt-1" style="color: white;"></i>
+            <h2 class="ms-2 fw-bold mb-0">TASK</h2>
         </div>
         <div>
             <button class="add-btn" onclick="addTask()">
