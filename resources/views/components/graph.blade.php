@@ -10,7 +10,7 @@
             HISTORY
         </a>
     </div>
-    <canvas id="myChart" style="height: 100% !important; width: 100% !important;"></canvas>
+    <canvas id="myChart" style="height: 460px !important; width: 100% !important;"></canvas>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

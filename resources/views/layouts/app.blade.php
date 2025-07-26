@@ -22,63 +22,23 @@
         .bg-pink {
             background-color: #f53cf5 !important;
         }
+
+        .dropdown-menu {
+            margin-top: 15px !important;
+            /* ドロップダウンが少し下に開く */
+            z-index: 1050;
+            /* 他要素より前面に出す */
+        }
+
+        .text-blue {
+            color: #1D80E7;
+            font-weight: bold
+        }
     </style>
 </head>
+
 <body>
     <div id="app">
-        {{-- <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav me-auto">
-
-                    </ul>
-
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ms-auto">
-                        <!-- Authentication Links -->
-                        @guest
-                            @if (Route::has('login'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                                </li>
-                            @endif
-
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
-                        @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
-                                </a>
-
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
-                        @endguest
-                    </ul>
-                </div>
-            </div>
-        </nav> --}}
         <!-- ✅ カスタムヘッダー -->
         <header class="navbar bg-white shadow-sm px-4 d-flex justify-content-between align-items-center"
             style="height: 70px; border-bottom: 5px solid #1D80E7;">
@@ -88,22 +48,48 @@
             </div>
 
             <div class="d-flex align-items-center">
-                <!-- 通知ベル -->
-                <div class="position-relative me-3">
-                    <i class="fa-solid fa-bell fa-lg text-secondary"></i>
-                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-pink"
-                        style="font-size: 10px;">
-                        11
-                    </span>
-                </div>
+                @guest
+                    @if (Route::has('login'))
+                        <a class="nav-link me-3" href="{{ route('login') }}">{{ __('Login') }}</a>
+                    @endif
 
-                <!-- ユーザー表示 -->
-                @auth
-                    <img src="{{ asset('images/daiki_icon.jpg') }}" alt="user" class="rounded-circle"
-                        style="width: 35px; height: 35px;">
-                    <span class="ms-2 text-secondary fw-bold">{{ Auth::user()->name }}</span>
-                    <i class="fa-solid fa-caret-down ms-1 text-secondary"></i>
-                @endauth
+                    @if (Route::has('register'))
+                        <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                    @endif
+                @else
+                    <!-- 通知ベル -->
+                    <div class="position-relative me-2 mt-1">
+                        <i class="fa-solid fa-bell fa-lg text-secondary"></i>
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-pink"
+                            style="font-size: 10px;">
+                            11
+                        </span>
+                    </div>
+
+                    <!-- ユーザー画像 -->
+                    <img src="{{ asset('images/daiki_icon.jpg') }}" alt="user" class="rounded-circle me-2 ms-4"
+                        style="width: 40px; height: 40px;">
+
+                    <!-- ユーザー名 & ログアウト -->
+                    <div class="dropdown">
+                        <a id="navbarDropdown" class="nav-link dropdown-toggle text-secondary fw-bold ms-2 me-2"
+                            href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false" v-pre>
+                            {{ Auth::user()->name }}
+                        </a>
+
+                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item text-blue" href="{{ route('logout') }}"
+                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                {{ __('Logout') }}
+                            </a>
+
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                @csrf
+                            </form>
+                        </div>
+                    </div>
+                @endguest
             </div>
         </header>
 
