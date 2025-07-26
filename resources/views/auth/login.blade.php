@@ -2,44 +2,51 @@
 
 @section('content')
     <style>
-        .login-page {
-            position: absolute;
-            top: 56px;
-            /* Breeze の nav 高さに合わせる */
-            left: 0;
-            right: 0;
-            bottom: 0;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            /* 縦方向中央揃え */
-            align-items: center;
-            /* 横方向中央揃え */
-        }
-
-
-        html,
         body {
-            height: 100%;
-            margin: 0;
-            background-color: #377dff;
+            background-color: #1D80E7;
+            /* 青背景 */
+            color: white;
+            height: 100vh;
+            font-family: 'PT Sans', sans-serif;
+            font-weight: 700;
         }
 
-
-        .login-page {
-            min-height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+        .form-control::placeholder {
+            color: #A0A0A0;
         }
 
-
-        .login-box {
-            max-width: 400px;
-            width: 100%;
+        .logo {
+            width: 300px;
+            margin-bottom: 20px;
+            margin-top: 20px;
         }
 
+        .form-label {
+            color: white;
+        }
+
+        .btn-login {
+            border: 2px solid #DCBF7D;
+            color: white;
+        }
+
+        .btn-login:hover {
+            background-color: #DCBF7D;
+            color: #1D80E7;
+        }
+
+        a {
+            color: #DCBF7D;
+            text-decoration: none;
+        }
+
+        /* ４．共通：アイコンと入力欄を透過＆白字に */
+        .login-input .input-group {
+            background: transparent;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 2px solid #fff;
+        }
 
         .login-input .input-group-text,
         .login-input .form-control {
@@ -47,40 +54,18 @@
             border: none;
             color: #fff;
         }
-
-
-        .login-input .input-group {
-            border: 2px solid #fff;
-            border-radius: 50px;
-            overflow: hidden;
-        }
-
-
-        .login-input .form-control::placeholder {
-            color: rgba(255, 255, 255, 0.7);
-        }
-
-
-        .login-btn {
-            border-radius: 50px;
-            border: 2px solid #f5c518;
-        }
-
-        .login-btn,
-        .login-btn:hover {
-            color: #fff;
-        }
     </style>
+    <div class="container d-flex flex-column align-items-center justify-content-center h-100">
+        <!-- ✅ ロゴ部分 -->
+        <img src="{{ asset('images/feedgrow_logo.png') }}" alt="FeedGrow Logo" class="logo">
 
-    <div class="login-page">
+        <!-- ✅ 登録フォーム -->
+        <div class="form-container text-center">
+            <h1 class="mb-3 fw-bold">Login</h1>
+            <p>Please enter your Email and your Password</p>
 
-        <h1 class="text-white fw-bold mb-3">Login</h1>
-        <p class="text-white mb-4">Please enter your Email and your Password</p>
-
-        <div class="login-box">
             <form method="POST" action="{{ route('login') }}">
                 @csrf
-
 
                 <div class="mb-3 login-input">
                     <div class="input-group align-items-center">
@@ -110,15 +95,13 @@
                     @enderror
                 </div>
 
+                <button type="submit" class="btn btn-login w-100">Login</button>
 
-                <button type="submit" class="btn btn-outline-warning login-btn w-100 py-2 fw-bold mb-2">
-                    Login
-                </button>
-
-
-                <p class="text-center mb-0">
+                <p class="text-center mt-3">
                     <span class="text-white">Not a member yet?</span>
-                    <a href="{{ route('register') }}" class="text-warning fw-semibold">Register!</a>
+                    <a href="{{ route('register') }}">
+                        Register!
+                    </a>
                 </p>
             </form>
         </div>
