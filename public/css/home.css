@@ -28,6 +28,8 @@ html,body {
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2)
         }
 
+/* -------------------------------------------------------------------------------------------------------------------- */
+
         .profile-section {
             grid-column: 1 / 2;
             grid-row: 1 / 3;
@@ -76,6 +78,8 @@ html,body {
             transition: stroke-dashoffset 0.5s;
         }
 
+/* -------------------------------------------------------------------------------------------------------------------- */
+
         .calendar-section {
             grid-column: 1 / 2;
             grid-row: 3 / 5;
@@ -83,18 +87,20 @@ html,body {
             align-self: start;
         }
 
-        .task-section {
-            grid-column: 2 / 3;
-            grid-row: 1 / 2;
-            height: 200px;
-            align-self: start;
-        }
+/* -------------------------------------------------------------------------------------------------------------------- */
 
         .graph-section {
             grid-column: 2 / 3;
             grid-row: 2 / 5;
             height: 530px;
             align-self: start;
+        }
+
+        .btn-info {
+            font-size: 0.8rem;
+            padding: 2px 10px;
+            background-color: #1D80E7;
+            border: none;
         }
 
         .btn-history {
@@ -108,6 +114,8 @@ html,body {
             height: 100%;
         }
 
+/* -------------------------------------------------------------------------------------------------------------------- */
+
         .recommend-section {
             grid-column: 3 / 3;
             grid-row: 1 / 2;
@@ -115,18 +123,59 @@ html,body {
             align-self: start;
         }
 
+/* -------------------------------------------------------------------------------------------------------------------- */
+
         .blog-section {
+            display: flex;               /* ← 追加: ヘッダーとコンテンツを上下に並べる */
+            flex-direction: column;      /* ← 縦方向に並べる */
             grid-column: 3 / 3;
             grid-row: 2 / 5;
             height: 530px;
             align-self: start;
+            background: #0056b3;            /* スクロール時にヘッダーの下が透けないように */
+            overflow: hidden;            /* スクロールは .blog-content だけに限定 */
         }
 
-        .btn-info {
-            font-size: 0.8rem;
-            padding: 2px 10px;
-            background-color: #1D80E7;
-            border: none;
+        .blog-header {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #0056b3;            /* ← stickyが透けないように */
+        }
+
+        .blog-content {
+            flex-grow: 1;                /* ← 残り全部使ってスクロール領域に */
+            overflow-y: auto;            /* ← スクロール可能 */
+            padding: 10px;
+        }
+
+        .blog-avatar {
+            width: 90px;
+            height: 90px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 2px solid transparent;
+            transition: border 0.3s;
+        }
+
+        .blog-avatar.new {
+            border: 3px solid #4DC9C6;
+        }
+
+        .blog-avatar.read {
+            border: 3px solid #888888; /* グレー枠 */
+        }
+
+/* -------------------------------------------------------------------------------------------------------------------- */
+
+        .task-section {
+            grid-column: 2 / 3;
+            grid-row: 1 / 2;
+            height: 200px;
+            align-self: start;
         }
 
         .task-item {
@@ -173,3 +222,6 @@ html,body {
             background-color: rgba(255, 255, 255, 0.2);
             transform: scale(1.05);
         }
+
+/* -------------------------------------------------------------------------------------------------------------------- */
+
