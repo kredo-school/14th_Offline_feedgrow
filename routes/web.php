@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LikeController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\PostController;
 
@@ -46,4 +47,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/posts/{id}', [PostController::class, 'update'])->name('posts.update');
     Route::get('/posts/{id}', [PostController::class, 'show'])->name('posts.show');
     Route::delete('/posts/{id}', [PostController::class, 'destroy'])->name('posts.destroy');
+
+    //like
+    Route::post('/posts/{id}/like',[LikeController::class, 'store'])->name('likes.store');
+    Route::delete('/posts/{id}/like',[LikeController::class, 'destroy'])->name('likes.destroy');
 });
