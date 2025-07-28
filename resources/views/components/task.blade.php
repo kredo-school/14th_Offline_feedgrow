@@ -50,7 +50,7 @@
         taskSection.insertAdjacentHTML('beforeend', taskHTML);
     }
 
-    window.onload = function() {
+    window.addEventListener = function() {
         let savedTasks = JSON.parse(localStorage.getItem(TASK_KEY));
 
         // 初回アクセスならデフォルトの1つだけ表示
