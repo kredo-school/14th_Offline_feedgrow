@@ -12,13 +12,12 @@
         @include('components.recommend')
         @include('components.blog')
     </div>
-    
 
-<div class="container py-4">
-    <div class="alert alert-success text-center">
-        <strong>{{ Auth::user()->username }}</strong>（Student）Welcome！
+
+    <div class="container py-4">
+        <div class="alert alert-success text-center">
+            <strong>{{ Auth::user()->username }}</strong>（Student）Welcome！
+        </div>
     </div>
-</div>
-
-
+    
 @endsection
