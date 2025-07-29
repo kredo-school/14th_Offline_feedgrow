@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CommentController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\HomeController;
@@ -49,6 +50,16 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/posts/{id}', [PostController::class, 'destroy'])->name('posts.destroy');
 
     //like
-    Route::post('/posts/{id}/like',[LikeController::class, 'store'])->name('likes.store');
-    Route::delete('/posts/{id}/like',[LikeController::class, 'destroy'])->name('likes.destroy');
+    Route::post('/posts/{id}/like', [LikeController::class, 'store'])->name('likes.store');
+    Route::delete('/posts/{id}/like', [LikeController::class, 'destroy'])->name('likes.destroy');
+
+    //comment
+    Route::post('/posts/{id}/comments', [CommentController::class, 'store'])
+        ->name('comments.store');
+    Route::get('/comments/{id}/edit', [CommentController::class, 'edit'])
+        ->name('comments.edit');
+    Route::patch('/comments/{id}', [CommentController::class, 'update'])
+        ->name('comments.update');
+    Route::delete('/comments/{id}', [CommentController::class, 'destroy'])
+        ->name('comments.destroy');
 });
