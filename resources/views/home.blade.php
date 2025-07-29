@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/main.min.js"></script>
+
     <link rel="stylesheet" href="{{ asset('css/home.css') }}">
 
     <div class="container dashboard-container">
@@ -19,4 +19,5 @@
             <strong>{{ Auth::user()->username }}</strong>（Student）Welcome！
         </div>
     </div>
+    
 @endsection
