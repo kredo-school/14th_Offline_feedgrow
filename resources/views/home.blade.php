@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/main.min.js"></script>
     <link rel="stylesheet" href="{{ asset('css/home.css') }}">
 
     <div class="container dashboard-container">
@@ -12,13 +12,11 @@
         @include('components.recommend')
         @include('components.blog')
     </div>
-    
 
-<div class="container py-4">
-    <div class="alert alert-success text-center">
-        <strong>{{ Auth::user()->username }}</strong>（Student）Welcome！
+
+    <div class="container py-4">
+        <div class="alert alert-success text-center">
+            <strong>{{ Auth::user()->username }}</strong>（Student）Welcome！
+        </div>
     </div>
-</div>
-
-
 @endsection
