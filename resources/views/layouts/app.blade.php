@@ -41,7 +41,7 @@
     <div id="app">
         <!-- ✅ カスタムヘッダー -->
         <header class="navbar bg-white shadow-sm px-4 d-flex justify-content-between align-items-center"
-            style="height: 70px; border-bottom: 5px solid #1D80E7;">
+            style="height: 70px;"> {{--border-bottom: 5px solid #1D80E7--}}
             <div class="d-flex align-items-center">
                 <!-- ロゴ画像 -->
                 <img src="{{ asset('images/fg.png') }}" alt="FeedGrow" height="50" class="me-2">

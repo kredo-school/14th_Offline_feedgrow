@@ -8,6 +8,8 @@ use App\Http\Controllers\LikeController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\PostController;
 
+use App\Http\Controllers\FeedbackController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -62,4 +64,7 @@ Route::middleware(['auth'])->group(function () {
         ->name('comments.update');
     Route::delete('/comments/{id}', [CommentController::class, 'destroy'])
         ->name('comments.destroy');
+
+    //feedback history
+    Route::get('/feedbackhistory', [FeedbackController::class, 'index'])->name('feedbackhistory');
 });
