@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\EventController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\HomeController;
@@ -44,10 +45,10 @@ Route::middleware(['auth'])->group(function () {
 
 
     //post
-    Route::get('/posts/', [PostController::class, 'index'])->name('posts.index');
+    Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
     Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');
-    Route::post('/posts/', [PostController::class, 'store'])->name('posts.store');
-    Route::get('/posts/{id}/edit/', [PostController::class, 'edit'])->name('posts.edit');
+    Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
+    Route::get('/posts/{id}/edit', [PostController::class, 'edit'])->name('posts.edit');
     Route::post('/posts/{id}', [PostController::class, 'update'])->name('posts.update');
     Route::get('/posts/{id}', [PostController::class, 'show'])->name('posts.show');
     Route::delete('/posts/{id}', [PostController::class, 'destroy'])->name('posts.destroy');
@@ -65,6 +66,14 @@ Route::middleware(['auth'])->group(function () {
         ->name('comments.update');
     Route::delete('/comments/{id}', [CommentController::class, 'destroy'])
         ->name('comments.destroy');
+
+        //Event
+        Route::get('/event',[EventController::class, 'index'])->name('event.index');
+        Route::get('/event/create', [EventController::class, 'create'])->name('event.create');
+        Route::post('/event',[EventController::class, 'store'])->name('event.store');
+        Route::get('/event/{id}/edit',[EventController::class, 'edit'])->name('event.edit');
+        Route::patch('/event/{id}', [EventController::class, 'update'])->name('event.update');
+        Route::delete('/event/{id}',[EventController::class, 'delete'])->name('event.delete');
 
     //feedback history
     Route::get('/feedbackhistory', [FeedbackController::class, 'index'])->name('feedbackhistory');
