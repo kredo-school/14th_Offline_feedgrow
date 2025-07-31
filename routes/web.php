@@ -9,6 +9,7 @@ use App\Http\Controllers\TaskController;
 use App\Http\Controllers\PostController;
 
 use App\Http\Controllers\FeedbackController;
+use App\Http\Controllers\BlogController;
 
 /*
 |--------------------------------------------------------------------------
@@ -67,4 +68,7 @@ Route::middleware(['auth'])->group(function () {
 
     //feedback history
     Route::get('/feedbackhistory', [FeedbackController::class, 'index'])->name('feedbackhistory');
+
+    //blog
+    Route::get('/blog/{id}', [BlogController::class, 'show'])->name('blogs.show');
 });
