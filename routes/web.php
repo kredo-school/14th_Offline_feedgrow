@@ -8,8 +8,10 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\ProfileController;
 
 use App\Http\Controllers\FeedbackController;
+use Symfony\Component\HttpKernel\Profiler\Profile;
 
 /*
 |--------------------------------------------------------------------------
@@ -61,7 +63,7 @@ Route::middleware(['auth'])->group(function () {
         ->name('comments.store');
     Route::get('/comments/{id}/edit', [CommentController::class, 'edit'])
         ->name('comments.edit');
-    Route::patch('/comments/{id}', [CommentController::class, 'update'])
+    Route::post('/comments/{id}', [CommentController::class, 'update'])
         ->name('comments.update');
     Route::delete('/comments/{id}', [CommentController::class, 'destroy'])
         ->name('comments.destroy');
@@ -71,8 +73,12 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/event/create', [EventController::class, 'create'])->name('event.create');
         Route::post('/event',[EventController::class, 'store'])->name('event.store');
         Route::get('/event/{id}/edit',[EventController::class, 'edit'])->name('event.edit');
-        Route::patch('/event/{id}', [EventController::class, 'update'])->name('event.update');
+        Route::post('/event/{id}', [EventController::class, 'update'])->name('event.update');
         Route::delete('/event/{id}',[EventController::class, 'delete'])->name('event.delete');
+
+        //profile
+        Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+       Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
 
     //feedback history
     Route::get('/feedbackhistory', [FeedbackController::class, 'index'])->name('feedbackhistory');
