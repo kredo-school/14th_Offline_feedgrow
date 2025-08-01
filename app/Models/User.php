@@ -22,9 +22,10 @@ class User extends Authenticatable
         'email',
         'password',
         'introduction',
-        'avatar',
+        'profile_image',
         'role',
     ];
+
 
     /**
      * The attributes that should be hidden for serialization.
@@ -48,6 +49,15 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+    public function getProfileImageUrlAttribute(): string
+    {
+        if ($this->profile_image) {
+            return asset('storage/' . $this->profile_image);
+        }
+        return asset('images/default-avatar.png');
+    }
+
+
     public function tasks()
     {
         return $this->hasMany(Task::class);
