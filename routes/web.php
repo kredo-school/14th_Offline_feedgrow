@@ -9,7 +9,7 @@ use App\Http\Controllers\LikeController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
-
+use App\Http\Controllers\SkillEvaluationController;
 use App\Http\Controllers\FeedbackController;
 use Symfony\Component\HttpKernel\Profiler\Profile;
 
@@ -82,4 +82,9 @@ Route::middleware(['auth'])->group(function () {
 
     //feedback history
     Route::get('/feedbackhistory', [FeedbackController::class, 'index'])->name('feedbackhistory');
+
+    Route::get('/teacher/evaluations/search', [SkillEvaluationController::class, 'searchForm'])->name('evaluations.search.form')->middleware('auth');
+    Route::get('/teacher/evaluations/results', [SkillEvaluationController::class, 'searchResults'])->name('evaluations.search.results')->middleware('auth');
+    Route::get('/teacher/evaluations/{student}/create',[SkillEvaluationController::class, 'create'])->name('evaluations.create')->middleware('auth');
+
 });
