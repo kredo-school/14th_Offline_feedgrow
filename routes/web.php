@@ -8,9 +8,14 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\PostController;
-
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SkillEvaluationController;
 use App\Http\Controllers\FeedbackController;
+<<<<<<< HEAD
 use App\Http\Controllers\BlogController;
+=======
+use Symfony\Component\HttpKernel\Profiler\Profile;
+>>>>>>> master
 
 /*
 |--------------------------------------------------------------------------
@@ -62,11 +67,12 @@ Route::middleware(['auth'])->group(function () {
         ->name('comments.store');
     Route::get('/comments/{id}/edit', [CommentController::class, 'edit'])
         ->name('comments.edit');
-    Route::patch('/comments/{id}', [CommentController::class, 'update'])
+    Route::post('/comments/{id}', [CommentController::class, 'update'])
         ->name('comments.update');
     Route::delete('/comments/{id}', [CommentController::class, 'destroy'])
         ->name('comments.destroy');
 
+<<<<<<< HEAD
     //Event
     Route::get('/event', [EventController::class, 'index'])->name('event.index');
     Route::get('/event/create', [EventController::class, 'create'])->name('event.create');
@@ -74,10 +80,24 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/event/{id}/edit', [EventController::class, 'edit'])->name('event.edit');
     Route::patch('/event/{id}', [EventController::class, 'update'])->name('event.update');
     Route::delete('/event/{id}', [EventController::class, 'delete'])->name('event.delete');
+=======
+        //Event
+        Route::get('/event',[EventController::class, 'index'])->name('event.index');
+        Route::get('/event/create', [EventController::class, 'create'])->name('event.create');
+        Route::post('/event',[EventController::class, 'store'])->name('event.store');
+        Route::get('/event/{id}/edit',[EventController::class, 'edit'])->name('event.edit');
+        Route::post('/event/{id}', [EventController::class, 'update'])->name('event.update');
+        Route::delete('/event/{id}',[EventController::class, 'delete'])->name('event.delete');
+>>>>>>> master
+
+        //profile
+        Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+       Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
 
     //feedback history
     Route::get('/feedbackhistory', [FeedbackController::class, 'index'])->name('feedbackhistory');
 
+<<<<<<< HEAD
     //blog
     Route::get('/blog/create', [BlogController::class, 'create'])->name('blogs.create');
     Route::get('/blog/edit', [BlogController::class, 'edit'])->name('blogs.edit');
@@ -88,5 +108,10 @@ Route::middleware(['auth'])->group(function () {
 
 
 
+=======
+    Route::get('/teacher/evaluations/search', [SkillEvaluationController::class, 'searchForm'])->name('evaluations.search.form')->middleware('auth');
+    Route::get('/teacher/evaluations/results', [SkillEvaluationController::class, 'searchResults'])->name('evaluations.search.results')->middleware('auth');
+    Route::get('/teacher/evaluations/{student}/create',[SkillEvaluationController::class, 'create'])->name('evaluations.create')->middleware('auth');
+>>>>>>> master
 
 });
