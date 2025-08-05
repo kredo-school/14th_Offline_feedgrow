@@ -67,17 +67,26 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/comments/{id}', [CommentController::class, 'destroy'])
         ->name('comments.destroy');
 
-        //Event
-        Route::get('/event',[EventController::class, 'index'])->name('event.index');
-        Route::get('/event/create', [EventController::class, 'create'])->name('event.create');
-        Route::post('/event',[EventController::class, 'store'])->name('event.store');
-        Route::get('/event/{id}/edit',[EventController::class, 'edit'])->name('event.edit');
-        Route::patch('/event/{id}', [EventController::class, 'update'])->name('event.update');
-        Route::delete('/event/{id}',[EventController::class, 'delete'])->name('event.delete');
+    //Event
+    Route::get('/event', [EventController::class, 'index'])->name('event.index');
+    Route::get('/event/create', [EventController::class, 'create'])->name('event.create');
+    Route::post('/event', [EventController::class, 'store'])->name('event.store');
+    Route::get('/event/{id}/edit', [EventController::class, 'edit'])->name('event.edit');
+    Route::patch('/event/{id}', [EventController::class, 'update'])->name('event.update');
+    Route::delete('/event/{id}', [EventController::class, 'delete'])->name('event.delete');
 
     //feedback history
     Route::get('/feedbackhistory', [FeedbackController::class, 'index'])->name('feedbackhistory');
 
     //blog
+    Route::get('/blog/create', [BlogController::class, 'create'])->name('blogs.create');
+    Route::get('/blog/edit', [BlogController::class, 'edit'])->name('blogs.edit');
     Route::get('/blog/{id}', [BlogController::class, 'show'])->name('blogs.show');
+
+    //profile
+     Route::get('/profile/{id}', [ProfileController::class, 'show'])->name('profiles.show');
+
+
+
+
 });
