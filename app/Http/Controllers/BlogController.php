@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 class BlogController extends Controller
 {
-    public function show($id)
+        public function show($id)
     {
         $blog = [
             'user' => ['name' => 'Ema', 'avatar' => 'teacher_1.jpg'],

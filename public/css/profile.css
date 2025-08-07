@@ -1,0 +1,136 @@
+html,body {
+            background-color: #1D80E7;
+            font-family: 'M PLUS 1p', sans-serif;
+            font-weight: 700;
+            color: white;
+            height: 100%;
+            margin: 0;
+            overflow: hidden; /* スクロール禁止 */
+        }
+
+
+.profile-container {
+    background-color: #1D80E7;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #8A7D7D;
+}
+
+.profile-title {
+    color: white;
+    font-size: 50px;
+    margin-bottom: 30px;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+}
+
+.profile-card {
+    background-color: white;
+    padding: 30px;
+    border-radius: 15px;
+    display: flex;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    align-items: flex-start;
+    justify-content: center;
+    gap: 40px;
+    width: 800px;
+    margin: 0 auto;
+}
+
+.profile-left {
+    text-align: center;
+    width: 250px;
+}
+
+.form-row {
+    display: flex;
+    gap: 30px; /* 列の間隔調整 */
+    margin-bottom: 20px;
+}
+
+.form-row .form-group {
+    flex: 1; /* 横幅均等に分ける */
+    display: flex;
+    flex-direction: column;
+}
+
+.avatar-container {
+    position: relative;
+}
+
+.avatar {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.edit-icon {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    cursor: pointer;
+    background-color: white;
+    border-radius: 50%;
+    padding: 4px 6px;
+    font-size: 14px;
+}
+
+.role {
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+.duration {
+    font-size: 12px;
+    color: gray;
+}
+
+.profile-right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.profile-right input,
+.profile-right textarea {
+    border: none;
+    border-bottom: 1px solid #ccc;
+    padding: 8px;
+    font-size: 16px;
+    background-color: transparent;
+    outline: none;
+}
+
+.profile-right textarea {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+.form-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.btn {
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+}
+
+.back-btn {
+    background-color: #d9d9d9;
+    color: #8A7D7D;
+}
+
+.save-btn {
+    background-color: #1D80E7;
+    color: white;
+}
