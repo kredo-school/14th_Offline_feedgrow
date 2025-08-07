@@ -81,7 +81,7 @@ Route::middleware(['auth'])->group(function () {
        Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
 
     //feedback history
-    Route::get('/feedbackhistory', [FeedbackController::class, 'index'])->name('feedbackhistory');
+
 
     //search
     Route::get('/teacher/evaluations/search', [SkillEvaluationController::class, 'searchForm'])->name('evaluations.search.form')->middleware('auth');
@@ -90,4 +90,5 @@ Route::middleware(['auth'])->group(function () {
 
     Route::post('/teacher/evaluations',[SkillEvaluationController::class, 'store'])->name('evaluations.store')->middleware('auth');
 
+   Route::get('/feedbacks', [SkillEvaluationController::class, 'index'])->name('feedbackhistory')->middleware('auth');
 });
