@@ -33,7 +33,7 @@ html,body {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     align-items: flex-start;
     justify-content: center;
-    gap: 40px;
+    gap: 30px;
     width: 800px;
     margin: 0 auto;
 }
@@ -111,7 +111,7 @@ html,body {
 
 .form-buttons {
     display: flex;
-    justify-content: space-between;
+    gap: 40px; /* ← ボタン間の距離。数値を小さくすると距離が縮まる */
     margin-top: 20px;
 }
 
@@ -133,4 +133,12 @@ html,body {
 .save-btn {
     background-color: #1D80E7;
     color: white;
+}
+
+.back-btn:hover {
+    background-color: #bfbfbf;
+}
+
+.save-btn:hover {
+    background-color: #0056b3;
 }

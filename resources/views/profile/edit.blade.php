@@ -11,7 +11,9 @@
         <div class="profile-left">
             <div class="avatar-container">
                 <img src="{{ asset('images/daiki_icon.jpg') }}" alt="Avatar" class="avatar">
-                <label for="profile_image" class="edit-icon">✎</label>
+                <label for="profile_image" class="edit-icon">
+                    <i class="fa-solid fa-pen-to-square me-3 fa-2x"></i>
+                </label>
                 <input type="file" id="profile_image" name="profile_image" style="display: none;">
             </div>
             <h4 class="role">STUDENT</h4>
