@@ -6,7 +6,7 @@
 <link rel="stylesheet" href="{{ asset('css/blog.css') }}">
 
 <div class="blog-wrapper">
-    <form class="blog-create-card" method="POST" action="#" enctype="multipart/form-data">
+ <form class="blog-create-card" method="POST" action="" enctype="multipart/form-data">
         @csrf
         <div class="form-group">
             <h2 for="title">TITLE</h2>

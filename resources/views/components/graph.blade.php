@@ -24,7 +24,13 @@
             labels: ['S', 'W', 'L', 'R', 'G'],
             datasets: [{
                 label: 'Score',
-                data: [2, 4, 3, 5, 5], // ← ここをDB連携 or 任意で変更
+                data: [
+                    {{ $speakingAvg }},
+                    {{ $listeningAvg }},
+                    {{ $readingAvg }},
+                    {{ $writingAvg }},
+                    {{ $grammarAvg }},
+                ], // ← ここをDB連携 or 任意で変更
                 backgroundColor: [
                     '#72ADF5',
                     '#CEEA87',
