@@ -4,8 +4,14 @@
 
 @section('content')
     <link rel="stylesheet" href="{{ asset('css/feedback_history.css') }}">
+
     <div class="main-section">
-        <h1 class="page-title fw-bold">FEEDBACK HISTORY</h1>
+        <div class="feedback-header">
+            <a href="{{ route('home') }}" class="back-btn back-btn--pill">
+                <span class="chev">←</span> Back
+            </a>
+            <h1 class="page-title fw-bold">FEEDBACK HISTORY</h1>
+        </div>
         <div class="card-container">
 
             @foreach ($feedbacks as $feedback)

@@ -6,6 +6,11 @@
 <link rel="stylesheet" href="{{ asset('css/blog.css') }}">
 
 <div class="blog-wrapper">
+    <div class="blog-create-header">
+            <a href="{{ route('home') }}" class="back-btn-create back-btn-create--pill">
+                <span class="chev">←</span> Back
+            </a>
+        </div>
     <form class="blog-create-card" method="POST" action="#" enctype="multipart/form-data">
         @csrf
         <div class="form-group">
@@ -27,7 +32,6 @@
         </div>
 
         <div class="form-buttons">
-            <button type="submit" class="back-btn-create">BACK</button>
             <button type="submit" class="post-btn">EDIT</button>
         </div>
     </form>
