@@ -5,8 +5,12 @@
 @section('content')
     <link rel="stylesheet" href="{{ asset('css/blog.css') }}">
     <div class="blog-wrapper">
-        <h1 class="blog-title fw-bold">BLOG</h1>
-
+        <div class="blog-header">
+            <a href="{{ route('home') }}" class="back-btn back-btn--pill">
+                <span class="chev">←</span> Back
+            </a>
+            <h1 class="blog-title fw-bold">BLOG</h1>
+        </div>
         <div class="blog-card">
             <!-- 投稿タイトルと日付 -->
             <div class="title-wrapper">
@@ -45,11 +49,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-
-        <!-- 戻るボタン -->
-        <div class="back-btn">
-            <a href="{{}}">BACK</a>
         </div>
     </div>
 @endsection

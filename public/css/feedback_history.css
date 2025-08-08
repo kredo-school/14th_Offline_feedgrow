@@ -16,10 +16,45 @@ html,body {
     padding-top: 0;
 }
 
+.feedback-header {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr; /* 左=空き/Back, 中央=タイトル, 右=空き */
+    align-items: center;
+    gap: 20px;
+    max-width: 920px;   /* card-containerに合わせて中央寄せ */
+    margin: auto;
+}
+
+.back-btn {
+    justify-self: start;
+    text-decoration: none;
+    font-size: 16px;
+    margin-bottom: 30px;
+}
+
+.back-btn--pill{
+  background: #fff;
+  color:#1D80E7;
+  border-radius: 999px;
+  padding: 6px 16px;
+  box-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+  font-weight: 800;
+  transition:.2s;
+}
+.back-btn--pill .chev{ display:inline-block; transform: translateX(0); transition:.2s; }
+.back-btn--pill:hover{ transform: translateY(-1px); box-shadow: 0 6px 14px rgba(0,0,0,.2);}
+.back-btn--pill:hover .chev{ transform: translateX(-3px); }
+
+.back-btn:hover {
+    background-color: #bbbbbb;
+    text-decoration: none;
+}
+
 .page-title {
     font-size: 50px;
     margin-bottom: 30px;
     text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+    grid-column: 2;
 }
 
 .card-container {
