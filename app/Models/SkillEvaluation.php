@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class SkillEvaluation extends Model
 {
     protected $fillable = [
-        'teacher_id',  'student_id', 'speaking', 'listening', 'reading', 'writing', 'comment',
+        'teacher_id',  'student_id', 'speaking', 'listening', 'reading', 'writing', 'grammar', 'comment',
     ];
 
     public function teacher()

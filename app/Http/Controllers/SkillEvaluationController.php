@@ -3,16 +3,24 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\SkillEvaluation;
 use Illuminate\Cache\Events\WritingKey;
 
 class SkillEvaluationController extends Controller
 {
+    public function index()
+{
+    $studentId = Auth::id();
+    $feedbacks = SkillEvaluation::where('student_id', $studentId)->get();
+    return view('feedback_history', compact('feedbacks'));
+}
+
     public function searchForm()
-    {
-        return view('teacher.evaluations.search');
-    }
+{
+    return view('teacher.evaluations.search');
+}
 
     public function searchResults(Request $request)
     {
@@ -25,7 +33,7 @@ class SkillEvaluationController extends Controller
             })
             ->get();
 
-          return view('teacher.evaluations.results', compact('students', 'q'));
+        return view('teacher.evaluations.results', compact('students', 'q'));
     }
 
     public function create($student)
@@ -42,6 +50,8 @@ class SkillEvaluationController extends Controller
             'listening' => 'nullable|integer|min:1|max:5',
             'reading' => 'nullable|integer|min:1|max:5',
             'writing' => 'nullable|integer|min:1|max:5',
+            'grammar' => 'nullable|integer|min:1|max:5',
+
             'comment' => 'nullable|string',
         ]);
 
@@ -52,9 +62,11 @@ class SkillEvaluationController extends Controller
             'listening' => $data['listening'],
             'reading' => $data['reading'],
             'writing' => $data['writing'],
+            'grammar' => $data['grammar'],
             'comment' => $data['comment'],
         ]);
-
-        return redirect()->route('evaluations.search.form');
+return redirect()
+    ->route('evaluations.search.form')
+    ->with('success', 'Rating submitted');
     }
 }

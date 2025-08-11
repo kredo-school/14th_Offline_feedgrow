@@ -83,20 +83,14 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
 
     //feedback history
-    Route::get('/feedbackhistory', [FeedbackController::class, 'index'])->name('feedbackhistory');
-
     Route::get('/blog/create', [BlogController::class, 'create'])->name('blogs.create');
     Route::get('/blog/edit', [BlogController::class, 'edit'])->name('blogs.edit');
     Route::get('/blog/{id}', [BlogController::class, 'show'])->name('blogs.show');
 
+    //search|evaluation|graph
     Route::get('/teacher/evaluations/search', [SkillEvaluationController::class, 'searchForm'])->name('evaluations.search.form')->middleware('auth');
     Route::get('/teacher/evaluations/results', [SkillEvaluationController::class, 'searchResults'])->name('evaluations.search.results')->middleware('auth');
     Route::get('/teacher/evaluations/{student}/create', [SkillEvaluationController::class, 'create'])->name('evaluations.create')->middleware('auth');
-
+   Route::get('/feedbacks', [SkillEvaluationController::class, 'index'])->name('feedbackhistory')->middleware('auth');
     Route::post('/teacher/evaluations', [SkillEvaluationController::class, 'store'])->name('evaluations.store')->middleware('auth');
-
-    //notification
-     Route::get('/notification/{id}', [NotificationController::class, 'show'])->name('notifications.show');
-
-
 });
