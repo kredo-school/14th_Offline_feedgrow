@@ -8,7 +8,7 @@ class NotificationController extends Controller
 {
      public function show($id)
     {
-        $notification = [
+        $notifications = [
             'user' => ['name' => 'Ema', 'avatar' => 'teacher_1.jpg'],
             'title' => 'Dinner',
             'created_at' => '2025/07/30',

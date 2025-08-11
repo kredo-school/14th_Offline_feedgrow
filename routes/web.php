@@ -96,7 +96,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/teacher/evaluations', [SkillEvaluationController::class, 'store'])->name('evaluations.store')->middleware('auth');
 
     //notification
-     Route::get('/notification/{id}', [NotificationController::class, 'show'])->name('notifications.show');
+    Route::get('/notification/{id}', [NotificationController::class, 'show'])->name('notifications.show');
 
 
 });
