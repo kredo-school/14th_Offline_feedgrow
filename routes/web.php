@@ -93,12 +93,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/teacher/evaluations/{student}/create', [SkillEvaluationController::class, 'create'])->name('evaluations.create')->middleware('auth');
    Route::get('/feedbacks', [SkillEvaluationController::class, 'index'])->name('feedbackhistory')->middleware('auth');
     Route::post('/teacher/evaluations', [SkillEvaluationController::class, 'store'])->name('evaluations.store')->middleware('auth');
-<<<<<<< HEAD
 
     //notification
-    Route::get('/notification/{id}', [NotificationController::class, 'show'])->name('notifications.show');
+    Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications.index');
 
 
-=======
->>>>>>> master
 });

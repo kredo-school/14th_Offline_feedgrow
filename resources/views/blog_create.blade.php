@@ -11,7 +11,6 @@
             <a href="{{ route('home') }}" class="back-btn-create back-btn-create--pill">
                 <span class="chev">←</span> Back
             </a>
-
         </div>
         <form class="blog-create-card" method="POST" action="#" enctype="multipart/form-data">
             @csrf
