@@ -8,7 +8,7 @@
   @include('components.calendar')
   @include('components.task')
 
-  
+
   @include('components.graph', [
     'speakingAvg'  => $speakingAvg,
     'writingAvg'   => $writingAvg,
