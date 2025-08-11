@@ -10,16 +10,17 @@ use Illuminate\Cache\Events\WritingKey;
 
 class SkillEvaluationController extends Controller
 {
-   public function index()
+    public function index()
 {
-    $feedbacks = SkillEvaluation::with('teacher')->where('student_id', Auth::id())->latest()->get();
-
+    $studentId = Auth::id();
+    $feedbacks = SkillEvaluation::where('student_id', $studentId)->get();
     return view('feedback_history', compact('feedbacks'));
 }
+
     public function searchForm()
-    {
-        return view('teacher.evaluations.search');
-    }
+{
+    return view('teacher.evaluations.search');
+}
 
     public function searchResults(Request $request)
     {
@@ -32,7 +33,7 @@ class SkillEvaluationController extends Controller
             })
             ->get();
 
-          return view('teacher.evaluations.results', compact('students', 'q'));
+        return view('teacher.evaluations.results', compact('students', 'q'));
     }
 
     public function create($student)
@@ -64,22 +65,8 @@ class SkillEvaluationController extends Controller
             'grammar' => $data['grammar'],
             'comment' => $data['comment'],
         ]);
-
-        return redirect()->route('evaluations.search.form')->with('success', 'Rating submitted');
-    }
-
-    public function graph()
-    {
-        $studentId = Auth::id();
-
-        $speakingAvg = round(SkillEvaluation::where('student_id', $studentId)->avg('speaking'),1);
-        $writingAvg = round(SkillEvaluation::where('student_id', $studentId)->avg('writing'),1);
-        $listeningAvg = round(SkillEvaluation::where('student_id', $studentId)->avg('listening'),1);
-        $readingAvg = round(SkillEvaluation::where('student_id', $studentId)->avg('reading'),1);
-        $grammarAvg = round(SkillEvaluation::where('student_id', $studentId)->avg('grammar'),1);
-
-        return view('teacher.graph', compact(
-            'speakingAvg', 'writingAvg', 'listeningAvg', 'readingAvg', 'grammarAvg'
-        ));
+return redirect()
+    ->route('evaluations.search.form')
+    ->with('success', 'Rating submitted');
     }
 }

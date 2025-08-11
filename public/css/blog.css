@@ -12,13 +12,47 @@ html,body {
         min-height: 100vh;
     }
 
-    .blog-title {
-        text-align: center;
-        font-size: 50px;
-        color: white;
-        text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
-        margin-bottom: 30px;
-    }
+    .blog-header {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr; /* 左=空き/Back, 中央=タイトル, 右=空き */
+    align-items: center;
+    gap: 20px;
+    max-width: 700px;   /* card-containerに合わせて中央寄せ */
+    margin: auto;
+}
+
+.back-btn {
+    justify-self: start;
+    text-decoration: none;
+    font-size: 16px;
+    margin-bottom: 30px;
+}
+
+.back-btn--pill{
+  background: #fff;
+  color:#1D80E7;
+  border-radius: 999px;
+  padding: 6px 16px;
+  box-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+  font-weight: 800;
+  transition:.2s;
+}
+.back-btn--pill .chev{ display:inline-block; transform: translateX(0); transition:.2s; }
+.back-btn--pill:hover{ transform: translateY(-1px); box-shadow: 0 6px 14px rgba(0,0,0,.2);}
+.back-btn--pill:hover .chev{ transform: translateX(-3px); }
+
+.back-btn:hover {
+    background-color: #bbbbbb;
+    text-decoration: none;
+}
+
+.blog-title {
+    font-size: 50px;
+    margin-bottom: 30px;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+    grid-column: 2;
+    color: white;
+}
 
     .blog-card {
         max-width: 700px;
@@ -134,24 +168,6 @@ html,body {
         border-radius: 4px;
     }
 
-    .back-btn {
-        text-align: center;
-        margin-top: 30px;
-    }
-
-    .back-btn a {
-        background-color: #d9d9d9;
-        padding: 10px 25px;
-        border-radius: 8px;
-        font-weight: bold;
-        color: #8A7D7D;
-        text-decoration: none;
-    }
-
-    .back-btn a:hover {
-        background-color: #bfbfbf;
-    }
-
 /* -------------------------------------------------------------------------------------------------------------------- */
 
 /* blog_create */
@@ -163,7 +179,7 @@ html,body {
 
 .blog-create-card {
         max-width: 700px;
-        margin: 80px auto;
+        margin: 40px auto;
         background-color: white;
         padding: 30px;
         box-shadow: 0 4px 8px rgba(0,0,0,0.1);
@@ -206,18 +222,38 @@ input[type="file"] {
 .form-buttons {
     display: flex;
     justify-content: center; /* ← 中央に寄せる */
+}
+
+.blog-create-header {
     align-items: center;
-    gap: 40px; /* ← ボタン間の距離。数値を小さくすると距離が縮まる */
+    max-width: 700px;   /* card-containerに合わせて中央寄せ */
+    margin: auto;
+    margin-top: 30px;
 }
 
 .back-btn-create {
-    background: #d9d9d9;
-    color: #8A7D7D;
-    padding: 8px 20px;
-    border: none;
-    border-radius: 8px;
-    font-weight: bold;
+    justify-self: start;
+    text-decoration: none;
+    font-size: 16px;
 
+}
+
+.back-btn-create--pill{
+  background: #fff;
+  color:#1D80E7;
+  border-radius: 999px;
+  padding: 6px 16px;
+  box-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+  font-weight: 800;
+  transition:.2s;
+}
+.back-btn-create--pill .chev{ display:inline-block; transform: translateX(0); transition:.2s; }
+.back-btn-create--pill:hover{ transform: translateY(-1px); box-shadow: 0 6px 14px rgba(0,0,0,.2);}
+.back-btn-create--pill:hover .chev{ transform: translateX(-3px); }
+
+.back-btn-create:hover {
+    background-color: #bbbbbb;
+    text-decoration: none;
 }
 
 .post-btn {
@@ -227,10 +263,6 @@ input[type="file"] {
     border: none;
     border-radius: 8px;
     font-weight: bold;
-}
-
-.back-btn-create:hover {
-    background-color: #bfbfbf;
 }
 
 .post-btn:hover {

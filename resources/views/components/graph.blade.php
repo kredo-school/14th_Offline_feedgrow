@@ -1,7 +1,6 @@
-<!-- グラフ -->
 <div class="box graph-section">
-    <div class="d-flex  justify-content-between align-items-center">
-        <div class="d-flex">
+    <div class="d-flex justify-content-between align-items-center">
+        <div class="d-flex align-items-center">
             <i class="fa-solid fa-chart-simple fa-2x" style="color: white;"></i>
             <h2 class="ms-2 fw-bold">GRAPH</h2>
         </div>
@@ -25,12 +24,12 @@
             datasets: [{
                 label: 'Score',
                 data: [
-                    {{ $speakingAvg }},
-                    {{ $listeningAvg }},
-                    {{ $readingAvg }},
-                    {{ $writingAvg }},
-                    {{ $grammarAvg }},
-                ], // ← ここをDB連携 or 任意で変更
+                    {{ $speakingAvg }}, // S
+                    {{ $writingAvg }}, // W
+                    {{ $listeningAvg }}, // L
+                    {{ $readingAvg }}, // R
+                    {{ $grammarAvg }}, // G
+                ],
                 backgroundColor: [
                     '#72ADF5',
                     '#CEEA87',

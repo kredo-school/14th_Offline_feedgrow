@@ -6,7 +6,7 @@
     <h2>「{{ $student->name }}」さんの評価</h2>
 
     <form action="{{ route('evaluations.store') }}" method="POST">
-      @csrf
+    @csrf
 
       <input type="hidden" name="student_id" value="{{ $student->id }}">
 

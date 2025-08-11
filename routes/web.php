@@ -12,6 +12,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SkillEvaluationController;
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\NotificationController;
 use Symfony\Component\HttpKernel\Profiler\Profile;
 
 /*
@@ -92,5 +93,4 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/teacher/evaluations/{student}/create', [SkillEvaluationController::class, 'create'])->name('evaluations.create')->middleware('auth');
    Route::get('/feedbacks', [SkillEvaluationController::class, 'index'])->name('feedbackhistory')->middleware('auth');
     Route::post('/teacher/evaluations', [SkillEvaluationController::class, 'store'])->name('evaluations.store')->middleware('auth');
-Route::get('/evaluation/graph', [SkillEvaluationController::class, 'graph'])->name('evaluations.graph')->middleware('auth');
 });

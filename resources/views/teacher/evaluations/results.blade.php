@@ -25,7 +25,7 @@
                   href="{{ route('evaluations.create', $student->id) }}"
                   class="btn btn-sm btn-success"
                 >
-                evaluate
+                  evaluate
                 </a>
               </td>
             </tr>
@@ -34,8 +34,9 @@
       </table>
     @endif
 
+    {{-- ← 検索フォームへ戻る --}}
     <a href="{{ route('evaluations.search.form') }}" class="btn btn-secondary mt-3">
-    Return to search form
+      Return to search form
     </a>
   </div>
 @endsection
