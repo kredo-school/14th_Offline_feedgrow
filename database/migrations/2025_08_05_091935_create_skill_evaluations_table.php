@@ -19,6 +19,7 @@ return new class extends Migration
             $table->tinyInteger('listening')->nullable()->comment('listening');
             $table->tinyInteger('reading')->nullable()->comment('reading');
             $table->tinyInteger('writing')->nullable()->comment('writing');
+           $table->tinyInteger('grammar')->nullable()->comment('grammar');
 
             $table->text('comment')->nullable();
             $table->timestamps();
