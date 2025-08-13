@@ -24,13 +24,18 @@ use Symfony\Component\HttpKernel\Profiler\Profile;
 
 Auth::routes();
 
-Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/', function () {
+    if (!Auth::check()) {
+        return redirect()->route('login');
+    }
+    return Auth::user()->role === 'teacher'
+        ? redirect()->route('teacher.home')
+        : redirect()->route('student.home');
+});
 
 Route::middleware('auth')->group(function () {
-    Route::get('/home', [HomeController::class, 'index']);
-
-    Route::get('/student/home', [HomeController::class, 'index'])->name('student.home');
-    Route::get('/teacher/home', [HomeController::class, 'index'])->name('teacher.home');
+    Route::get('/student/home', [HomeController::class, 'studentHome'])->name('student.home');
+    Route::get('/teacher/home', [HomeController::class, 'teacherHome'])->name('teacher.home');
 
     //task
     // Route::get('/tasks/', [TaskController::class, 'index'])->name('tasks.index');

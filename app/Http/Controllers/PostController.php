@@ -14,7 +14,7 @@ class PostController extends Controller
                      ->orderBy('created_at', 'desc')
                      ->get();
 
-        return view('posts.index', compact('posts'));
+        return view('blog', compact('posts'));
     }
 
     public function create()
@@ -39,7 +39,7 @@ class PostController extends Controller
         $data['user_id'] = Auth::id();
         Post::create($data);
 
-        return redirect()->route('posts.index');
+        return redirect()->route('blog');
     }
 
     public function edit($id)
@@ -47,7 +47,7 @@ class PostController extends Controller
         $post = Post::findOrFail($id);
         abort_if($post->user_id !== Auth::id(), 403);
 
-        return view('posts.edit', compact('post'));
+        return view('blog_edit', compact('post'));
     }
 
     public function update(Request $request, $id)

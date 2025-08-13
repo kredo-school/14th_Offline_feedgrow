@@ -8,7 +8,7 @@
     <div class="main-section">
 
         <div class="feedback-header">
-            <a href="{{ route('home') }}" class="back-btn back-btn--pill">
+            <a href="{{route('student.home')}}" class="back-btn back-btn--pill">
                 <span class="chev">←</span> Back
             </a>
             <h1 class="page-title fw-bold">FEEDBACK HISTORY</h1>
