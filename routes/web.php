@@ -24,20 +24,13 @@ use Symfony\Component\HttpKernel\Profiler\Profile;
 
 Auth::routes();
 
-
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware('auth')->group(function () {
+    Route::get('/home', [HomeController::class, 'index']);
 
-    Route::get('/home', [HomeController::class, 'index'])->name('home');
-
-    Route::get('/student/home', function () {
-        return view('home');
-    })->name('student.home');
-
-    Route::get('/teacher/home', function () {
-        return view('teacher');
-    })->name('teacher.home');
+    Route::get('/student/home', [HomeController::class, 'index'])->name('student.home');
+    Route::get('/teacher/home', [HomeController::class, 'index'])->name('teacher.home');
 
     //task
     // Route::get('/tasks/', [TaskController::class, 'index'])->name('tasks.index');
@@ -91,11 +84,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/teacher/evaluations/search', [SkillEvaluationController::class, 'searchForm'])->name('evaluations.search.form')->middleware('auth');
     Route::get('/teacher/evaluations/results', [SkillEvaluationController::class, 'searchResults'])->name('evaluations.search.results')->middleware('auth');
     Route::get('/teacher/evaluations/{student}/create', [SkillEvaluationController::class, 'create'])->name('evaluations.create')->middleware('auth');
-   Route::get('/feedbacks', [SkillEvaluationController::class, 'index'])->name('feedbackhistory')->middleware('auth');
+    Route::get('/feedbacks', [SkillEvaluationController::class, 'index'])->name('feedbackhistory')->middleware('auth');
     Route::post('/teacher/evaluations', [SkillEvaluationController::class, 'store'])->name('evaluations.store')->middleware('auth');
 
     //notification
     Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications.index');
-
-
 });

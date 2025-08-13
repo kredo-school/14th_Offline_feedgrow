@@ -10,7 +10,7 @@
         </div>
         <div class="notif-card">
             <div class="notif-title">
-                <i class="fa-regular fa-bell"></i>
+                <i class="fa-regular fa-bell fa-2x"></i>
                 <span>NOTIFICATION</span>
             </div>
 
@@ -51,11 +51,11 @@
         </div>
 
         {{-- ページネーション（配列の場合は表示しない） --}}
-        {{-- @if (method_exists($notifications, 'links'))
+        @if($notifications instanceof \Illuminate\Contracts\Pagination\Paginator)
     <div class="notif-pagination">
       {{ $notifications->onEachSide(1)->links('vendor.pagination.simple-default') }}
     </div>
-  @endif --}}
+  @endif
 
     </div>
     {{-- <div class="notification-container">
