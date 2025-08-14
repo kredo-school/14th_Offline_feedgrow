@@ -67,8 +67,10 @@
                     </div>
 
                     <!-- ユーザー画像 -->
-                    <img src="{{ asset('images/daiki_icon.jpg') }}" alt="user" class="rounded-circle me-2 ms-4"
+                    <a href="{{ route('profile.edit') }}">
+                        <img src="{{ asset('images/daiki_icon.jpg') }}" alt="user" class="rounded-circle me-2 ms-4"
                         style="width: 40px; height: 40px;">
+                        </a>
 
                     <!-- ユーザー名 & ログアウト -->
                     <div class="dropdown">

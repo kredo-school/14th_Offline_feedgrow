@@ -18,7 +18,7 @@
   ])
 
   @include('components.recommend')
-  @include('components.blog')
+  @include('components.blog', ['posts' => $posts])
 </div>
 
 <div class="container py-4">

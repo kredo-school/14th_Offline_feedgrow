@@ -8,18 +8,11 @@ use App\Models\Post;
 
 class PostController extends Controller
 {
-    public function index()
-    {
-        $posts = Post::with('user')
-                     ->orderBy('created_at', 'desc')
-                     ->get();
 
-        return view('blog', compact('posts'));
-    }
 
     public function create()
     {
-        return view('posts.create');
+        return view('blog_create');
     }
 
     public function store(Request $request)
@@ -28,6 +21,7 @@ class PostController extends Controller
             'title'      => 'required|string|max:255',
             'image_path' => 'nullable|image|mimes:jpeg,png,gif|max:2048',
             'caption'    => 'nullable|string|max:255',
+            'published_at' => 'nullable|date',
         ]);
 
         if ($request->hasFile('image_path')) {
@@ -39,7 +33,7 @@ class PostController extends Controller
         $data['user_id'] = Auth::id();
         Post::create($data);
 
-        return redirect()->route('blog');
+        return redirect()->route('posts.index');
     }
 
     public function edit($id)
@@ -47,7 +41,7 @@ class PostController extends Controller
         $post = Post::findOrFail($id);
         abort_if($post->user_id !== Auth::id(), 403);
 
-        return view('blog_edit', compact('post'));
+        return view('posts.edit', compact('post'));
     }
 
     public function update(Request $request, $id)
@@ -56,6 +50,7 @@ class PostController extends Controller
             'title'      => 'required|string|max:255',
             'caption'    => 'nullable|string|max:255',
             'image_path' => 'nullable|image|mimes:jpeg,png,gif|max:2048',
+            'published_at' => 'nullable|date',
         ]);
 
         $post = Post::findOrFail($id);
@@ -73,7 +68,7 @@ class PostController extends Controller
     public function show($id)
     {
         $post = Post::with('user')->findOrFail($id);
-        return view('posts.show', compact('post'));
+        return view('blog_view', compact('post'));
     }
 
     public function destroy($id)

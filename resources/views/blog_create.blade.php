@@ -8,12 +8,12 @@
 
     <div class="blog-wrapper">
         <div class="blog-create-header">
-            <a href="{{ route('home') }}" class="back-btn-create back-btn-create--pill">
+            <a href="{{ route('student.home') }}" class="back-btn-create back-btn-create--pill">
                 <span class="chev">←</span> Back
             </a>
 
         </div>
-        <form class="blog-create-card" method="POST" action="#" enctype="multipart/form-data">
+        <form class="blog-create-card" method="POST" action="{{ route('posts.store') }}" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
                 <h2 for="title">TITLE</h2>
@@ -22,15 +22,15 @@
 
             <div class="form-group">
                 <label for="date">DATE</label>
-                <input type="date" name="date" id="date" required>
+                <input type="date" name="published_at" id="published_at" required>
             </div>
 
             <div class="form-group">
-                <textarea name="content" id="content" rows="6" placeholder="Write your blog..."></textarea>
+                <textarea name="caption" id="caption" rows="6" placeholder="Write your blog..."></textarea>
             </div>
 
             <div class="form-group">
-                <input type="file" name="image">
+                <input type="file" name="image_path" accept="image/*">
             </div>
 
             <div class="form-buttons">
