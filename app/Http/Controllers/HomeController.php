@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\SkillEvaluation;
+use App\Models\Post;
 
 class HomeController extends Controller
 {
@@ -61,6 +62,8 @@ class HomeController extends Controller
         $dailyTarget = 10;
         $progressRatio = min($todayCount / $dailyTarget, 1);
 
+        $posts = Post::with('user')->orderByDesc('created_at')->take(30)->get();
+
         return view('home', compact(
             'speakingAvg',
             'writingAvg',
@@ -72,9 +75,13 @@ class HomeController extends Controller
             'materials',
             'progressRatio',
             'todayCount',
-            'dailyTarget'
-        ));
-    }
+            'dailyTarget',
+            'posts',
+
+        )); {
+
+        }
+      }
 
     // 先生用ダッシュボード
     public function teacherHome()

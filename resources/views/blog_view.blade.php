@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="{{ asset('css/blog.css') }}">
     <div class="blog-wrapper">
         <div class="blog-header">
-            <a href="{{ route('home') }}" class="back-btn back-btn--pill">
+            <a href="{{ route('student.home') }}" class="back-btn back-btn--pill">
                 <span class="chev">←</span> Back
             </a>
             <h1 class="blog-title fw-bold">BLOG</h1>
@@ -14,23 +14,25 @@
         <div class="blog-card">
             <!-- 投稿タイトルと日付 -->
             <div class="title-wrapper">
-                <h2 class="post-title">{{ $blog['title'] }}</h2>
-                <small class="text-muted post-date" style="font-size: 14px;">{{ $blog['created_at'] }}</small>
+                <h2 class="post-title">{{ $post['title'] }}</h2>
+                <small class="text-muted post-date" style="font-size: 14px;">{{ $post['created_at'] }}</small>
             </div>
 
             <!-- 投稿者 -->
             <div class="user-info">
-                <img src="{{ asset('images/' . $blog['user']['avatar']) }}" alt="avatar">
-                <span class="fw-bold">{{ $blog['user']['name'] }}</span>
+                <img src="{{ asset('images/' . $post['user']['avatar']) }}" alt="avatar">
+                <span class="fw-bold">{{ $post['user']['name'] }}</span>
             </div>
 
             <!-- 本文 -->
             <div class="post-body">
-                I had BBQ with my friend for dinner today. It was delicious.
+                <p>{{ $post['caption'] }}</p>
             </div>
 
             <!-- 画像 -->
-            <img src="{{ asset('images/' . $blog['image']) }}" alt="blog image" class="post-image">
+            @if (!empty($post->image_path))
+                <img src="{{ asset('storage/' . $post->image_path) }}" alt="blog image" class="post-image">
+            @endif
 
             <!-- アイコン -->
             <div class="icons">

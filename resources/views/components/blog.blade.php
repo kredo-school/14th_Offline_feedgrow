@@ -6,64 +6,28 @@
             <h2 class="ms-2 fw-bold">BLOG</h2>
         </div>
         <div>
-            <button class="add-btn" onclick="">
+            <a href="{{route('posts.create')}}">
                 <i class="fa-solid fa-plus"></i>
-            </button>
+           </a>
         </div>
     </div>
-    <div class="row row-cols-3 g-3 blog-content">
-        <div class="col text-center">
-            <img src="{{ asset('images/daiki_icon.jpg') }}" class="rounded-circle blog-avatar new" data-user="daiki">
-            <div class="text-white fw-bold">daiki</div>
-            <div class="text-muted small">5min ago</div>
-        </div>
-        <div class="col text-center">
-            <img src="{{ asset('images/kyota_icon.jpg') }}" class="rounded-circle blog-avatar new" data-user="kyota">
-            <div class="text-white fw-bold">kyota</div>
-            <div class="text-muted small">5min ago</div>
-        </div>
-        <div class="col text-center">
-            <img src="{{ asset('images/daiki_icon.jpg') }}" class="rounded-circle blog-avatar new" data-user="daiki">
-            <div class="text-white fw-bold">daiki</div>
-            <div class="text-muted small">5min ago</div>
-        </div>
-        <div class="col text-center">
-            <img src="{{ asset('images/kyota_icon.jpg') }}" class="rounded-circle blog-avatar new" data-user="kyota">
-            <div class="text-white fw-bold">kyota</div>
-            <div class="text-muted small">5min ago</div>
-        </div>
-        <div class="col text-center">
-            <img src="{{ asset('images/daiki_icon.jpg') }}" class="rounded-circle blog-avatar new" data-user="daiki">
-            <div class="text-white fw-bold">daiki</div>
-            <div class="text-muted small">5min ago</div>
-        </div>
-        <div class="col text-center">
-            <img src="{{ asset('images/kyota_icon.jpg') }}" class="rounded-circle blog-avatar new" data-user="kyota">
-            <div class="text-white fw-bold">kyota</div>
-            <div class="text-muted small">5min ago</div>
-        </div>
-        <div class="col text-center">
-            <img src="{{ asset('images/daiki_icon.jpg') }}" class="rounded-circle blog-avatar new" data-user="daiki">
-            <div class="text-white fw-bold">daiki</div>
-            <div class="text-muted small">5min ago</div>
-        </div>
-        <div class="col text-center">
-            <img src="{{ asset('images/kyota_icon.jpg') }}" class="rounded-circle blog-avatar new" data-user="kyota">
-            <div class="text-white fw-bold">kyota</div>
-            <div class="text-muted small">5min ago</div>
-        </div>
-        <div class="col text-center">
-            <img src="{{ asset('images/daiki_icon.jpg') }}" class="rounded-circle blog-avatar new" data-user="daiki">
-            <div class="text-white fw-bold">daiki</div>
-            <div class="text-muted small">5min ago</div>
-        </div>
-        <div class="col text-center">
-            <img src="{{ asset('images/kyota_icon.jpg') }}" class="rounded-circle blog-avatar new" data-user="kyota">
-            <div class="text-white fw-bold">kyota</div>
-            <div class="text-muted small">5min ago</div>
-        </div>
-
-    </div>
+    <div class="mt-3 d-flex flex-wrap gap-2">
+  @forelse($posts as $post)
+    <a href="{{ route('posts.show', $post->id) }}" class="text-decoration-none blog-item">
+      <img
+        class="blog-avatar new rounded-circle"
+        data-user="{{ $post->user_id }}"
+        src="{{ optional($post->user)->profile_image
+              ? asset('storage/'.optional($post->user)->profile_image)
+              : asset('images/default-avatar.png') }}"
+        alt="{{ optional($post->user)->name ? $post->user->name.'の投稿' : 'User' }}"
+        width="40" height="40" style="object-fit:cover"
+      >
+    </a>
+  @empty
+    <div class="text-muted">まだ投稿がありません。</div>
+  @endforelse
+</div>
 </div>
 
 <script>
