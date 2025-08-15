@@ -1,0 +1,70 @@
+html,body {
+            background-color: #1D80E7;
+            font-family: 'M PLUS 1p', sans-serif;
+            font-weight: 700;
+            color: white;
+            height: 100%;
+            margin: 0;
+            overflow: hidden; /* スクロール禁止 */
+        }
+
+        .elev-card {
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* コントロールを“ pill ”に */
+        .pill {
+            border-radius: 999px !important;
+        }
+
+        .control {
+            background: #fff;
+            border: 1px solid #e9ecef;
+        }
+
+        .control:focus {
+            box-shadow: 0 0 0 .25rem rgba(13, 110, 253, .15);
+        }
+
+        /* フィルタ “チップ” */
+        .chip {
+            border: 1px solid #e9ecef;
+            background: #fff;
+            padding: .5rem .9rem;
+            border-radius: 999px;
+            font-weight: 600;
+        }
+
+        .chip.active {
+            border-color: #0d6efd;
+            color: #0d6efd;
+        }
+
+        /* テーブルの見た目を軽く */
+        .table> :not(caption)>*>* {
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+        }
+
+        .table tr {
+            border-color: #f1f3f5;
+        }
+
+        .avatar {
+            width: 48px;
+            height: 48px;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .muted {
+            color: #6c757d;
+        }
+
+        /* ページネーションを丸く */
+        .page-link {
+            border-radius: .75rem;
+        }
