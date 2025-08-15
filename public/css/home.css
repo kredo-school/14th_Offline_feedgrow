@@ -224,4 +224,32 @@ html,body {
         }
 
 /* -------------------------------------------------------------------------------------------------------------------- */
+/* リングと同じ外枠サイズにして中央配置の基準にする */
+.profile-progress{
+  position: relative;
+  width: 340px;   /* ← SVGと同じ */
+  height: 340px;  /* ← SVGと同じ */
+  margin: 0 auto;
+}
+
+/* 画像/アイコン共通：リング内側にぴったり収める */
+.profile-progress .avatar{
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 300px;            /* r=160, stroke=18 → 内径≒302pxなので少し小さめ */
+  height: 300px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Font Awesomeの<i>用の微調整（中央に見えるように） */
+.profile-progress .avatar.fa-user{
+  font-size: 180px;        /* 300px枠にちょうど良い見た目 */
+  line-height: 300px;      /* 垂直中央 */
+  text-align: center;
+}
+
 
