@@ -33,7 +33,7 @@ class PostController extends Controller
         $data['user_id'] = Auth::id();
         Post::create($data);
 
-        return redirect()->route('posts.index');
+        return redirect()->route('student.home');
     }
 
     public function edit($id)

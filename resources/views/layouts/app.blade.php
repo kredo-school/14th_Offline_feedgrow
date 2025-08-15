@@ -41,7 +41,7 @@
     <div id="app">
         <!-- ✅ カスタムヘッダー -->
         <header class="navbar bg-white shadow-sm px-4 d-flex justify-content-between align-items-center"
-            style="height: 70px;"> {{--border-bottom: 5px solid #1D80E7--}}
+            style="height: 70px;"> {{-- border-bottom: 5px solid #1D80E7 --}}
             <div class="d-flex align-items-center">
                 <!-- ロゴ画像 -->
                 <img src="{{ asset('images/fg.png') }}" alt="FeedGrow" height="50" class="me-2">
@@ -68,9 +68,16 @@
 
                     <!-- ユーザー画像 -->
                     <a href="{{ route('profile.edit') }}">
-                        <img src="{{ asset('images/daiki_icon.jpg') }}" alt="user" class="rounded-circle me-2 ms-4"
-                        style="width: 40px; height: 40px;">
-                        </a>
+                        @if (!empty(Auth::user()->profile_image))
+                            <img src="{{ asset('storage/' . Auth::user()->profile_image) }}" alt="User Avatar"
+                                class="rounded-circle" style="width:40px; height:40px; object-fit:cover;">
+                        @else
+                            <i class="fa-solid fa-user rounded-circle d-inline-block text-center"
+                                style="width:40px; height:40px; font-size:28px; line-height:50px; color:#c7cedc;">
+                            </i>
+                        @endif
+
+                    </a>
 
                     <!-- ユーザー名 & ログアウト -->
                     <div class="dropdown">

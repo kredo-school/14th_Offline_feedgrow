@@ -20,7 +20,18 @@
 
             <!-- 投稿者 -->
             <div class="user-info">
-                <img src="{{ asset('images/' . $post['user']['avatar']) }}" alt="avatar">
+                @if(optional($post->user)->profile_image)
+    <img
+      class="blog-avatar new rounded-circle"
+      data-user="{{ $post->user_id }}"
+      src="{{ asset('storage/' . optional($post->user)->profile_image) }}"  {{-- 可能なら Storage::url(...) 推奨 --}}
+      alt="{{ optional($post->user)->name ? $post->user->name.'の投稿' : 'User' }}"
+      loading="lazy"
+    >
+  @else
+    <i class="fa-solid fa-user blog-avatar new rounded-circle"
+       data-user="{{ $post->user_id }}"></i>
+  @endif
                 <span class="fw-bold">{{ $post['user']['name'] }}</span>
             </div>
 
@@ -40,12 +51,15 @@
                     <i class="far fa-heart"></i>
                     <i class="far fa-comment ms-3"></i>
                 </div>
+                
                 <div class="menu-wrapper" style="position: relative; text-align: right;">
                     <button onclick="toggleMenu()" class="menu-btn">⋯</button>
 
                     <div id="menu-options" class="menu-options">
+
                         <a href="#"><i class="fa-solid fa-pen-to-square"></i>
                             <span class="text-primary">Edit</span></a>
+
                         <a href="#"><i class="fa-solid fa-trash"></i>
                             <span class="text-danger">Delete</span></a>
                     </div>
