@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use App\Models\Post;
 
 class PostController extends Controller
@@ -51,12 +52,16 @@ class PostController extends Controller
             'caption'    => 'nullable|string|max:255',
             'image_path' => 'nullable|image|mimes:jpeg,png,gif|max:2048',
             'published_at' => 'nullable|date',
+            'remove_image' => 'nullable|boolean',
         ]);
 
         $post = Post::findOrFail($id);
         abort_if($post->user_id !== Auth::id(), 403);
 
         if ($request->hasFile('image_path')) {
+            if($post->image_path){
+                Storage::disk('public')->delete($post->image_path);
+            }
             $data['image_path'] = $request->file('image_path')->store('posts', 'public');
         }
 

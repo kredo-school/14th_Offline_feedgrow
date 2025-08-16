@@ -17,7 +17,7 @@ class Post extends Model
         'caption',
         'published_at',
     ];
-    
+
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -30,4 +30,14 @@ class Post extends Model
       {
         return $this->hasMany(Comment::class);
       }
+      public function isLiked(?int $userId = null): bool
+    {
+        $userId = $userId ?? auth()->id();
+        if (!$userId) return false;
+
+        if ($this->relationLoaded('likes')) {
+            return $this->likes->contains('user_id', $userId);
+        }
+        return $this->likes()->where('user_id', $userId)->exists();
+    }
 }

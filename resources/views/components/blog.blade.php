@@ -27,8 +27,6 @@
        data-user="{{ $post->user_id }}"></i>
   @endif
 </a>
-
-
   @empty
     <div class="text-muted">まだ投稿がありません。</div>
   @endforelse
