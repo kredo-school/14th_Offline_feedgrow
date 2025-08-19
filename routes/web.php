@@ -77,7 +77,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/event/{id}', [EventController::class, 'delete'])->name('event.delete');
 
     //profile
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
+    Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
 
     //feedback history
@@ -86,7 +87,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/teacher/evaluations/search', [SkillEvaluationController::class, 'searchForm'])->name('evaluations.search.form')->middleware('auth');
     Route::get('/teacher/evaluations/results', [SkillEvaluationController::class, 'searchResults'])->name('evaluations.search.results')->middleware('auth');
     Route::get('/teacher/evaluations/{student}/create', [SkillEvaluationController::class, 'create'])->name('evaluations.create')->middleware('auth');
-   Route::get('/feedbacks', [SkillEvaluationController::class, 'index'])->name('feedbackhistory')->middleware('auth');
+    Route::get('/feedbacks', [SkillEvaluationController::class, 'index'])->name('feedbackhistory')->middleware('auth');
     Route::post('/teacher/evaluations', [SkillEvaluationController::class, 'store'])->name('evaluations.store')->middleware('auth');
 
     Route::get('/notifications',[NotificationController::class, 'index'])->name('notifications.index');

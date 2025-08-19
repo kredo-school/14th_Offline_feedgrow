@@ -101,6 +101,7 @@ html,body {
         width: 40px;
         height: 40px;
         border-radius: 50%;
+        border: 1px solid #888888;
     }
 
     .post-body {
@@ -193,7 +194,6 @@ h2 {
 }
 
 input[type="text"],
-input[type="date"],
 textarea {
     border: none;
     border-bottom: 1px solid #8A7D7D;
@@ -203,7 +203,7 @@ textarea {
     outline: none;
 }
 
-input[type="date"] {
+.blog-date {
     width: 200px; /* 任意の幅 */
     align-self: flex-start; /* ← 右寄せ */
 }

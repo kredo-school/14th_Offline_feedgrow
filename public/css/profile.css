@@ -127,6 +127,30 @@ html,body {
     background-color: transparent;
     outline: none;
 }
+
+.profile-right p{
+    border: none;
+    border-bottom: 1px solid #ccc;
+    padding: 8px;
+    font-size: 16px;
+    background-color: transparent;
+    outline: none;
+    margin-bottom: 0;
+    color: #5F5555;
+}
+
+.profile-textarea {
+    border: 1px solid #ccc;      /* 枠線 */
+    border-radius: 8px;          /* 角丸 */
+    padding: 8px;                /* 内側の余白 */
+    height: calc(1.5em * 4 + 16px); /* 1行の高さ×4行＋padding上下分 */
+    background-color: transparent;      /* 背景色 */
+    font-size: 16px;
+    color: #5F5555;
+    white-space: pre-wrap;       /* 改行を反映 */
+    overflow-y: auto;            /* 長文はスクロール */
+}
+
 .profile-right textarea {
     border: 1px solid #ccc;
     border-radius: 8px;
@@ -136,15 +160,7 @@ html,body {
     margin-top: 20px;
     margin-left: 40px;
 }
-/* .btn {
-    padding: 8px 20px;
-    border-radius: 6px;
-    font-weight: bold;
-    border: none;
-    cursor: pointer;
-    text-decoration: none;
-    text-align: center;
-} */
+
 .save-btn {
     background: #1D80E7;
     color: white;
@@ -157,4 +173,48 @@ html,body {
 .save-btn:hover {
     background-color: #0056B3;
     text-decoration: none;
+}
+
+/* ===== Gallery ===== */
+.profile-gallery{
+  width: 800px;            /* カードと幅を揃える */
+  margin: 24px auto 60px;  /* 上下の余白は好みで */
+}
+
+/* 4枚横一列（スマホでは2列） */
+.gallery-row{
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+/* 正方形サムネ・角丸・影・ホバーで少し拡大 */
+.gallery-item{
+  aspect-ratio: 1 / 1;     /* 正方形にする */
+  overflow: hidden;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 3px 10px rgba(0,0,0,.12);
+  display: block;
+}
+
+.gallery-item img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .25s ease;
+}
+
+.gallery-item:hover img{
+  transform: scale(1.03);
+}
+
+.gallery-item.placeholder{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#8A7D7D;
+  font-weight:700;
+  background: rgba(255,255,255,.7);
+  border: 1px dashed rgba(0,0,0,.15);
 }
