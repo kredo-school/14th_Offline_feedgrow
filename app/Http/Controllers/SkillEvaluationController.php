@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\SkillEvaluation;
+use App\Notifications\EvaluationReceived;
+
 
 class SkillEvaluationController extends Controller
 {
@@ -53,7 +55,7 @@ class SkillEvaluationController extends Controller
             'comment'    => 'nullable|string',
         ]);
 
-        SkillEvaluation::create([
+        $evaluation = SkillEvaluation::create([
             'teacher_id' => auth()->id(),
             'student_id' => $data['student_id'],
             'speaking'   => $data['speaking'],
@@ -64,8 +66,12 @@ class SkillEvaluationController extends Controller
             'comment'    => $data['comment'],
         ]);
 
+       $student = User::findOrFail($data['student_id']);
+       $student->notify(new EvaluationReceived(Auth::user(), $evaluation));
+
+
         return redirect()
-            ->route('evaluations.search.form')
-            ->with('success', 'Rating submitted');
-    }
+        ->route('evaluations.search.form')
+        ->with('success', 'Rating submitted');
+}
 }

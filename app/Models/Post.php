@@ -9,6 +9,7 @@ use App\Models\Comment;
 
 class Post extends Model
 {
+    
 
     protected $fillable = [
         'user_id',
@@ -40,4 +41,5 @@ class Post extends Model
         }
         return $this->likes()->where('user_id', $userId)->exists();
     }
+
 }
