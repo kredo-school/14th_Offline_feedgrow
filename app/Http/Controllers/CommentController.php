@@ -7,20 +7,26 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Post;
 use App\Models\Comment;
+use App\Notifications\CommentReceved;
 
 class CommentController extends Controller
 {
     public function store(Request $request, $id){
         $request->validate([
+
             'body' => 'required|string|max:255',
         ]);
 
         $post = Post::findOrFail($id);
 
-        $post->comments()->create([
+        $comment = $post->comments()->create([
             'user_id' => Auth::id(),
             'body' => $request->body,
         ]);
+
+        if ($post->user_id !== Auth::id()){
+            $post->user->notify(new CommentReceved(Auth::user(), $post, $comment));
+        }
 
         return back();
     }

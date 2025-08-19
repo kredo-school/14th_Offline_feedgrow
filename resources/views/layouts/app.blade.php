@@ -58,13 +58,41 @@
                     @endif
                 @else
                     <!-- 通知ベル -->
-                    <div class="position-relative me-2 mt-1">
-                        <i class="fa-solid fa-bell fa-lg text-secondary"></i>
-                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-pink"
-                            style="font-size: 10px;">
-                            11
-                        </span>
-                    </div>
+                   @auth
+@if (Auth::user()->role === 'student')
+<div class="position-relative me-2 mt-1 dropdown">
+  {{-- ベル本体（見た目用） --}}
+  <i class="fa-solid fa-bell fa-lg text-secondary"></i>
+
+  {{-- 透明のトグル（ベルの上に重ねる） --}}
+   <a class="nav-link position-absolute top-0 start-0 w-100 h-100 p-0"
+     href="#"role="button"data-bs-toggle="dropdown"aria-expanded="false"></a>
+
+  {{-- バッジ --}}
+  <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-pink"
+        style="font-size:10px;">
+    {{Auth::user()->unreadNotifications->count()}}
+  </span>
+
+  {{-- メニュー --}}
+  <ul class="dropdown-menu dropdown-menu-end" style="min-width:320px;">
+    @forelse(Auth::user()->unreadNotifications->take(5) as $n)
+      <li>
+        <a class="dropdown-item small" href="{{ route('notifications.read', $n->id) }}">
+          {{ $n->data['message'] ?? 'There is a notification' }}
+          <div class="text-muted">{{ $n->created_at->diffForHumans() }}</div>
+        </a>
+      </li>
+      <li><hr class="dropdown-divider"></li>
+    @empty
+      <li><span class="dropdown-item small text-muted">No unread messages</span></li>
+    @endforelse
+    <li><a class="dropdown-item" href="{{ route('notifications.index') }}">View all notifications</a></li>
+  </ul>
+</div>
+@endif
+@endauth
+
 
                     <!-- ユーザー画像 -->
                     <a href="{{ route('profile.edit') }}">

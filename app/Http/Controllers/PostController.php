@@ -22,7 +22,7 @@ class PostController extends Controller
             'title'      => 'required|string|max:255',
             'image_path' => 'nullable|image|mimes:jpeg,png,gif|max:2048',
             'caption'    => 'nullable|string|max:255',
-            'published_at' => 'nullable|date',
+            'published_at' => 'nullable|date'
         ]);
 
         if ($request->hasFile('image_path')) {
@@ -42,33 +42,40 @@ class PostController extends Controller
         $post = Post::findOrFail($id);
         abort_if($post->user_id !== Auth::id(), 403);
 
-        return view('posts.edit', compact('post'));
+        return view('blog_edit', compact('post'));
     }
 
-    public function update(Request $request, $id)
-    {
-        $data = $request->validate([
-            'title'      => 'required|string|max:255',
-            'caption'    => 'nullable|string|max:255',
-            'image_path' => 'nullable|image|mimes:jpeg,png,gif|max:2048',
-            'published_at' => 'nullable|date',
-            'remove_image' => 'nullable|boolean',
-        ]);
+   public function update(Request $request, $id)
+{
+    $data = $request->validate([
+        'title'         => 'required|string|max:255',
+        'caption'       => 'nullable|string|max:255',
+        'image_path'    => 'nullable|image|mimes:jpeg,png,gif|max:2048',
+        'published_at'  => 'nullable|date',
+        'remove_image'  => 'nullable|boolean',
+    ]);
 
-        $post = Post::findOrFail($id);
-        abort_if($post->user_id !== Auth::id(), 403);
+    $post = Post::findOrFail($id);
+    abort_if($post->user_id !== Auth::id(), 403);
 
-        if ($request->hasFile('image_path')) {
-            if($post->image_path){
-                Storage::disk('public')->delete($post->image_path);
-            }
-            $data['image_path'] = $request->file('image_path')->store('posts', 'public');
+    // ★ 画像削除チェック
+    if ($request->boolean('remove_image') && $post->image_path) {
+        Storage::disk('public')->delete($post->image_path);
+        $data['image_path'] = null;
+    }
+
+    // 新規アップロード
+    if ($request->hasFile('image_path')) {
+        if ($post->image_path) {
+            Storage::disk('public')->delete($post->image_path);
         }
-
-        $post->update($data);
-
-        return redirect()->route('posts.show', $post->id);
+        $data['image_path'] = $request->file('image_path')->store('posts', 'public');
     }
+
+    $post->update($data);
+
+    return redirect()->route('posts.show', $post->id);
+}
 
     public function show($id)
     {
@@ -82,6 +89,6 @@ class PostController extends Controller
         abort_if($post->user_id !== Auth::id(), 403);
 
         $post->delete();
-        return redirect()->route('posts.index');
+        return redirect()->route('student.home');
     }
 }

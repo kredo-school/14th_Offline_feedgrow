@@ -1,7 +1,5 @@
 @extends('layouts.app')
-
 @section('title', 'Blog View')
-
 @section('content')
     <link rel="stylesheet" href="{{ asset('css/blog.css') }}">
     <div class="blog-wrapper">
@@ -17,7 +15,6 @@
                 <h2 class="post-title">{{ $post['title'] }}</h2>
                 <small class="text-muted post-date" style="font-size: 14px;">{{ $post['created_at'] }}</small>
             </div>
-
             <!-- 投稿者 -->
             <div class="user-info">
                 @if (optional($post->user)->profile_image)
@@ -29,102 +26,108 @@
                 @endif
                 <span class="fw-bold">{{ $post['user']['name'] }}</span>
             </div>
-
             <!-- 本文 -->
             <div class="post-body">
                 <p>{{ $post['caption'] }}</p>
             </div>
-
             <!-- 画像 -->
             @if (!empty($post->image_path))
                 <img src="{{ asset('storage/' . $post->image_path) }}" alt="blog image" class="post-image">
             @endif
-
             <!-- アイコン -->
-            <div class="flex items-center px-4 py-2 space-x-6 border border-black">
-                <div class="flex item-centre space-x-1">
-                    @if ($post->isLiked())
-                        <form action="{{ route('likes.destroy', $post->id) }}" method="POST">
+            <div class="icons">
+                <div>
+                    <form
+                        action="{{ $post->likes()->where('user_id', Auth::id())->exists()
+                            ? route('likes.destroy', $post->id)
+                            : route('likes.store', $post->id) }}"
+                        method="POST" style="display:inline;">
+                        @csrf
+                        @if ($post->likes()->where('user_id', Auth::id())->exists())
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-like">
+                                <i class="fas fa-heart text-danger"></i>
+                                <span>{{ $post->likes()->count() }}</span> {{-- いいね数 --}}
+                            </button>
+                        @else
+                            <button type="submit" class="btn btn-like">
+                                <i class="far fa-heart"></i>
+                                <span>{{ $post->likes()->count() }}</span> {{-- いいね数 --}}
+                            </button>
+                        @endif
+                    </form>
+
+                    <div class="dropdown d-inline-block">
+                        {{-- コメントアイコン＋件数 --}}
+                        <a class="btn btn-sm dropdown-toggle p-0 border-0 bg-transparent" href="#" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="far fa-comment"></i>
+                            <span class="ms-1">{{ $post->comments_count ?? $post->comments()->count() }}</span>
+                        </a>
+
+                        {{-- ドロップダウンメニュー --}}
+                        <div class="dropdown-menu dropdown-menu-end p-3"
+                            style="min-width: 320px; max-height: 300px; overflow-y: auto;">
+
+                            {{-- コメント一覧 --}}
+                            @forelse($post->comments()->latest()->get() as $comment)
+                                <div class="mb-2 border-bottom pb-1">
+                                    <div class="fw-bold small">
+                                        {{ optional($comment->user)->name ?? 'Unknown' }}
+                                        <span class="text-muted ms-1">{{ $comment->created_at->diffForHumans() }}</span>
+                                    </div>
+                                    <div class="small">{{ $comment->body }}</div>
+
+                                    {{-- 自分のコメントなら削除ボタン --}}
+                                    @if (Auth::id() === $comment->user_id)
+                                        <form action="{{ route('comments.destroy', $comment->id) }}" method="POST"
+                                            class="mt-1" onsubmit="return confirm('Delete this comment?')">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit"
+                                                class="btn btn-outline-danger btn-sm py-0 px-2">Delete</button>
+                                        </form>
+                                    @endif
+                                </div>
+                            @empty
+                                <div class="text-muted small">No comments yet.</div>
+                            @endforelse
+
+                            {{-- 新規コメントフォーム --}}
+                            @auth
+                                <form action="{{ route('comments.store', $post->id) }}" method="POST" class="mt-2">
+                                    @csrf
+                                    <div class="mb-2">
+                                        <textarea name="body" rows="2" class="form-control form-control-sm" placeholder="Write a comment..."
+                                            maxlength="255" required></textarea>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary btn-sm w-100">Comment</button>
+                                </form>
+                            @endauth
+                        </div>
+                    </div>
+
+                </div>
+                <div class="menu-wrapper" style="position: relative; text-align: right;">
+                    <button onclick="toggleMenu()" class="menu-btn">⋯</button>
+                    <div id="menu-options" class="menu-options">
+                        <a href="{{ route('posts.edit', $post->id) }}"><i class="fa-solid fa-pen-to-square"></i>
+                            <span class="text-primary">Edit</span></a>
+                        <form action="{{ route('posts.destroy', $post->id) }}" method="POST" style="display:inline;">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-sm p-0">
-                                <i class="fa-solid fa-heart text-danger"></i>
+                            <button type="submit" class="btn btn-danger" onclick="return confirm('Do you want to delete it?')">
+                                <i class="fa-solid fa-trash"></i>
+                                <span class="text-danger">Delete</span>
                             </button>
                         </form>
-                    @else
-                        <form action="{{ route('likes.store', $post->id) }}" method="POST">
-                            @csrf
-                            <button type="submit" class="btn btn-sm p-0">
-                                <i class="fa-regular fa-heart"></i>
-                            </button>
-                        </form>
-                    @endif
-                    <span class="text-sm">{{ $post->likes->count() }}</span>
-                </div>
 
-                <div class="flex items-center space-x-1">
-                    <button type="button" class="btn btn-sm p-0" @click="openComments = !openComments">
-                        <i class="far fa-comment"></i>
-                    </button>
-                    <span class="text-sm">{{ $post->comments->count() }}</span>
-                </div>
-            </div>
-
-            <div x-show="openComments" x-cloak @click.away="openComments = false"
-                class="px-4 pb-4 max-h-36 overflow-y-auto">
-                @forelse ($post->comments as $comment)
-                    <div class="flex items-start border-black py-1 text-sm">
-                        <div class="user-info">
-                            @if (!empty(Auth::user()->profile_image))
-                                <img src="{{ asset('storage/' . Auth::user()->profile_image) }}" alt="User Avatar"
-                                    class="rounded-circle" style="width:40px; height:40px; object-fit:cover;">
-                            @else
-                                <i class="fa-solid fa-user rounded-circle d-inline-block text-center"
-                                    style="width:40px; height:40px; font-size:28px; line-height:50px; color:#c7cedc;">
-                                </i>
-                            @endif
-                            <span class="fw-bold">
-                                {{ optional($comment->user)->username ?? optional($comment->user)->name }}
-                            </span>
-                        </div>
-                        <strong{{ $comment->user->name }}< /strong>&nbsp;{{ $comment->body }}
-                            @if ($comment->user_id === auth()->id())
-                                <form action="{{ route('comments.destroy', $comment->id) }}" method="POST" class="ml-auto"
-                                    onsubmit="return confirm('このコメントを削除しますか？');">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="text-gray-500 hover:text-red-500">
-                                        <i class="fas fa-trash-alt"></i>
-                                    </button>
-                                </form>
-                            @endif
                     </div>
-                @empty
-                    <p class="text-sm text-gray-500">
-                        There are no previous comments</p>
-                @endforelse
-                <form action="{{ route('comments.store', $post->id) }}" method="POST" class="mt-2">
-                    @csrf
-                    <textarea name="body" id="body" rows="2" class="w-full border-black rounded p-1 text-sm mb-2" required></textarea>
-                    <button type="submit" class="w-full btn btn-primary text-sm">send</button>
-                </form>
-            </div>
-
-
-
-            <div id="menu-options" class="menu-options">
-                <a href="#"><i class="fa-solid fa-pen-to-square"></i>
-                    <span class="text-primary">Edit</span></a>
-
-                <a href="#"><i class="fa-solid fa-trash"></i>
-                    <span class="text-danger">Delete</span></a>
+                </div>
             </div>
         </div>
     </div>
-    </div>
-    </div>
 @endsection
-
 <script>
     function toggleMenu() {
         const menu = document.getElementById('menu-options');
@@ -132,3 +135,4 @@
         menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
     }
 </script>
+ç
