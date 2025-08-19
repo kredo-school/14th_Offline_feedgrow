@@ -76,7 +76,7 @@
 
   {{-- メニュー --}}
   <ul class="dropdown-menu dropdown-menu-end" style="min-width:320px;">
-    @forelse(Auth::user()->unreadNotifications->take(5) as $n)
+    @forelse(Auth::user()->unreadNotifications->take(10) as $n)
       <li>
         <a class="dropdown-item small" href="{{ route('notifications.read', $n->id) }}">
           {{ $n->data['message'] ?? 'There is a notification' }}
@@ -87,7 +87,6 @@
     @empty
       <li><span class="dropdown-item small text-muted">No unread messages</span></li>
     @endforelse
-    <li><a class="dropdown-item" href="{{ route('notifications.index') }}">View all notifications</a></li>
   </ul>
 </div>
 @endif
