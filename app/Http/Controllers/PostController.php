@@ -41,7 +41,7 @@ class PostController extends Controller
         $post = Post::findOrFail($id);
         abort_if($post->user_id !== Auth::id(), 403);
 
-        return view('posts.edit', compact('post'));
+        return view('blog_edit', compact('post'));
     }
 
     public function update(Request $request, $id)

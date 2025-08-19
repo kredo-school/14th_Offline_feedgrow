@@ -51,7 +51,7 @@
                     <i class="far fa-heart"></i>
                     <i class="far fa-comment ms-3"></i>
                 </div>
-                
+
                 <div class="menu-wrapper" style="position: relative; text-align: right;">
                     <button onclick="toggleMenu()" class="menu-btn">⋯</button>
 

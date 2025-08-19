@@ -4,7 +4,8 @@
 
 @section('content')
     <link rel="stylesheet" href="{{ asset('css/blog.css') }}">
-
+    {{-- FlatpickrのCSS --}}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 
     <div class="blog-wrapper">
         <div class="blog-create-header">
@@ -20,9 +21,15 @@
                 <input type="text" name="title" id="title" required>
             </div>
 
-            <div class="form-group">
+            {{-- <div class="form-group">
                 <label for="date">DATE</label>
                 <input type="date" name="published_at" id="published_at" required>
+            </div> --}}
+
+            <div class="form-group">
+                <label for="published_at">DATE</label>
+                {{-- 普通のdateではなく text にする（flatpickrを使う） --}}
+                <input type="text" name="published_at" id="published_at" class="blog-date" required placeholder="YYYY-MM-DD">
             </div>
 
             <div class="form-group">
@@ -38,4 +45,14 @@
             </div>
         </form>
     </div>
+
+     {{-- FlatpickrのJS --}}
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script>
+        flatpickr("#published_at", {
+            dateFormat: "Y-m-d", // 例: 2025-08-16
+            locale: "en"        // 英語表示に固定
+        });
+    </script>
+
 @endsection
