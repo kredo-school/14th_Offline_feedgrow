@@ -110,7 +110,8 @@ html,body {
     }
 
     .post-image {
-        width: 100%;
+        aspect-ratio: 4 / 3;   /* 比率を固定 */
+        object-fit: cover;      /* はみ出しをトリミング */
         border: 1px solid #1D80E7;
         border-radius: 4px;
     }
