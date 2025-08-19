@@ -28,7 +28,7 @@
 
             <div class="form-group">
                 <label for="published_at">DATE</label>
-                <input type="date" name="published_at" id="published_at" value="{{ old('published_at') }}">
+                <input type="date" name="published_at" id="published_at" value="{{ old('published_at') }}" class="blog-date">
                 @error('published_at')
                     <div class="text-danger small">{{ $message }}</div>
                 @enderror

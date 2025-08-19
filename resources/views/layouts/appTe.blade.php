@@ -13,7 +13,8 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
-    <link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"integrity="..."crossorigin="anonymous" />
+    <link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+        integrity="..." crossorigin="anonymous" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
     <!-- Scripts -->
@@ -77,8 +78,18 @@
                     </div> --}}
 
                     <!-- ユーザー画像 -->
-                    <img src="{{ asset('images/daiki_icon.jpg') }}" alt="user" class="rounded-circle me-2 ms-4"
-                        style="width: 40px; height: 40px;">
+                    <a href="{{ route('profile.show') }}">
+                        @if (!empty(Auth::user()->profile_image))
+                            <img src="{{ asset('storage/' . Auth::user()->profile_image) }}" alt="User Avatar"
+                                class="rounded-circle"
+                                style="width:40px; height:40px; object-fit:cover; border: 1px solid #888888;">
+                        @else
+                            <i class="fa-solid fa-user rounded-circle d-inline-block text-center"
+                                style="width:40px; height:40px; font-size:28px; line-height:50px; color:#c7cedc;">
+                            </i>
+                        @endif
+
+                    </a>
 
                     <!-- ユーザー名 & ログアウト -->
                     <div class="dropdown">

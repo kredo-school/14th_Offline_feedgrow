@@ -87,6 +87,82 @@ html,body {
             align-self: start;
         }
 
+        /* === base === */
+:root{
+  --blue1:#1D80E7; --blue2:#2b86ff; --ink:#fff; --ink-sub:rgba(255,255,255,.8);
+  --card:#0f5fc7; --glass:rgba(255,255,255,.1); --accent:#20e3ff;
+}
+*{box-sizing:border-box}
+.study-card{
+  position:relative; overflow:hidden; border-radius:20px;
+  background:linear-gradient(180deg,var(--blue2),var(--blue1));
+  color:var(--ink); box-shadow:0 10px 30px rgba(0,0,0,.25);
+  padding:22px 22px 16px; max-width:900px; margin:24px auto;
+  isolation:isolate;
+}
+.study-card__bg{
+  position:absolute; inset:-20%; z-index:0;
+  background:
+    radial-gradient(60% 40% at 80% 0%, rgba(255,255,255,.18), transparent 60%),
+    radial-gradient(50% 60% at -10% 90%, rgba(255,255,255,.15), transparent 60%);
+  filter: blur(18px);
+}
+.study-card__inner{position:relative; z-index:1}
+
+.study-card__header{
+  display:flex; align-items:center; gap:16px; justify-content:space-between;
+}
+
+.dot{width:18px; height:18px; border-radius:4px; background:#33d0c7; box-shadow:0 0 0 3px rgba(255,255,255,.12) inset}
+.heading .title{font-weight:800; letter-spacing:.02em; font-size:22px}
+.heading .sub{color:var(--ink-sub); font-weight:700; margin-top:2px}
+
+.progress-wrap{position:relative; width:120px; height:120px; flex:0 0 auto}
+.ring{width:120px; height:120px; transform:rotate(-90deg)}
+.ring-bg{fill:none; stroke:rgba(255,255,255,.22); stroke-width:12}
+.ring-fg{fill:none; stroke-width:12; stroke-linecap:round; stroke-dasharray:326; stroke-dashoffset:326; transition:stroke-dashoffset .9s cubic-bezier(.2,.8,.2,1)}
+.progress-center{position:absolute; inset:0; display:grid; place-items:center}
+.pct{font-weight:900; font-size:20px; text-shadow:0 1px 6px rgba(0,0,0,.25)}
+
+.study-card__value{
+  display:flex; align-items:baseline; gap:10px; margin-top:10px;
+  font-weight:900; letter-spacing:.02em;
+}
+.num{font-size:82px; line-height:1; display:inline-block; min-width:0.6em;
+  transform:translateY(0); transition:transform .25s ease}
+.unit{font-size:30px; opacity:.95}
+
+.study-card__bar{
+  position:relative; height:10px; background:rgba(255,255,255,.2);
+  border-radius:999px; overflow:hidden; margin-top:14px;
+}
+.bar{height:100%; width:0%; background:linear-gradient(90deg,#b7e5ff,#61b9ff 70%, #20e3ff);
+  border-radius:inherit; transition:width .9s cubic-bezier(.2,.8,.2,1)}
+.shine{position:absolute; top:-60%; left:-20%; width:30%; height:220%;
+  background:linear-gradient(105deg, transparent 20%, rgba(255,255,255,.6) 50%, transparent 80%);
+  transform:translateX(-100%); opacity:0; pointer-events:none}
+
+/* “増えた”ときの演出 */
+.bump{animation:bump .35s ease}
+@keyframes bump{ 0%{transform:translateY(0)} 30%{transform:translateY(-6px)} 100%{transform:translateY(0)} }
+
+.shine.run{animation:shine 1s ease forwards}
+@keyframes shine{
+  0%{transform:translateX(-120%); opacity:0}
+  10%{opacity:.8}
+  100%{transform:translateX(320%); opacity:0}
+}
+
+/* レスポンシブ */
+@media (max-width:640px){
+  .study-card{padding:18px}
+  .study-card__header{gap:10px}
+  .progress-wrap{width:96px;height:96px}
+  .ring{width:96px;height:96px}
+  .study-card__value .num{font-size:62px}
+  .unit{font-size:22px}
+}
+
 /* -------------------------------------------------------------------------------------------------------------------- */
 
         .graph-section {
@@ -167,6 +243,13 @@ html,body {
 
         .blog-avatar.read {
             border: 3px solid #888888; /* グレー枠 */
+        }
+
+        .post-name {
+            text-align: center;
+            color: #ffffff;
+            margin-top: 5px;
+            margin-bottom: 0;
         }
 
 
