@@ -107,11 +107,70 @@
                     @endif
                 </a>
 
+<<<<<<< HEAD
                 {{-- ユーザー名 & ログアウト --}}
                 <div class="dropdown">
                     <a id="navbarDropdown" class="nav-link dropdown-toggle text-secondary fw-bold ms-1 me-2"
                        href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         {{ Auth::user()->name }}
+=======
+                    @if (Route::has('register'))
+                        <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                    @endif
+                @else
+                    <!-- 通知ベル -->
+                    @auth
+                        @if (Auth::user()->role === 'student')
+                            <div class="position-relative me-2 mt-1 dropdown">
+                                {{-- ベル本体（見た目用） --}}
+                                <i class="fa-solid fa-bell fa-lg text-secondary"></i>
+
+                                {{-- 透明のトグル（ベルの上に重ねる） --}}
+                                <a class="nav-link position-absolute top-0 start-0 w-100 h-100 p-0" href="#"role="button"
+                                    data-bs-toggle="dropdown" aria-expanded="false"></a>
+
+                                {{-- バッジ --}}
+                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-pink"
+                                    style="font-size:10px;">
+                                    {{ Auth::user()->unreadNotifications->count() }}
+                                </span>
+
+                                {{-- メニュー --}}
+                                <ul class="dropdown-menu dropdown-menu-end" style="min-width:320px;">
+                                    @forelse(Auth::user()->unreadNotifications->take(5) as $n)
+                                        <li>
+                                            <a class="dropdown-item small" href="{{ route('notifications.read', $n->id) }}">
+                                                {{ $n->data['message'] ?? 'There is a notification' }}
+                                                <div class="text-muted">{{ $n->created_at->diffForHumans() }}</div>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <hr class="dropdown-divider">
+                                        </li>
+                                    @empty
+                                        <li><span class="dropdown-item small text-muted">No unread messages</span></li>
+                                    @endforelse
+                                    <li><a class="dropdown-item" href="{{ route('notifications.index') }}">View all
+                                            notifications</a></li>
+                                </ul>
+                            </div>
+                        @endif
+                    @endauth
+
+
+                    <!-- ユーザー画像 -->
+                    <a href="{{ route('profile.show') }}">
+                        @if (!empty(Auth::user()->profile_image))
+                            <img src="{{ asset('storage/' . Auth::user()->profile_image) }}" alt="User Avatar"
+                                class="rounded-circle"
+                                style="width:40px; height:40px; object-fit:cover; border: 1px solid #888888;">
+                        @else
+                            <i class="fa-solid fa-user rounded-circle d-inline-block text-center"
+                                style="width:40px; height:40px; font-size:28px; line-height:50px; color:#c7cedc;">
+                            </i>
+                        @endif
+
+>>>>>>> master
                     </a>
                     <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item text-blue" href="{{ route('logout') }}"
