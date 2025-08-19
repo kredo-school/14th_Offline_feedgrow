@@ -5,11 +5,9 @@
             <i class="fa-solid fa-blog fa-2x" style="color: white;"></i>
             <h2 class="ms-2 fw-bold">BLOG</h2>
         </div>
-        <div>
-            <a href="{{route('posts.create')}}">
-                <i class="fa-solid fa-plus"></i>
-           </a>
-        </div>
+        <button class="add-btn" onclick="window.location.href='{{ route('posts.create') }}'">
+            <i class="fa-solid fa-plus"></i>
+        </button>
     </div>
     <div class="mt-3 d-flex flex-wrap gap-2">
   @forelse($posts as $post)

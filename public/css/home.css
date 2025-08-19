@@ -147,7 +147,6 @@ html,body {
         }
 
         .blog-content {
-            flex-grow: 1;                /* ← 残り全部使ってスクロール領域に */
             overflow-y: auto;            /* ← スクロール可能 */
             padding: 10px;
         }
@@ -159,6 +158,7 @@ html,body {
             border-radius: 50%;
             border: 2px solid transparent;
             transition: border 0.3s;
+            background-color: #ffffff;
         }
 
         .blog-avatar.new {
@@ -168,6 +168,7 @@ html,body {
         .blog-avatar.read {
             border: 3px solid #888888; /* グレー枠 */
         }
+
 
 /* -------------------------------------------------------------------------------------------------------------------- */
 

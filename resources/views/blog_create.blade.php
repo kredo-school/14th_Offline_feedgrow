@@ -4,7 +4,8 @@
 
 @section('content')
     <link rel="stylesheet" href="{{ asset('css/blog.css') }}">
-
+    {{-- FlatpickrのCSS --}}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 
     <div class="blog-wrapper">
         <div class="blog-create-header">
@@ -52,4 +53,14 @@
             </div>
         </form>
     </div>
+
+     {{-- FlatpickrのJS --}}
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script>
+        flatpickr("#published_at", {
+            dateFormat: "Y-m-d", // 例: 2025-08-16
+            locale: "en"        // 英語表示に固定
+        });
+    </script>
+
 @endsection

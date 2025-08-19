@@ -64,6 +64,45 @@ html,body {
             color: #6c757d;
         }
 
+        .feedback-btn-sm{
+            --fg-blue:#1D80E7;
+            border:0;
+            border-radius:999px;
+            padding:.4rem .75rem .4rem .55rem;
+            font-weight:700;
+            background: linear-gradient(180deg, #2b86ff 0%, #1D80E7 100%);
+            box-shadow: 1px 1px 2px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,.35);
+        }
+
+        .ic-tile-sm{
+            display:inline-grid;
+            place-items:center;
+            width:28px;
+            height:28px;
+            margin-right:.45rem;
+            background:#fff;
+            color:var(--fg-blue);
+            border-radius:.55rem;
+            box-shadow:0 2px 5px rgba(0,0,0,.1);
+        }
+
+        .ic-tile-sm i{
+            font-size:.95rem;
+            line-height:1;
+        }
+
+        .feedback-btn-sm:hover{
+            transform:translateY(-1px); box-shadow:2px 6px 18px rgba(29,128,231,.3), inset 0 1px 0 rgba(255,255,255,.4);
+        }
+
+        .feedback-btn-sm:active{
+            transform:translateY(0);
+        }
+
+        .feedback-btn-sm:focus-visible{
+            outline:none; box-shadow:0 0 0 .2rem rgba(29,128,231,.25), 1px 1px 2px rgba(0,0,0,.2), inset 0 1px 0 rgba(255,255,255,.35);
+        }
+
         /* ページネーションを丸く */
         .page-link {
             border-radius: .75rem;

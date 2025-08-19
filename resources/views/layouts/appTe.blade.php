@@ -68,13 +68,13 @@
                     @endif
                 @else
                     <!-- 通知ベル -->
-                    <div class="position-relative me-2 mt-1">
+                    {{-- <div class="position-relative me-2 mt-1">
                         <i class="fa-solid fa-bell fa-lg text-secondary"></i>
                         <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-pink"
                             style="font-size: 10px;">
                             11
                         </span>
-                    </div>
+                    </div> --}}
 
                     <!-- ユーザー画像 -->
                     <img src="{{ asset('images/daiki_icon.jpg') }}" alt="user" class="rounded-circle me-2 ms-4"
