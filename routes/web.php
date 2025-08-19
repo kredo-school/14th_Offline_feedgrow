@@ -82,8 +82,6 @@ Route::middleware('auth')->group(function () {
     Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
 
     //feedback history
-    // Route::get('/blog/create', [BlogController::class, 'create'])->name('blogs.create');
-    // Route::get('/blog/edit', [BlogController::class, 'edit'])->name('blogs.edit');
 
     //search|evaluation|graph
     Route::get('/teacher/evaluations/search', [SkillEvaluationController::class, 'searchForm'])->name('evaluations.search.form')->middleware('auth');
@@ -91,4 +89,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/teacher/evaluations/{student}/create', [SkillEvaluationController::class, 'create'])->name('evaluations.create')->middleware('auth');
     Route::get('/feedbacks', [SkillEvaluationController::class, 'index'])->name('feedbackhistory')->middleware('auth');
     Route::post('/teacher/evaluations', [SkillEvaluationController::class, 'store'])->name('evaluations.store')->middleware('auth');
+
+    Route::get('/notifications',[NotificationController::class, 'index'])->name('notifications.index');
+    Route::get('/notifications/{id}/read',[NotificationController::class, 'read'])->name('notifications.read');
+    Route::post('/notifications/read-all',[NotificationController::class, 'readAll'])->name('notification.readAll');
 });

@@ -40,7 +40,12 @@
 
 @section('content')
     <div class="feedback-page">
-        <h1 class="feedback-title">FEED BACK</h1>
+        <div class="feedback-header">
+            <a href="{{}}" class="back-btn back-btn--pill">
+                <span class="chev">←</span> Back
+            </a>
+            <h1 class="feedback-title fw-bold">FEED BACK</h1>
+        </div>
 
         <section class="feedback-card">
             <!-- 顔＋名前（※実データに差し替えてOK） -->
@@ -56,9 +61,6 @@
                 <div class="feedback-field">
                     <div class="feedback-label">DATE</div>
                     <input class="feedback-input underline" type="text" placeholder="yyyy/mm/dd" inputmode="numeric">
-                    {{-- ※ 通常の date にしたい場合は ↓ を使って underline クラスを外す
-        <input class="feedback-input" type="date">
-        --}}
                 </div>
 
                 <div class="feedback-field">
@@ -130,13 +132,12 @@
                 <div class="feedback-label">COMMENT <span class="feedback-subtle"
                         style="font-size:12px;margin-left:6px;">(optional)</span></div>
                 <textarea class="feedback-input" rows="4"
-                    placeholder="Good progress on pronunciation. Next: shadowing practice for /r/ and /l/ …"></textarea>
+                    placeholder="Good progress ..."></textarea>
             </div>
 
             <!-- アクション -->
             <div class="feedback-actions">
-                <button type="button" class="feedback-btn feedback-btn-gray" onclick="history.back()">← BACK</button>
-                <button type="button" class="feedback-btn feedback-btn-blue" id="feedback-submit">SUBMIT</button>
+                <button type="button" class="feedback-btn feedback-btn-blue mt-3" id="feedback-submit">SUBMIT</button>
             </div>
         </section>
     </div>
@@ -158,24 +159,71 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 48px 16px 72px;
+            padding: 24px 16px 72px;
             background: linear-gradient(180deg, #2b86ff 0%, #1D80E7 100%);
         }
 
-        .feedback-title {
-            margin: 0 0 28px;
-            color: #fff;
+        .feedback-header {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            /* 左=空き/Back, 中央=タイトル, 右=空き */
+            align-items: center;
+            gap: 160px;
+            max-width: 920px;
+            /* card-containerに合わせて中央寄せ */
+            margin: auto;
+        }
+
+        .back-btn {
+            justify-self: start;
+            text-decoration: none;
+            font-size: 16px;
+            margin-bottom: 30px;
+        }
+
+        .back-btn--pill {
+            background: #fff;
+            color: #1D80E7;
+            border-radius: 999px;
+            padding: 6px 16px;
+            box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
             font-weight: 800;
-            font-size: clamp(34px, 5vw, 64px);
-            letter-spacing: .06em;
-            text-shadow: 0 6px 18px rgba(0, 0, 0, .15);
+            transition: .2s;
+        }
+
+        .back-btn--pill .chev {
+            display: inline-block;
+            transform: translateX(0);
+            transition: .2s;
+        }
+
+        .back-btn--pill:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 14px rgba(0, 0, 0, .2);
+        }
+
+        .back-btn--pill:hover .chev {
+            transform: translateX(-3px);
+        }
+
+        .back-btn:hover {
+            background-color: #bbbbbb;
+            text-decoration: none;
+        }
+
+        .feedback-title {
+            font-size: 50px;
+            margin-bottom: 30px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+            grid-column: 2;
+            color: #fff
         }
 
         .feedback-card {
-            width: min(920px, 100%);
+            width: 700px;
             background: #fff;
             border-radius: 22px;
-            box-shadow: 0 14px 30px rgba(0, 0, 0, .10);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
             padding: clamp(18px, 3vw, 36px);
             color: #222;
         }
@@ -303,7 +351,7 @@
         /* ---------- actions ---------- */
         .feedback-actions {
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
             margin-top: 8px;
             gap: 16px;
@@ -313,7 +361,6 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
             border: 0;
             border-radius: 999px;
             padding: 12px 22px;
@@ -324,16 +371,6 @@
 
         .feedback-btn:active {
             transform: translateY(1px);
-        }
-
-        .feedback-btn-gray {
-            background: #d1d1d1;
-            color: #fff;
-            box-shadow: 0 6px 18px rgba(0, 0, 0, .08);
-        }
-
-        .feedback-btn-gray:hover {
-            filter: brightness(.95);
         }
 
         .feedback-btn-blue {
@@ -349,15 +386,13 @@
 
         #app>main.py-4 {
             padding-top: 0 !important;
-            /* 下も詰めたいなら ↓ も付ける */
-            /* padding-bottom: 0 !important; */
         }
     </style>
 
     <script>
         document.getElementById('feedback-submit')?.addEventListener('click', function(e) {
             e.preventDefault();
-            alert('UIデモ：送信処理は未実装です。');
+            alert('Error');
         });
     </script>
 @endsection

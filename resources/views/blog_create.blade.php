@@ -16,28 +16,36 @@
         </div>
         <form class="blog-create-card" method="POST" action="{{ route('posts.store') }}" enctype="multipart/form-data">
             @csrf
+
+
             <div class="form-group">
                 <h2 for="title">TITLE</h2>
-                <input type="text" name="title" id="title" required>
+                <input type="text" name="title" id="title" value="{{ old('title') }}" required>
+                @error('title')
+                    <div class="text-danger small">{{ $message }}</div>
+                @enderror
             </div>
-
-            {{-- <div class="form-group">
-                <label for="date">DATE</label>
-                <input type="date" name="published_at" id="published_at" required>
-            </div> --}}
 
             <div class="form-group">
                 <label for="published_at">DATE</label>
-                {{-- 普通のdateではなく text にする（flatpickrを使う） --}}
-                <input type="text" name="published_at" id="published_at" class="blog-date" required placeholder="YYYY-MM-DD">
+                <input type="date" name="published_at" id="published_at" value="{{ old('published_at') }}">
+                @error('published_at')
+                    <div class="text-danger small">{{ $message }}</div>
+                @enderror
             </div>
 
             <div class="form-group">
-                <textarea name="caption" id="caption" rows="6" placeholder="Write your blog..."></textarea>
+                <textarea name="caption" id="caption" rows="6" placeholder="Write your blog...">{{ old('caption') }}</textarea>
+                @error('caption')
+                    <div class="text-danger small">{{ $message }}</div>
+                @enderror
             </div>
 
             <div class="form-group">
                 <input type="file" name="image_path" accept="image/*">
+                @error('image_path')
+                    <div class="text-danger small">{{ $message }}</div>
+                @enderror
             </div>
 
             <div class="form-buttons">
