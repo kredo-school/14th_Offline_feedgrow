@@ -48,13 +48,27 @@
             </form>
         </div>
 
-        <div class="profile-gallery">
-            <div class="gallery-row">
-                    <div class="gallery-item placeholder">No Photo</div>
-                    <div class="gallery-item placeholder">No Photo</div>
-                    <div class="gallery-item placeholder">No Photo</div>
-                    <div class="gallery-item placeholder">No Photo</div>
-            </div>
+        <div class="my-posts">
+            @forelse($user->posts as $post)
+                <div class="post-card">
+                    {{-- 画像 --}}
+                    @if ($post->image_path)
+                        <img src="{{ asset('storage/' . $post->image_path) }}" alt="{{ $post->title }}"
+                            class="post-thumbnail">
+                    @else
+                        <img src="{{ asset('images/default-thumbnail.png') }}" alt="No Image" class="post-thumbnail">
+                    @endif
+
+                    {{-- タイトル --}}
+                    <h3>
+                        <a href="{{ route('posts.show', $post->id) }}">
+                            {{ $post->title }}
+                        </a>
+                    </h3>
+                </div>
+            @empty
+                <p>No blog posts yet.</p>
+            @endforelse
         </div>
     </div>
 @endsection

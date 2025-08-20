@@ -11,13 +11,13 @@ use Illuminate\Support\Facades\Auth;
 class ProfileController extends Controller
 {
 
-    public function show()
-    {
-       $user = Auth::user();
+ public function show($id)
+{
+    $user = User::with('posts')->findOrFail($id);
+    return view('profile.show', compact('user'));
+}
 
-       return view('profile.show', compact('user'));
-    }
-    
+
     public function edit()
     {
         return view('profile.edit', ['user' => Auth::user()]);
