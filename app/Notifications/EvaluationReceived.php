@@ -6,6 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use Illuminate\Support\Facades\Storage;
 use App\Models\SkillEvaluation;
 use App\Models\User;
 
@@ -49,12 +50,15 @@ class EvaluationReceived extends Notification
     public function toArray(object $notifiable): array
     {
         return [
-            'type' => 'evaluation',
-            'actor_id' => $this->teacher->id,
-            'actor' => $this->teacher->name,
-            'evaluation_id' => $this->evaluation->id,
-            'message' => "{$this->teacher->name} evaluation from your teacher.",
-           'url' => route('student.home'),
-        ];
+        'type'           => 'evaluation',
+        'actor_id'       => $this->teacher->id,
+        'actor'          => $this->teacher->name,
+        'actor_avatar_url' => $this->teacher->profile_image
+            ? Storage::url($this->teacher->profile_image)
+            : asset('images/User-avatar.png'),
+        'evaluation_id'  => $this->evaluation->id,
+        'message'        => "{$this->teacher->name} evaluation from your teacher.",
+        'url'            => route('student.home'),
+    ];
     }
 }

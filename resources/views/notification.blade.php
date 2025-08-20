@@ -21,9 +21,11 @@
 
       <a href="{{ $jumpUrl }}" class="notification-item d-flex align-items-center text-decoration-none">
         <img class="blog-avatar new rounded-circle me-2"
-             src="{{ $avatarUrl }}" alt="{{ $actorName }} アイコン" loading="lazy"
-             style="width:36px;height:36px;object-fit:cover;">
-        <div class="notification-text flex-grow-1">
+     src="{{ $avatarUrl }}"
+     alt="{{ $actorName }} アイコン"
+     loading="lazy"
+     style="width:36px;height:36px;object-fit:cover;"
+     onerror="this.onerror=null;this.src='{{ asset('images/default-avatar.png') }}';">
           <strong>{{ $actorName }}</strong>
           <p class="mb-0">{{ $message }}</p>
         </div>

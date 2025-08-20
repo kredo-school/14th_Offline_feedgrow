@@ -77,7 +77,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/event/{id}', [EventController::class, 'delete'])->name('event.delete');
 
     //profile
-    Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
+    Route::get('/profile/{id}', [ProfileController::class, 'show'])->name('profile.show');
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
 

@@ -72,9 +72,18 @@
                             {{-- コメント一覧 --}}
                             @forelse($post->comments()->latest()->get() as $comment)
                                 <div class="mb-2 border-bottom pb-1">
-                                    <div class="fw-bold small">
-                                        {{ optional($comment->user)->name ?? 'Unknown' }}
-                                        <span class="text-muted ms-1">{{ $comment->created_at->diffForHumans() }}</span>
+                                    <div class="user-info">
+                                        @if (optional($comment->user)->profile_image)
+                                            <img class="blog-avatar new rounded-circle" data-user="{{ $comment->user_id }}"
+                                                src="{{ asset('storage/' . optional($comment->user)->profile_image) }}"
+                                                {{-- 可能なら Storage::url(...) 推奨 --}}
+                                                alt="{{ optional($comment->user)->name ? $comment->user->name . 'の投稿' : 'User' }}"
+                                                loading="lazy">
+                                        @else
+                                            <i class="fa-solid fa-user blog-avatar new rounded-circle"
+                                                data-user="{{ $comment->user_id }}"></i>
+                                        @endif
+                                        <span class="fw-bold">{{ $comment['user']['name'] }}</span>
                                     </div>
                                     <div class="small">{{ $comment->body }}</div>
 
@@ -116,7 +125,8 @@
                         <form action="{{ route('posts.destroy', $post->id) }}" method="POST" style="display:inline;">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-danger" onclick="return confirm('Do you want to delete it?')">
+                            <button type="submit" class="btn btn-danger"
+                                onclick="return confirm('Do you want to delete it?')">
                                 <i class="fa-solid fa-trash"></i>
                                 <span class="text-danger">Delete</span>
                             </button>
