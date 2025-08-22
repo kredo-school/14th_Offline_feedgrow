@@ -70,5 +70,4 @@
                 <p>No blog posts yet.</p>
             @endforelse
         </div>
-    </div>
-@endsection
+    @endsection

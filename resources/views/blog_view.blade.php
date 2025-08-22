@@ -117,7 +117,7 @@
                     </div>
 
                 </div>
-                <div class="menu-wrapper" style="position: relative; text-align: right;">
+                {{-- <div class="menu-wrapper" style="position: relative; text-align: right;">
                     <button onclick="toggleMenu()" class="menu-btn">⋯</button>
                     <div id="menu-options" class="menu-options">
                         <a href="{{ route('posts.edit', $post->id) }}"><i class="fa-solid fa-pen-to-square"></i>
@@ -131,9 +131,8 @@
                                 <span class="text-danger">Delete</span>
                             </button>
                         </form>
-
                     </div>
-                </div>
+                </div> --}}
             </div>
         </div>
     </div>

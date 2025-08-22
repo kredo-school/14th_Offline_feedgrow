@@ -41,105 +41,109 @@
 @section('content')
     <div class="feedback-page">
         <div class="feedback-header">
-            <a href="{{}}" class="back-btn back-btn--pill">
+            <a href="{{('teacher.home')}}" class="back-btn back-btn--pill">
                 <span class="chev">←</span> Back
             </a>
             <h1 class="feedback-title fw-bold">FEED BACK</h1>
         </div>
 
-        <section class="feedback-card">
-            <!-- 顔＋名前（※実データに差し替えてOK） -->
-            <div class="feedback-profile">
-                <img class="feedback-avatar"
-                    src="https://images.unsplash.com/photo-1527980965255-d3b416303d12?q=80&w=256&auto=format&fit=crop"
-                    alt="student avatar">
-                <div class="feedback-name">Kyota <span class="feedback-subtle">’s Feedback</span></div>
-            </div>
+        <form action="{{ route('evaluations.store') }}" method="POST">
+            @csrf
 
-            <!-- 日付・レッスン -->
-            <div class="feedback-meta">
-                <div class="feedback-field">
-                    <div class="feedback-label">DATE</div>
-                    <input class="feedback-input underline" type="text" placeholder="yyyy/mm/dd" inputmode="numeric">
+
+            <section class="feedback-card">
+                <!-- 顔＋名前（※実データに差し替えてOK） -->
+                <div class="feedback-profile">
+                    <img class="feedback-avatar"
+                        src="https://images.unsplash.com/photo-1527980965255-d3b416303d12?q=80&w=256&auto=format&fit=crop"
+                        alt="student avatar">
+                    <div class="feedback-name">{{ $student->name }} <span class="feedback-subtle">’s Feedback</span></div>
                 </div>
 
-                <div class="feedback-field">
-                    <div class="feedback-label">LESSON</div>
-                    <select class="feedback-select" aria-label="Lesson">
-                        <option value="">lesson</option>
-                        <option>Conversation A</option>
-                        <option>Business Email</option>
-                        <option>Pronunciation</option>
+                <!-- 日付・レッスン -->
+                <div class="feedback-meta">
+                    <div class="feedback-field">
+                        <div class="feedback-label">DATE</div>
+                        <input class="feedback-input underline" type="text" placeholder="yyyy/mm/dd" inputmode="numeric">
+                    </div>
+
+                    <div class="feedback-field">
+                        <div class="feedback-label">LESSON</div>
+                        <select class="feedback-select" aria-label="Lesson">
+                            <option value="">lesson</option>
+                            <option>Conversation A</option>
+                            <option>Business Email</option>
+                            <option>Pronunciation</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- 評価行 -->
+                <div class="feedback-ratings">
+                    <div class="feedback-rating-label">Speaking</div>
+                    <select class="feedback-select" aria-label="Speaking">
+                        <option value="" selected>-</option>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                    </select>
+
+                    <div class="feedback-rating-label">Writing</div>
+                    <select class="feedback-select" aria-label="Writing">
+                        <option value="" selected>-</option>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                    </select>
+
+                    <div class="feedback-rating-label">Listening</div>
+                    <select class="feedback-select" aria-label="Listening">
+                        <option value="" selected>-</option>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                    </select>
+
+                    <div class="feedback-rating-label">Reading</div>
+                    <select class="feedback-select" aria-label="Reading">
+                        <option value="" selected>-</option>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                    </select>
+
+                    <div class="feedback-rating-label">Grammar</div>
+                    <select class="feedback-select" aria-label="Grammar">
+                        <option value="" selected>-</option>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
                     </select>
                 </div>
-            </div>
 
-            <!-- 評価行 -->
-            <div class="feedback-ratings">
-                <div class="feedback-rating-label">Speaking</div>
-                <select class="feedback-select" aria-label="Speaking">
-                    <option value="" selected>-</option>
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
-                </select>
+                <!-- コメント（任意） -->
+                <div class="feedback-field" style="margin-top:6px;">
+                    <div class="feedback-label">COMMENT <span class="feedback-subtle"
+                            style="font-size:12px;margin-left:6px;">(optional)</span></div>
+                    <textarea class="feedback-input" rows="4" placeholder="Good progress ..."></textarea>
+                </div>
 
-                <div class="feedback-rating-label">Writing</div>
-                <select class="feedback-select" aria-label="Writing">
-                    <option value="" selected>-</option>
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
-                </select>
-
-                <div class="feedback-rating-label">Listening</div>
-                <select class="feedback-select" aria-label="Listening">
-                    <option value="" selected>-</option>
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
-                </select>
-
-                <div class="feedback-rating-label">Reading</div>
-                <select class="feedback-select" aria-label="Reading">
-                    <option value="" selected>-</option>
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
-                </select>
-
-                <div class="feedback-rating-label">Grammar</div>
-                <select class="feedback-select" aria-label="Grammar">
-                    <option value="" selected>-</option>
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
-                </select>
-            </div>
-
-            <!-- コメント（任意） -->
-            <div class="feedback-field" style="margin-top:6px;">
-                <div class="feedback-label">COMMENT <span class="feedback-subtle"
-                        style="font-size:12px;margin-left:6px;">(optional)</span></div>
-                <textarea class="feedback-input" rows="4"
-                    placeholder="Good progress ..."></textarea>
-            </div>
-
-            <!-- アクション -->
-            <div class="feedback-actions">
-                <button type="button" class="feedback-btn feedback-btn-blue mt-3" id="feedback-submit">SUBMIT</button>
-            </div>
-        </section>
+                <!-- アクション -->
+                <div class="feedback-actions">
+                    <button type="button" class="feedback-btn feedback-btn-blue mt-3" id="feedback-submit">SUBMIT</button>
+                </div>
+            </section>
+        </form>
     </div>
 
     <style>

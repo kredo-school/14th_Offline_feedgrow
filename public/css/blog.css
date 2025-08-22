@@ -114,6 +114,18 @@ html,body {
         object-fit: cover;      /* はみ出しをトリミング */
         border: 1px solid #1D80E7;
         border-radius: 4px;
+        overflow: hidden;
+        position: relative;
+        width: 100%;
+    }
+
+    .post-image > img{
+        position: absolute;
+        inset: 0;
+        width: 100% !important;
+        height: 100% !important;     /* height:auto を上書き */
+        object-fit: cover;
+        display: block;
     }
 
     .icons {
