@@ -6,6 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use Illuminate\Support\Facades\Storage;
 use App\Models\Post;
 use App\Models\Comment;
 use App\Models\User;
@@ -57,6 +58,9 @@ class CommentReceved extends Notification
             'type' => 'comment',
             'actor_id' => $this->actor->id,
             'actor' => $this->actor->name,
+            'actor_avatar_url' => $this->actor->profile_image
+            ? Storage::url($this->actor->profile_image)
+            : asset('images/User-avatar.png'),
             'post_id' => $this->post->id,
             'comment_id' => $this->comment->id,
             'message' => "{$this->actor->name} commented on your post.",

@@ -10,7 +10,14 @@
                     <div class="col-lg-6">
                         <div class="input-group">
                             {{-- <span class="input-group-text control pill"><i class="bi bi-search"></i></span> --}}
-                            <input class="form-control control pill" placeholder="Search...">
+                            {{-- <input class="form-control control pill" placeholder="Search..."> --}}
+                            <form action="{{ route('evaluations.search.results') }}" method="get" class="mb-4">
+                                <div class="input-group">
+                                    <input type="text" name="q" value="{{ old('q') }}" class="form-control"
+                                        placeholder="Search by student name or email address">
+                                    <button class="btn btn-primary">search</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                     <div class="col-6 col-md-3">
@@ -59,8 +66,7 @@
                                     <div class="fw-semibold">Daiki</div>
                                 </td>
                                 <td class="text-center">
-                                    <a href="#"
-                                        class="btn btn-primary feedback-btn-sm">
+                                    <a href="#" class="btn btn-primary feedback-btn-sm">
                                         <span class="ic-tile-sm"><i class="bi bi-clipboard-check"></i></span>
                                         <span class="d-none d-sm-inline">Feedback</span>
                                     </a>
@@ -77,8 +83,7 @@
                                     <div class="fw-semibold">Kyota</div>
                                 </td>
                                 <td class="text-center">
-                                    <a href="#"
-                                        class="btn btn-primary feedback-btn-sm">
+                                    <a href="#" class="btn btn-primary feedback-btn-sm">
                                         <span class="ic-tile-sm"><i class="bi bi-clipboard-check"></i></span>
                                         <span class="d-none d-sm-inline">Feedback</span>
                                     </a>
@@ -95,8 +100,7 @@
                                     <div class="fw-semibold">John</div>
                                 </td>
                                 <td class="text-center">
-                                    <a href="#"
-                                        class="btn btn-primary feedback-btn-sm">
+                                    <a href="#" class="btn btn-primary feedback-btn-sm">
                                         <span class="ic-tile-sm"><i class="bi bi-clipboard-check"></i></span>
                                         <span class="d-none d-sm-inline">Feedback</span>
                                     </a>
@@ -113,8 +117,7 @@
                                     <div class="fw-semibold">Ema</div>
                                 </td>
                                 <td class="text-center">
-                                    <a href="#"
-                                        class="btn btn-primary feedback-btn-sm">
+                                    <a href="#" class="btn btn-primary feedback-btn-sm">
                                         <span class="ic-tile-sm"><i class="bi bi-clipboard-check"></i></span>
                                         <span class="d-none d-sm-inline">Feedback</span>
                                     </a>
@@ -131,8 +134,7 @@
                                     <div class="fw-semibold">Jun</div>
                                 </td>
                                 <td class="text-center">
-                                    <a href="#"
-                                        class="btn btn-primary feedback-btn-sm">
+                                    <a href="#" class="btn btn-primary feedback-btn-sm">
                                         <span class="ic-tile-sm"><i class="bi bi-clipboard-check"></i></span>
                                         <span class="d-none d-sm-inline">Feedback</span>
                                     </a>
