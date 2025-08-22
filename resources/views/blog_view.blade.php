@@ -17,14 +17,16 @@
             </div>
             <!-- 投稿者 -->
             <div class="user-info">
-                @if (optional($post->user)->profile_image)
-                    <img class="blog-avatar new rounded-circle" data-user="{{ $post->user_id }}"
-                        src="{{ asset('storage/' . optional($post->user)->profile_image) }}" {{-- 可能なら Storage::url(...) 推奨 --}}
-                        alt="{{ optional($post->user)->name ? $post->user->name . 'の投稿' : 'User' }}" loading="lazy">
-                @else
-                    <i class="fa-solid fa-user blog-avatar new rounded-circle" data-user="{{ $post->user_id }}"></i>
-                @endif
-                <span class="fw-bold">{{ $post['user']['name'] }}</span>
+                <a href="{{ route('profile.show', $post->user->id) }}" class="d-flex align-items-center">
+                    @if (optional($post->user)->profile_image)
+                        <img class="blog-avatar new rounded-circle" data-user="{{ $post->user_id }}"
+                            src="{{ asset('storage/' . optional($post->user)->profile_image) }}"
+                            alt="{{ optional($post->user)->name ? $post->user->name . 'の投稿' : 'User' }}" loading="lazy">
+                    @else
+                        <i class="fa-solid fa-user blog-avatar new rounded-circle" data-user="{{ $post->user_id }}"></i>
+                    @endif
+                    <span class="fw-bold">{{ $post->user->name }}</span>
+                </a>
             </div>
             <!-- 本文 -->
             <div class="post-body">

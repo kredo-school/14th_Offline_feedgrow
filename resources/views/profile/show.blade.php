@@ -42,7 +42,7 @@
 
                     <div class="form-buttons">
                         {{-- <button type="submit" class="btn save-btn">EDIT</button> --}}
-                        <a href="{{ route('profile.edit') }}" class="btn save-btn">EDIT</a>
+                       <a href="{{ route('profile.edit') }}" class="btn save-btn">EDIT</a>
                     </div>
                 </div>
             </form>

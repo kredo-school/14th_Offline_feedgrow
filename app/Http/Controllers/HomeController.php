@@ -59,7 +59,7 @@ class HomeController extends Controller
             ->whereDate('created_at', now()->toDateString())
             ->count();
 
-        $dailyTarget = 10;
+        $dailyTarget = 8;
         $progressRatio = min($todayCount / $dailyTarget, 1);
 
         $posts = Post::with('user')->orderByDesc('created_at')->take(30)->get();
