@@ -3,7 +3,7 @@
     <link rel="stylesheet" href="{{ asset('css/profile.css') }}">
     <div class="profile-container">
         <div class="profile-header">
-            <a href="{{}}" class="back-btn back-btn--pill">
+            <a href="{{ route('teacher.home') }}" class="back-btn back-btn--pill">
                 <span class="chev">←</span> Back
             </a>
             <h1 class="profile-title fw-bold">PROFILE</h1>
@@ -42,7 +42,7 @@
 
                     <div class="form-buttons">
                         {{-- <button type="submit" class="btn save-btn">EDIT</button> --}}
-                        <a href="{{ route('profile.edit') }}" class="btn save-btn">EDIT</a>
+                        <a href="{{ route('teacher.profile.edit') }}" class="btn save-btn">EDIT</a>
                     </div>
                 </div>
             </form>
