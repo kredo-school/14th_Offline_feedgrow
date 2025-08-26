@@ -1,151 +1,9 @@
-{{-- resources/views/teacher/evaluations/create.blade.php --}}
-{{-- @extends('layouts.app')
-
-@section('content')
-  <div class="container">
-    <h2>「{{ $student->name }}」さんの評価</h2>
-
-    <form action="{{ route('evaluations.store') }}" method="POST">
-    @csrf
-
-      <input type="hidden" name="student_id" value="{{ $student->id }}">
-
-      <div class="mb-3">
-        <label class="form-label">受けた授業</label>
-        <textarea name="comment" class="form-control" rows="3"></textarea>
-      </div>
-
-      @foreach (['speaking' => '話す', 'listening' => '聞く', 'reading' => '読む', 'writing' => '書く', 'grammar' => '文法'] as $key => $label)
-        <div class="mb-3">
-          <label class="form-label">{{ $label }}（1〜5）</label>
-          <select name="{{ $key }}" class="form-select">
-            <option value="">未評価</option>
-            @for ($i = 1; $i <= 5; $i++)
-              <option value="{{ $i }}">{{ $i }}</option>
-            @endfor
-          </select>
-        </div>
-      @endforeach
-
-
-
-      <button class="btn btn-primary">送信する</button>
-    </form>
-  </div>
-@endsection --}}
-
 @extends('layouts.appTe')
 
 @section('title', 'FeedBack Form')
 
 @section('content')
-    <div class="feedback-page">
-        <div class="feedback-header">
-            <a href="{{('teacher.home')}}" class="back-btn back-btn--pill">
-                <span class="chev">←</span> Back
-            </a>
-            <h1 class="feedback-title fw-bold">FEED BACK</h1>
-        </div>
-
-        <form action="{{ route('evaluations.store') }}" method="POST">
-            @csrf
-
-
-            <section class="feedback-card">
-                <!-- 顔＋名前（※実データに差し替えてOK） -->
-                <div class="feedback-profile">
-                    <img class="feedback-avatar"
-                        src="https://images.unsplash.com/photo-1527980965255-d3b416303d12?q=80&w=256&auto=format&fit=crop"
-                        alt="student avatar">
-                    <div class="feedback-name">{{ $student->name }} <span class="feedback-subtle">’s Feedback</span></div>
-                </div>
-
-                <!-- 日付・レッスン -->
-                <div class="feedback-meta">
-                    <div class="feedback-field">
-                        <div class="feedback-label">DATE</div>
-                        <input class="feedback-input underline" type="text" placeholder="yyyy/mm/dd" inputmode="numeric">
-                    </div>
-
-                    <div class="feedback-field">
-                        <div class="feedback-label">LESSON</div>
-                        <select class="feedback-select" aria-label="Lesson">
-                            <option value="">lesson</option>
-                            <option>Conversation A</option>
-                            <option>Business Email</option>
-                            <option>Pronunciation</option>
-                        </select>
-                    </div>
-                </div>
-
-                <!-- 評価行 -->
-                <div class="feedback-ratings">
-                    <div class="feedback-rating-label">Speaking</div>
-                    <select class="feedback-select" aria-label="Speaking">
-                        <option value="" selected>-</option>
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                    </select>
-
-                    <div class="feedback-rating-label">Writing</div>
-                    <select class="feedback-select" aria-label="Writing">
-                        <option value="" selected>-</option>
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                    </select>
-
-                    <div class="feedback-rating-label">Listening</div>
-                    <select class="feedback-select" aria-label="Listening">
-                        <option value="" selected>-</option>
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                    </select>
-
-                    <div class="feedback-rating-label">Reading</div>
-                    <select class="feedback-select" aria-label="Reading">
-                        <option value="" selected>-</option>
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                    </select>
-
-                    <div class="feedback-rating-label">Grammar</div>
-                    <select class="feedback-select" aria-label="Grammar">
-                        <option value="" selected>-</option>
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                    </select>
-                </div>
-
-                <!-- コメント（任意） -->
-                <div class="feedback-field" style="margin-top:6px;">
-                    <div class="feedback-label">COMMENT <span class="feedback-subtle"
-                            style="font-size:12px;margin-left:6px;">(optional)</span></div>
-                    <textarea class="feedback-input" rows="4" placeholder="Good progress ..."></textarea>
-                </div>
-
-                <!-- アクション -->
-                <div class="feedback-actions">
-                    <button type="button" class="feedback-btn feedback-btn-blue mt-3" id="feedback-submit">SUBMIT</button>
-                </div>
-            </section>
-        </form>
-    </div>
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <style>
         /* ---------- layout ---------- */
         html,
@@ -230,6 +88,7 @@
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
             padding: clamp(18px, 3vw, 36px);
             color: #222;
+            margin: 0 auto;
         }
 
         /* ---------- header in card ---------- */
@@ -392,11 +251,92 @@
             padding-top: 0 !important;
         }
     </style>
+    <div class="feedback-page">
+        <div class="feedback-header">
+            <a href="{{ route('teacher.home') }}" class="back-btn back-btn--pill"><span class="chev">←</span> Back</a>
+            <h1 class="feedback-title fw-bold">FEED BACK</h1>
+        </div>
 
-    <script>
-        document.getElementById('feedback-submit')?.addEventListener('click', function(e) {
-            e.preventDefault();
-            alert('Error');
-        });
-    </script>
+        <form action="{{ route('evaluations.store') }}" method="POST" style="width:100%;max-width:860px;">
+            @csrf
+            <section class="feedback-card">
+                <!-- 顔＋名前 -->
+                <div class="feedback-profile">
+                    <img class="feedback-avatar"
+                        src="https://images.unsplash.com/photo-1527980965255-d3b416303d12?q=80&w=256&auto=format&fit=crop"
+                        alt="student avatar">
+                    <div class="feedback-name">
+                        {{ $student->name }} <span class="feedback-subtle">’s Feedback</span>
+                    </div>
+                </div>
+
+                <input type="hidden" name="student_id" value="{{ $student->id }}">
+
+                <!-- DATE / LESSON -->
+                <div class="feedback-meta">
+                    <div class="feedback-field">
+                        <div class="feedback-label">DATE</div>
+                        <input id="date" type="text" name="date"
+                            value="{{ old('date') }}" class="feedback-input underline" >
+                    </div>
+
+                    <div class="feedback-field">
+                        <div class="feedback-label">LESSON</div>
+                        <select class="feedback-select" name="lesson" aria-label="Lesson">
+                            <option value="">lesson</option>
+                            <option value="Conversation A" @selected(old('lesson') === 'Conversation A')>Conversation A</option>
+                            <option value="Business Email" @selected(old('lesson') === 'Business Email')>Business Email</option>
+                            <option value="Pronunciation" @selected(old('lesson') === 'Pronunciation')>Pronunciation</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Ratings -->
+                <div class="feedback-ratings">
+                    @foreach ([
+            'speaking' => 'Speaking',
+            'writing' => 'Writing',
+            'listening' => 'Listening',
+            'reading' => 'Reading',
+            'grammar' => 'Grammar',
+        ] as $key => $label)
+                        <div class="feedback-rating-label">{{ $label }}</div>
+                        <select class="feedback-select" name="{{ $key }}" aria-label="{{ $label }}">
+                            <option value="" @selected(old($key) === '')>-</option>
+                            @for ($i = 1; $i <= 5; $i++)
+                                <option value="{{ $i }}" @selected(old($key) == $i)>{{ $i }}
+                                </option>
+                            @endfor
+                        </select>
+                    @endforeach
+                </div>
+
+                <!-- Comment -->
+                <div class="feedback-field" style="margin-top:6px;">
+                    <div class="feedback-label">COMMENT <span class="feedback-subtle"
+                            style="font-size:12px;margin-left:6px;">(optional)</span></div>
+                    <textarea class="feedback-input" name="comment" placeholder="Good progress ...">{{ old('comment') }}</textarea>
+                </div>
+
+                <!-- Submit -->
+                <div class="feedback-actions">
+                    <button type="submit" class="feedback-btn feedback-btn-blue mt-2">SUBMIT</button>
+                </div>
+            </section>
+        </form>
+    </div>
 @endsection
+{{-- <script>
+    document.getElementById('feedback-submit')?.addEventListener('click', function(e) {
+        e.preventDefault();
+        alert('Error');
+    });
+</script> --}}
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/en.js"></script>
+<script>
+    flatpickr("#date", {
+        dateFormat: "Y-m-d", // 例: 2025-08-16
+        locale: "en" // 英語表示に固定
+    });
+</script>

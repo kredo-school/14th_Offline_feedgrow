@@ -78,7 +78,7 @@
                     </div> --}}
 
                     <!-- ユーザー画像 -->
-                     <a href="{{ route('profile.show', Auth::id()) }}" class="d-flex align-items-center">
+                    <a href="{{ route('profile.show', Auth::id()) }}" class="d-flex align-items-center">
                         @if (!empty(Auth::user()->profile_image))
                             <img src="{{ asset('storage/' . Auth::user()->profile_image) }}" alt="User Avatar"
                                 class="rounded-circle"
