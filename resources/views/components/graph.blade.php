@@ -53,9 +53,24 @@
                     }
                 },
                 y: {
+                    // beginAtZero: true,
+                    // ticks: {
+                    //     color: '#fff'
+                    // },
+                    // grid: {
+                    //     color: 'rgba(255,255,255,0.1)'
+                    // }
+                    // min: 0,
+                    // max: 5.0, // ← Y軸の範囲を固定
+                    // ticks: {
+                    //     stepSize: 0.5 // メモリ間隔
+                    // }
+                    min: 0,
+                    max: 5, // ← Y軸を固定
                     beginAtZero: true,
                     ticks: {
-                        color: '#fff'
+                        stepSize: 0.5, // メモリ間隔
+                        color: '#fff' // 文字色（上書きされないようここに集約）
                     },
                     grid: {
                         color: 'rgba(255,255,255,0.1)'

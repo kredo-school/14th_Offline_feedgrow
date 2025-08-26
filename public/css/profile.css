@@ -176,54 +176,15 @@ html,body {
     text-decoration: none;
 }
 
-/* ===== Gallery ===== */
-.profile-gallery{
-  width: 800px;            /* カードと幅を揃える */
-  margin: 24px auto 60px;  /* 上下の余白は好みで */
-}
 
-/* 4枚横一列（スマホでは2列） */
-.gallery-row{
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 12px;
-}
-
-/* 正方形サムネ・角丸・影・ホバーで少し拡大 */
-.gallery-item{
-  aspect-ratio: 1 / 1;     /* 正方形にする */
-  overflow: hidden;
-  border-radius: 12px;
-  background: #fff;
-  box-shadow: 0 3px 10px rgba(0,0,0,.12);
-  display: block;
-}
-
-.gallery-item img{
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform .25s ease;
-}
-
-.gallery-item:hover img{
-  transform: scale(1.03);
-}
-
-.gallery-item.placeholder{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:#8A7D7D;
-  font-weight:700;
-  background: rgba(255,255,255,.7);
-  border: 1px dashed rgba(0,0,0,.15);
-}
 
 .my-posts{
   display:grid;
-  grid-template-columns: repeat(4, minmax(0,1fr));
+  grid-template-columns: repeat(3, minmax(0,1fr));
   gap:20px;
+  /* margin-top: 20px; */
+  margin: 20px auto; /* 中央寄せ */
+  max-width: 800px;  /* ← プロフィールカードと同じ幅にする */
 }
 
 .post-card{
@@ -233,6 +194,7 @@ html,body {
   box-shadow:0 4px 18px rgba(0,0,0,.08);
   transition:transform .15s ease, box-shadow .15s ease;
 }
+
 .post-card:hover{
   transform: translateY(-2px);
   box-shadow:0 10px 24px rgba(0,0,0,.12);
@@ -249,3 +211,4 @@ html,body {
   font-size:.98rem; font-weight:600; line-height:1.4;
   margin:10px 12px 14px;
 }
+

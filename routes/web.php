@@ -13,7 +13,9 @@ use App\Http\Controllers\SkillEvaluationController;
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\StudentController;
 use Symfony\Component\HttpKernel\Profiler\Profile;
+use App\Http\Controllers\StudyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,12 +49,12 @@ Route::middleware('auth')->group(function () {
 
     //post
     // Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
-    Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');
-    Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
-    Route::get('/posts/{id}/edit', [PostController::class, 'edit'])->name('posts.edit');
-    Route::post('/posts/{id}', [PostController::class, 'update'])->name('posts.update');
-    Route::get('/posts/{id}', [PostController::class, 'show'])->name('posts.show');
-    Route::delete('/posts/{id}', [PostController::class, 'destroy'])->name('posts.destroy');
+   Route::get   ('/posts/create',       [PostController::class, 'create'])->name('posts.create');
+    Route::post  ('/posts',              [PostController::class, 'store'])->name('posts.store');
+    Route::get   ('/posts/{post}/edit',  [PostController::class, 'edit'])->name('posts.edit');
+    Route::post   ('/posts/{post}',       [PostController::class, 'update'])->name('posts.update');
+    Route::delete('/posts/{post}',       [PostController::class, 'destroy'])->name('posts.destroy');
+    Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.show');
 
     //like
     Route::post('/posts/{id}/like', [LikeController::class, 'store'])->name('likes.store');
@@ -81,8 +83,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile/{id}', [ProfileController::class, 'show'])->name('profile.show');
     Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
 
-    //feedback history
-
     //search|evaluation|graph
     Route::get('/teacher/evaluations/search', [SkillEvaluationController::class, 'searchForm'])->name('evaluations.search.form')->middleware('auth');
     Route::get('/teacher/evaluations/results', [SkillEvaluationController::class, 'searchResults'])->name('evaluations.search.results')->middleware('auth');
@@ -93,4 +93,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/notifications',[NotificationController::class, 'index'])->name('notifications.index');
     Route::get('/notifications/{id}/read',[NotificationController::class, 'read'])->name('notifications.read');
     Route::post('/notifications/read-all',[NotificationController::class, 'readAll'])->name('notification.readAll');
+
+    //Study
+    Route::get('/studylogs/create',[StudyController::class, 'createLog'])->name('study.logs.create');
+    Route::post('/study/goal',[StudyController::class, 'saveGoal'])->name('study.goal.save');
+    Route::post('/study/logs',[StudyController::class, 'storeLog'])->name('study.logs.store');
+
 });

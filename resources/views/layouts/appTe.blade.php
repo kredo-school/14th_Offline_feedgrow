@@ -78,14 +78,14 @@
                     </div> --}}
 
                     <!-- ユーザー画像 -->
-                    <a href="{{ route('profile.show', Auth::id()) }}" class="d-flex align-items-center">
+                     <a href="{{ route('profile.show', Auth::id()) }}" class="d-flex align-items-center">
                         @if (!empty(Auth::user()->profile_image))
                             <img src="{{ asset('storage/' . Auth::user()->profile_image) }}" alt="User Avatar"
                                 class="rounded-circle"
                                 style="width:40px; height:40px; object-fit:cover; border: 1px solid #888888;">
                         @else
                             <i class="fa-solid fa-user rounded-circle d-inline-block text-center"
-                                style="width:40px; height:40px; font-size:28px; line-height:50px; color:#c7cedc;">
+                                style="width:40px; height:40px; font-size:28px; line-height:50px; color:#c7cedc; border:1px solid #888888;">
                             </i>
                         @endif
 

@@ -119,11 +119,15 @@
                     </div>
 
                 </div>
+                @can('update', $post)
                 <div class="menu-wrapper" style="position: relative; text-align: right;">
                     <button onclick="toggleMenu()" class="menu-btn">⋯</button>
                     <div id="menu-options" class="menu-options">
+
                         <a href="{{ route('posts.edit', $post->id) }}"><i class="fa-solid fa-pen-to-square"></i>
                             <span class="text-primary">Edit</span></a>
+                            @endcan
+                            @can('delete', $post)
                         <form action="{{ route('posts.destroy', $post->id) }}" method="POST" style="display:inline;">
                             @csrf
                             @method('DELETE')
@@ -133,7 +137,7 @@
                                 <span class="text-danger">Delete</span>
                             </button>
                         </form>
-
+                        @endcan
                     </div>
                 </div>
             </div>
