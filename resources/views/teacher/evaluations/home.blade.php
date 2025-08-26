@@ -3,6 +3,13 @@
 @section('content')
     <link rel="stylesheet" href="{{ asset('css/home_te.css') }}">
     <main class="py-5">
+
+        @if (session('success'))
+  <div class="alert alert-success">
+    {{ session('success') }}
+  </div>
+@endif
+
         <div class="container">
             <div class="bg-white elev-card p-4">
                 <!-- 上段：検索／並び替え／絞り込み -->
@@ -20,31 +27,31 @@
                             </form>
                         </div>
                     </div>
-                    <div class="col-6 col-md-3">
+                    {{-- <div class="col-6 col-md-3">
                         <select class="form-select control pill">
                             <option>Order</option>
                             <option value="name">NAME（A→Z）</option>
                             {{-- <option value="likes">いいね（多い）</option> --}}
-                            <option value="active">最終アクティブ（日付新しい）</option>
+                            {{-- <option value="active">最終アクティブ（日付新しい）</option>
                         </select>
-                    </div>
-                    <div class="col-6 col-md-3">
+                    </div> --}}
+                    {{-- <div class="col-6 col-md-3">
                         <select class="form-select control pill">
                             <option>絞り込み あり</option>
-                            <option>ALL</option>
-                            <option>⭐</option>
-                            {{-- <option>👍多い(>=3)</option> --}}
-                            <option>アクティブ（7日以内）</option>
+                            <option>ALL</option> --}}
+                            <option></option> --}}
+                            {{-- <option>多い(>=3)</option> --}}
+                            {{-- <option>アクティブ（7日以内）</option>
                         </select>
-                    </div>
+                    </div> --}}
                 </div>
 
                 <!-- クイックフィルター（チップ） -->
-                <div class="d-flex gap-2 mt-3">
-                    <button class="chip active"><i class="bi bi-star-fill text-warning me-1"></i></button>
+                {{-- <div class="d-flex gap-2 mt-3">
+                    <button class="chip active"><i class="bi bi-star-fill text-warning me-1"></i></button> --}}
                     {{-- <button class="chip"><i class="bi bi-hand-thumbs-up me-1"></i> > 多い</button> --}}
-                    <button class="chip"><i class="bi bi-activity me-1"></i>Active</button>
-                </div>
+                    {{-- <button class="chip"><i class="bi bi-activity me-1"></i>Active</button>
+                </div> --}}
 
                 <!-- 学生テーブル -->
                 <div class="table-responsive mt-4">
@@ -53,9 +60,7 @@
                             <tr>
                                 <th scope="col">Student</th>
                                 <th scope="col" class="text-center">Feedback</th>
-                                <th scope="col" class="text-center"><i class="bi bi-star"></i></th>
                                 <th scope="col">Active</th>
-                                <th scope="col" class="text-end">Detail</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -71,10 +76,8 @@
                                         <span class="d-none d-sm-inline">Feedback</span>
                                     </a>
                                 </td>
-                                <td class="text-center"><i class="bi bi-star-fill text-warning"></i></td>
                                 <td><i class="bi bi-calendar3 me-1 text-muted"></i>8/13/2025 6:24p.m </td>
-                                <td class="text-end"><a href="#" class="btn btn-sm btn-outline-primary pill"><i
-                                            class="bi bi-chevron-right"></i></a></td>
+
                             </tr>
                             <!-- row2 -->
                             <tr>
@@ -88,10 +91,9 @@
                                         <span class="d-none d-sm-inline">Feedback</span>
                                     </a>
                                 </td>
-                                <td class="text-center"><i class="bi bi-star-fill text-warning"></i></td>
+
                                 <td><i class="bi bi-calendar3 me-1 text-muted"></i>8/13/2025 6:24p.m </td>
-                                <td class="text-end"><a href="#" class="btn btn-sm btn-outline-primary pill"><i
-                                            class="bi bi-chevron-right"></i></a></td>
+                                
                             </tr>
                             <!-- row3 -->
                             <tr>
@@ -105,10 +107,9 @@
                                         <span class="d-none d-sm-inline">Feedback</span>
                                     </a>
                                 </td>
-                                <td class="text-center"><i class="bi bi-star text-secondary"></i></td>
+
                                 <td><i class="bi bi-calendar3 me-1 text-muted"></i>8/13/2025 6:24p.m </td>
-                                <td class="text-end"><a href="#" class="btn btn-sm btn-outline-primary pill"><i
-                                            class="bi bi-chevron-right"></i></a></td>
+
                             </tr>
                             <!-- row4 -->
                             <tr>
@@ -122,10 +123,9 @@
                                         <span class="d-none d-sm-inline">Feedback</span>
                                     </a>
                                 </td>
-                                <td class="text-center"><i class="bi bi-star text-secondary"></i></td>
+
                                 <td><i class="bi bi-calendar3 me-1 text-muted"></i>8/13/2025 6:24p.m </td>
-                                <td class="text-end"><a href="#" class="btn btn-sm btn-outline-primary pill"><i
-                                            class="bi bi-chevron-right"></i></a></td>
+
                             </tr>
                             <!-- row5 -->
                             <tr>
@@ -139,10 +139,9 @@
                                         <span class="d-none d-sm-inline">Feedback</span>
                                     </a>
                                 </td>
-                                <td class="text-center"><i class="bi bi-star text-secondary"></i></td>
+
                                 <td><i class="bi bi-calendar3 me-1 text-muted"></i>8/13/2025 6:24p.m </td>
-                                <td class="text-end"><a href="#" class="btn btn-sm btn-outline-primary pill"><i
-                                            class="bi bi-chevron-right"></i></a></td>
+
                             </tr>
                         </tbody>
                     </table>

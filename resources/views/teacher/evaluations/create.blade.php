@@ -41,7 +41,7 @@
 @section('content')
     <div class="feedback-page">
         <div class="feedback-header">
-            <a href="{{('teacher.home')}}" class="back-btn back-btn--pill">
+          <a href="{{ route('teacher.home') }}" class="back-btn back-btn--pill">
                 <span class="chev">←</span> Back
             </a>
             <h1 class="feedback-title fw-bold">FEED BACK</h1>
@@ -49,6 +49,7 @@
 
         <form action="{{ route('evaluations.store') }}" method="POST">
             @csrf
+            <input type="hidden" name="student_id" value="{{ $student->id }}">
 
 
             <section class="feedback-card">
@@ -61,89 +62,72 @@
                 </div>
 
                 <!-- 日付・レッスン -->
-                <div class="feedback-meta">
-                    <div class="feedback-field">
-                        <div class="feedback-label">DATE</div>
-                        <input class="feedback-input underline" type="text" placeholder="yyyy/mm/dd" inputmode="numeric">
-                    </div>
+                <div class="form-group">
+    <label for="evaluated_at">DATE</label>
+    <input type="text" name="evaluated_at" id="evaluated_at"
+           value="{{ old('evaluated_at') }}" class="blog-date" placeholder="yyyy-mm-dd">
+    @error('evaluated_at') <div class="text-danger small">{{ $message }}</div> @enderror
+  </div>
 
-                    <div class="feedback-field">
-                        <div class="feedback-label">LESSON</div>
-                        <select class="feedback-select" aria-label="Lesson">
-                            <option value="">lesson</option>
-                            <option>Conversation A</option>
-                            <option>Business Email</option>
-                            <option>Pronunciation</option>
-                        </select>
-                    </div>
-                </div>
+
+                    {{-- レッスン --}}
+  <div class="feedback-field">
+    <div class="feedback-label">LESSON</div>
+    <select class="feedback-select" name="lesson" aria-label="Lesson">
+      <option value="">lesson</option>
+      <option value="Conversation A" @selected(old('lesson')==='Conversation A')>Conversation A</option>
+      <option value="Business Email" @selected(old('lesson')==='Business Email')>Business Email</option>
+      <option value="Pronunciation" @selected(old('lesson')==='Pronunciation')>Pronunciation</option>
+    </select>
+    @error('lesson') <div class="text-danger small">{{ $message }}</div> @enderror
+  </div>
 
                 <!-- 評価行 -->
                 <div class="feedback-ratings">
-                    <div class="feedback-rating-label">Speaking</div>
-                    <select class="feedback-select" aria-label="Speaking">
-                        <option value="" selected>-</option>
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                    </select>
+    <div class="feedback-rating-label">Speaking</div>
+    <select class="feedback-select" name="speaking">
+      <option value="" @selected(old('speaking')==='')>-</option>
+      @for ($i=1;$i<=5;$i++) <option value="{{ $i }}" @selected(old('speaking')==$i)>{{ $i }}</option> @endfor
+    </select>
+
 
                     <div class="feedback-rating-label">Writing</div>
-                    <select class="feedback-select" aria-label="Writing">
-                        <option value="" selected>-</option>
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                    </select>
+    <select class="feedback-select" name="writing">
+      <option value="" @selected(old('writing')==='')>-</option>
+      @for ($i=1;$i<=5;$i++) <option value="{{ $i }}" @selected(old('writing')==$i)>{{ $i }}</option> @endfor
+    </select>
 
                     <div class="feedback-rating-label">Listening</div>
-                    <select class="feedback-select" aria-label="Listening">
-                        <option value="" selected>-</option>
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                    </select>
+    <select class="feedback-select" name="listening">
+      <option value="" @selected(old('listening')==='')>-</option>
+      @for ($i=1;$i<=5;$i++) <option value="{{ $i }}" @selected(old('listening')==$i)>{{ $i }}</option> @endfor
+    </select>
 
-                    <div class="feedback-rating-label">Reading</div>
-                    <select class="feedback-select" aria-label="Reading">
-                        <option value="" selected>-</option>
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                    </select>
+                     <div class="feedback-rating-label">Reading</div>
+    <select class="feedback-select" name="reading">
+      <option value="" @selected(old('reading')==='')>-</option>
+      @for ($i=1;$i<=5;$i++) <option value="{{ $i }}" @selected(old('reading')==$i)>{{ $i }}</option> @endfor
+    </select>
 
-                    <div class="feedback-rating-label">Grammar</div>
-                    <select class="feedback-select" aria-label="Grammar">
-                        <option value="" selected>-</option>
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                    </select>
-                </div>
+                   <div class="feedback-rating-label">Grammar</div>
+    <select class="feedback-select" name="grammar">
+      <option value="" @selected(old('grammar')==='')>-</option>
+      @for ($i=1;$i<=5;$i++) <option value="{{ $i }}" @selected(old('grammar')==$i)>{{ $i }}</option> @endfor
+    </select>
+  </div>
 
-                <!-- コメント（任意） -->
-                <div class="feedback-field" style="margin-top:6px;">
-                    <div class="feedback-label">COMMENT <span class="feedback-subtle"
-                            style="font-size:12px;margin-left:6px;">(optional)</span></div>
-                    <textarea class="feedback-input" rows="4" placeholder="Good progress ..."></textarea>
-                </div>
+                {{-- コメント --}}
+  <div class="feedback-field" style="margin-top:6px;">
+    <div class="feedback-label">COMMENT <span class="feedback-subtle" style="font-size:12px;margin-left:6px;">(optional)</span></div>
+    <textarea class="feedback-input" rows="4" name="comment" placeholder="Good progress ...">{{ old('comment') }}</textarea>
+    @error('comment') <div class="text-danger small">{{ $message }}</div> @enderror
+  </div>
 
-                <!-- アクション -->
-                <div class="feedback-actions">
-                    <button type="button" class="feedback-btn feedback-btn-blue mt-3" id="feedback-submit">SUBMIT</button>
-                </div>
-            </section>
-        </form>
+  <div class="feedback-actions">
+    <button type="submit" class="feedback-btn feedback-btn-blue mt-3">SUBMIT</button>
+  </div>
+</form>
+
     </div>
 
     <style>
@@ -393,10 +377,16 @@
         }
     </style>
 
-    <script>
+    {{-- <script>
         document.getElementById('feedback-submit')?.addEventListener('click', function(e) {
             e.preventDefault();
             alert('Error');
         });
-    </script>
+    </script> --}}
+{{-- flatpickr --}}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script>
+  flatpickr("#evaluated_at", { dateFormat: "Y-m-d", locale: "en" });
+</script>
 @endsection
