@@ -5,7 +5,9 @@
 
 <div class="container dashboard-container">
   @include('components.profile')
-  @include('components.calendar')
+
+  @include('components.study')
+
   @include('components.task')
 
 
