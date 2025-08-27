@@ -78,4 +78,8 @@ class User extends Authenticatable
     {
         return $this->hasMany(Event::class);
     }
+    public function evaluations()
+{
+    return $this->hasMany(\App\Models\SkillEvaluation::class, 'student_id');
+}
 }

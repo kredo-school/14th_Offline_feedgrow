@@ -17,6 +17,8 @@ use App\Http\Controllers\StudentController;
 use Symfony\Component\HttpKernel\Profiler\Profile;
 use App\Http\Controllers\StudyController;
 use App\Http\Controllers\TeacherProfileController;
+use App\Http\Controllers\TeacherHomeController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -99,6 +101,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/evaluations/{student}/create', [SkillEvaluationController::class, 'create'])->name('evaluations.create')
             ->whereNumber('student');
         Route::post('/evaluations',         [SkillEvaluationController::class, 'store'])->name('evaluations.store');
+        Route::get('/teacher/students/{student}/evaluations',[SkillEvaluationController::class, 'allEvaluationsForStudent'])->name('teacher.evaluations.all_for_student');
 
         // --- Profile（本人のみ想定：id不要が◎） ---
         Route::get('/profile/edit',   [TeacherProfileController::class, 'edit'])->name('teacher.profile.edit');
@@ -116,4 +119,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/studylogs/create', [StudyController::class, 'createLog'])->name('study.logs.create');
     Route::post('/study/goal', [StudyController::class, 'saveGoal'])->name('study.goal.save');
     Route::post('/study/logs', [StudyController::class, 'storeLog'])->name('study.logs.store');
+
+    Route::get('/teacher/home', [TeacherHomeController::class, 'index'])
+    ->name('teacher.home');
 });

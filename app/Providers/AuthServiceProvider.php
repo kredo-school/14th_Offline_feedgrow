@@ -14,11 +14,11 @@ class AuthServiceProvider extends BaseAuthServiceProvider
      */
     protected $policies = [
         Post::class => PostPolicy::class,
+         \App\Models\User::class => \App\Policies\UserPolicy::class,
     ];
 
     public function boot(): void
     {
         $this->registerPolicies();
-
     }
 }
