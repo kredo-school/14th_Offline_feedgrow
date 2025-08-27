@@ -16,6 +16,9 @@ use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\StudentController;
 use Symfony\Component\HttpKernel\Profiler\Profile;
 use App\Http\Controllers\StudyController;
+use App\Http\Controllers\TeacherProfileController;
+use App\Http\Controllers\TeacherHomeController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -49,10 +52,10 @@ Route::middleware('auth')->group(function () {
 
     //post
     // Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
-   Route::get   ('/posts/create',       [PostController::class, 'create'])->name('posts.create');
-    Route::post  ('/posts',              [PostController::class, 'store'])->name('posts.store');
-    Route::get   ('/posts/{post}/edit',  [PostController::class, 'edit'])->name('posts.edit');
-    Route::post   ('/posts/{post}',       [PostController::class, 'update'])->name('posts.update');
+    Route::get('/posts/create',       [PostController::class, 'create'])->name('posts.create');
+    Route::post('/posts',              [PostController::class, 'store'])->name('posts.store');
+    Route::get('/posts/{post}/edit',  [PostController::class, 'edit'])->name('posts.edit');
+    Route::post('/posts/{post}',       [PostController::class, 'update'])->name('posts.update');
     Route::delete('/posts/{post}',       [PostController::class, 'destroy'])->name('posts.destroy');
     Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.show');
 
@@ -78,25 +81,45 @@ Route::middleware('auth')->group(function () {
     Route::post('/event/{id}', [EventController::class, 'update'])->name('event.update');
     Route::delete('/event/{id}', [EventController::class, 'delete'])->name('event.delete');
 
-    //profile
+    //student profile
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::get('/profile/{id}', [ProfileController::class, 'show'])->name('profile.show');
     Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
 
     //search|evaluation|graph
-    Route::get('/teacher/evaluations/search', [SkillEvaluationController::class, 'searchForm'])->name('evaluations.search.form')->middleware('auth');
-    Route::get('/teacher/evaluations/results', [SkillEvaluationController::class, 'searchResults'])->name('evaluations.search.results')->middleware('auth');
-    Route::get('/teacher/evaluations/{student}/create', [SkillEvaluationController::class, 'create'])->name('evaluations.create')->middleware('auth');
-    Route::get('/feedbacks', [SkillEvaluationController::class, 'index'])->name('feedbackhistory')->middleware('auth');
-    Route::post('/teacher/evaluations', [SkillEvaluationController::class, 'store'])->name('evaluations.store')->middleware('auth');
+    // Route::get('/teacher/evaluations/search', [SkillEvaluationController::class, 'searchForm'])->name('evaluations.search.form')->middleware('auth');
+    // Route::get('/teacher/evaluations/results', [SkillEvaluationController::class, 'searchResults'])->name('evaluations.search.results')->middleware('auth');
+    // Route::get('/teacher/evaluations/{student}/create', [SkillEvaluationController::class, 'create'])->name('evaluations.create')->middleware('auth');
+    // Route::get('/feedbacks', [SkillEvaluationController::class, 'index'])->name('feedbackhistory')->middleware('auth');
+    // Route::post('/teacher/evaluations', [SkillEvaluationController::class, 'store'])->name('evaluations.store')->middleware('auth');
 
-    Route::get('/notifications',[NotificationController::class, 'index'])->name('notifications.index');
-    Route::get('/notifications/{id}/read',[NotificationController::class, 'read'])->name('notifications.read');
-    Route::post('/notifications/read-all',[NotificationController::class, 'readAll'])->name('notification.readAll');
+    Route::middleware('auth')->prefix('teacher')->group(function () {
+
+        // --- Evaluations (固定パスを先に) ---
+        Route::get('/evaluations/search',   [SkillEvaluationController::class, 'searchForm'])->name('evaluations.search.form');
+        Route::get('/evaluations/results',  [SkillEvaluationController::class, 'searchResults'])->name('evaluations.search.results');
+        Route::get('/evaluations/{student}/create', [SkillEvaluationController::class, 'create'])->name('evaluations.create')
+            ->whereNumber('student');
+        Route::post('/evaluations',         [SkillEvaluationController::class, 'store'])->name('evaluations.store');
+        Route::get('/teacher/students/{student}/evaluations',[SkillEvaluationController::class, 'allEvaluationsForStudent'])->name('teacher.evaluations.all_for_student');
+
+        // --- Profile（本人のみ想定：id不要が◎） ---
+        Route::get('/profile/edit',   [TeacherProfileController::class, 'edit'])->name('teacher.profile.edit');
+        Route::get('/profile/{id}',        [TeacherProfileController::class, 'show'])->name('teacher.profile.show');
+        Route::post('/profile/update', [TeacherProfileController::class, 'update'])->name('teacher.profile.update');
+    });
+
+    Route::get('/feedbacks', [SkillEvaluationController::class, 'index'])->name('feedbackhistory')->middleware('auth');
+
+    Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications.index');
+    Route::get('/notifications/{id}/read', [NotificationController::class, 'read'])->name('notifications.read');
+    Route::post('/notifications/read-all', [NotificationController::class, 'readAll'])->name('notification.readAll');
 
     //Study
-    Route::get('/studylogs/create',[StudyController::class, 'createLog'])->name('study.logs.create');
-    Route::post('/study/goal',[StudyController::class, 'saveGoal'])->name('study.goal.save');
-    Route::post('/study/logs',[StudyController::class, 'storeLog'])->name('study.logs.store');
+    Route::get('/studylogs/create', [StudyController::class, 'createLog'])->name('study.logs.create');
+    Route::post('/study/goal', [StudyController::class, 'saveGoal'])->name('study.goal.save');
+    Route::post('/study/logs', [StudyController::class, 'storeLog'])->name('study.logs.store');
 
+    Route::get('/teacher/home', [TeacherHomeController::class, 'index'])
+    ->name('teacher.home');
 });

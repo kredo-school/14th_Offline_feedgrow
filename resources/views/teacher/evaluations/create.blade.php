@@ -1,134 +1,125 @@
-{{-- resources/views/teacher/evaluations/create.blade.php --}}
-{{-- @extends('layouts.app')
-
-@section('content')
-  <div class="container">
-    <h2>「{{ $student->name }}」さんの評価</h2>
-
-    <form action="{{ route('evaluations.store') }}" method="POST">
-    @csrf
-
-      <input type="hidden" name="student_id" value="{{ $student->id }}">
-
-      <div class="mb-3">
-        <label class="form-label">受けた授業</label>
-        <textarea name="comment" class="form-control" rows="3"></textarea>
-      </div>
-
-      @foreach (['speaking' => '話す', 'listening' => '聞く', 'reading' => '読む', 'writing' => '書く', 'grammar' => '文法'] as $key => $label)
-        <div class="mb-3">
-          <label class="form-label">{{ $label }}（1〜5）</label>
-          <select name="{{ $key }}" class="form-select">
-            <option value="">未評価</option>
-            @for ($i = 1; $i <= 5; $i++)
-              <option value="{{ $i }}">{{ $i }}</option>
-            @endfor
-          </select>
-        </div>
-      @endforeach
-
-
-
-      <button class="btn btn-primary">送信する</button>
-    </form>
-  </div>
-@endsection --}}
-
 @extends('layouts.appTe')
 
 @section('title', 'FeedBack Form')
 
 @section('content')
-    <div class="feedback-page">
-        <div class="feedback-header">
-          <a href="{{ route('teacher.home') }}" class="back-btn back-btn--pill">
-                <span class="chev">←</span> Back
-            </a>
-            <h1 class="feedback-title fw-bold">FEED BACK</h1>
-        </div>
-
-        <form action="{{ route('evaluations.store') }}" method="POST">
-            @csrf
-            <input type="hidden" name="student_id" value="{{ $student->id }}">
-
-
-            <section class="feedback-card">
-                <!-- 顔＋名前（※実データに差し替えてOK） -->
-                <div class="feedback-profile">
-                    <img class="feedback-avatar"
-                        src="https://images.unsplash.com/photo-1527980965255-d3b416303d12?q=80&w=256&auto=format&fit=crop"
-                        alt="student avatar">
-                    <div class="feedback-name">{{ $student->name }} <span class="feedback-subtle">’s Feedback</span></div>
-                </div>
-
-                <!-- 日付・レッスン -->
-                <div class="form-group">
-    <label for="evaluated_at">DATE</label>
-    <input type="text" name="evaluated_at" id="evaluated_at"
-           value="{{ old('evaluated_at') }}" class="blog-date" placeholder="yyyy-mm-dd">
-    @error('evaluated_at') <div class="text-danger small">{{ $message }}</div> @enderror
-  </div>
-
-
-                    {{-- レッスン --}}
-  <div class="feedback-field">
-    <div class="feedback-label">LESSON</div>
-    <select class="feedback-select" name="lesson" aria-label="Lesson">
-      <option value="">lesson</option>
-      <option value="Conversation A" @selected(old('lesson')==='Conversation A')>Conversation A</option>
-      <option value="Business Email" @selected(old('lesson')==='Business Email')>Business Email</option>
-      <option value="Pronunciation" @selected(old('lesson')==='Pronunciation')>Pronunciation</option>
-    </select>
-    @error('lesson') <div class="text-danger small">{{ $message }}</div> @enderror
-  </div>
-
-                <!-- 評価行 -->
-                <div class="feedback-ratings">
-    <div class="feedback-rating-label">Speaking</div>
-    <select class="feedback-select" name="speaking">
-      <option value="" @selected(old('speaking')==='')>-</option>
-      @for ($i=1;$i<=5;$i++) <option value="{{ $i }}" @selected(old('speaking')==$i)>{{ $i }}</option> @endfor
-    </select>
-
-
-                    <div class="feedback-rating-label">Writing</div>
-    <select class="feedback-select" name="writing">
-      <option value="" @selected(old('writing')==='')>-</option>
-      @for ($i=1;$i<=5;$i++) <option value="{{ $i }}" @selected(old('writing')==$i)>{{ $i }}</option> @endfor
-    </select>
-
-                    <div class="feedback-rating-label">Listening</div>
-    <select class="feedback-select" name="listening">
-      <option value="" @selected(old('listening')==='')>-</option>
-      @for ($i=1;$i<=5;$i++) <option value="{{ $i }}" @selected(old('listening')==$i)>{{ $i }}</option> @endfor
-    </select>
-
-                     <div class="feedback-rating-label">Reading</div>
-    <select class="feedback-select" name="reading">
-      <option value="" @selected(old('reading')==='')>-</option>
-      @for ($i=1;$i<=5;$i++) <option value="{{ $i }}" @selected(old('reading')==$i)>{{ $i }}</option> @endfor
-    </select>
-
-                   <div class="feedback-rating-label">Grammar</div>
-    <select class="feedback-select" name="grammar">
-      <option value="" @selected(old('grammar')==='')>-</option>
-      @for ($i=1;$i<=5;$i++) <option value="{{ $i }}" @selected(old('grammar')==$i)>{{ $i }}</option> @endfor
-    </select>
-  </div>
-
-                {{-- コメント --}}
-  <div class="feedback-field" style="margin-top:6px;">
-    <div class="feedback-label">COMMENT <span class="feedback-subtle" style="font-size:12px;margin-left:6px;">(optional)</span></div>
-    <textarea class="feedback-input" rows="4" name="comment" placeholder="Good progress ...">{{ old('comment') }}</textarea>
-    @error('comment') <div class="text-danger small">{{ $message }}</div> @enderror
-  </div>
-
-  <div class="feedback-actions">
-    <button type="submit" class="feedback-btn feedback-btn-blue mt-3">SUBMIT</button>
-  </div>
-</form>
-
+<div class="feedback-page">
+    <div class="feedback-header">
+        <a href="{{ route('teacher.home') }}" class="back-btn back-btn--pill">
+            <span class="chev">←</span> Back
+        </a>
+        <h1 class="feedback-title fw-bold">FEED BACK</h1>
     </div>
+
+    <form action="{{ route('evaluations.store') }}" method="POST">
+        @csrf
+        <input type="hidden" name="student_id" value="{{ $student->id }}">
+
+        <section class="feedback-card">
+            <!-- 生徒プロフィール -->
+           <div class="feedback-profile">
+    @if ($student->profile_image)
+        <img class="feedback-avatar rounded-circle"
+             src="{{ asset('storage/' . $student->profile_image) }}"
+             alt="{{ $student->name }}のプロフィール画像" loading="lazy">
+    @else
+        <i class="fa-solid fa-user feedback-avatar rounded-circle"
+           style="font-size:48px; color:#c7cedc;"></i>
+    @endif
+
+    <div class="feedback-name">
+        {{ $student->name }}
+        <span class="feedback-subtle">’s Feedback</span>
+    </div>
+</div>
+
+            <!-- 日付 -->
+            <div class="form-group">
+                <label for="evaluated_at">DATE</label>
+                <input type="text" name="evaluated_at" id="evaluated_at"
+                       value="{{ old('evaluated_at') }}"
+                       class="blog-date" placeholder="yyyy-mm-dd">
+                @error('evaluated_at')
+                  <div class="text-danger small">{{ $message }}</div>
+                @enderror
+            </div>
+
+            <!-- レッスン -->
+            <div class="feedback-field">
+                <div class="feedback-label">LESSON</div>
+                <select class="feedback-select" name="lesson" aria-label="Lesson">
+                    <option value="">lesson</option>
+                    <option value="Conversation A" @selected(old('lesson')==='Conversation A')>Conversation A</option>
+                    <option value="Business Email" @selected(old('lesson')==='Business Email')>Business Email</option>
+                    <option value="Pronunciation" @selected(old('lesson')==='Pronunciation')>Pronunciation</option>
+                </select>
+                @error('lesson')
+                  <div class="text-danger small">{{ $message }}</div>
+                @enderror
+            </div>
+
+            <!-- 評価 -->
+            <div class="feedback-ratings">
+                <div class="feedback-rating-label">Speaking</div>
+                <select class="feedback-select" name="speaking">
+                  <option value="" @selected(old('speaking')==='')>-</option>
+                  @for ($i=1;$i<=5;$i++)
+                    <option value="{{ $i }}" @selected(old('speaking')==$i)>{{ $i }}</option>
+                  @endfor
+                </select>
+
+                <div class="feedback-rating-label">Writing</div>
+                <select class="feedback-select" name="writing">
+                  <option value="" @selected(old('writing')==='')>-</option>
+                  @for ($i=1;$i<=5;$i++)
+                    <option value="{{ $i }}" @selected(old('writing')==$i)>{{ $i }}</option>
+                  @endfor
+                </select>
+
+                <div class="feedback-rating-label">Listening</div>
+                <select class="feedback-select" name="listening">
+                  <option value="" @selected(old('listening')==='')>-</option>
+                  @for ($i=1;$i<=5;$i++)
+                    <option value="{{ $i }}" @selected(old('listening')==$i)>{{ $i }}</option>
+                  @endfor
+                </select>
+
+                <div class="feedback-rating-label">Reading</div>
+                <select class="feedback-select" name="reading">
+                  <option value="" @selected(old('reading')==='')>-</option>
+                  @for ($i=1;$i<=5;$i++)
+                    <option value="{{ $i }}" @selected(old('reading')==$i)>{{ $i }}</option>
+                  @endfor
+                </select>
+
+                <div class="feedback-rating-label">Grammar</div>
+                <select class="feedback-select" name="grammar">
+                  <option value="" @selected(old('grammar')==='')>-</option>
+                  @for ($i=1;$i<=5;$i++)
+                    <option value="{{ $i }}" @selected(old('grammar')==$i)>{{ $i }}</option>
+                  @endfor
+                </select>
+            </div>
+
+            <!-- コメント -->
+            <div class="feedback-field" style="margin-top:6px;">
+                <div class="feedback-label">COMMENT
+                    <span class="feedback-subtle" style="font-size:12px;margin-left:6px;">(optional)</span>
+                </div>
+                <textarea class="feedback-input" rows="4" name="comment"
+                          placeholder="Good progress ...">{{ old('comment') }}</textarea>
+                @error('comment')
+                  <div class="text-danger small">{{ $message }}</div>
+                @enderror
+            </div>
+
+            <!-- アクション -->
+            <div class="feedback-actions">
+                <button type="submit" class="feedback-btn feedback-btn-blue mt-3">SUBMIT</button>
+            </div>
+        </section>
+    </form>
+</div>
 
     <style>
         /* ---------- layout ---------- */
@@ -214,6 +205,7 @@
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
             padding: clamp(18px, 3vw, 36px);
             color: #222;
+            margin: 0 auto;
         }
 
         /* ---------- header in card ---------- */
@@ -377,14 +369,7 @@
         }
     </style>
 
-    {{-- <script>
-        document.getElementById('feedback-submit')?.addEventListener('click', function(e) {
-            e.preventDefault();
-            alert('Error');
-        });
-    </script> --}}
-{{-- flatpickr --}}
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script>
   flatpickr("#evaluated_at", { dateFormat: "Y-m-d", locale: "en" });

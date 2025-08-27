@@ -21,14 +21,15 @@
     @forelse ($feedbacks as $feedback)
       <div class="feedback-card">
         <div class="profile">
-          @php
-            $avatar = optional($feedback->teacher)?->avatar
-                      ? asset('images/' . $feedback->teacher->avatar)
-                      : asset('images/User-avatar.png'); // デフォルト
-          @endphp
-          <img src="{{ $avatar }}" alt="{{ optional($feedback->teacher)->name ?? 'Teacher' }}" class="avatar">
-          <span>{{ optional($feedback->teacher)->name ?? 'Teacher' }}</span>
-        </div>
+    @if (!empty($feedback->teacher->profile_image))
+        <img src="{{ asset('storage/' . $feedback->teacher->profile_image) }}"
+             alt="{{ $feedback->teacher->name ?? 'Teacher' }}"
+             class="avatar">
+    @else
+        <i class="fa-solid fa-user fa-2x avatar" style="color:#c7cedc;"></i>
+    @endif
+    <span>{{ $feedback->teacher->name ?? 'Teacher' }}</span>
+</div>
 
         <div class="date small">
           {{ optional($feedback->evaluated_at)->format('Y年n月j日 H:i') ?? $feedback->created_at->format('Y年n月j日 H:i') }}

@@ -107,7 +107,15 @@ $weekStart = Carbon::now()->startOfWeek(Carbon::MONDAY);
 
     // 先生用ダッシュボード
     public function teacherHome()
-    {
-        return view('teacher.evaluations.home');
-    }
+{
+    // role=student のユーザーを evaluations リレーション込みで取得
+    $students = \App\Models\User::where('role', 'student')
+        ->with(['evaluations' => function($q){
+            $q->orderByDesc('evaluated_at')
+              ->orderByDesc('created_at'); // 新しい順に
+        }])
+        ->get();
+
+    return view('teacher.evaluations.home', compact('students'));
+}
 }
