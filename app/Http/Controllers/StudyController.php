@@ -62,4 +62,10 @@ class StudyController extends Controller
     $today = now()->toDateString();
     return view('study.create', compact('today'));
 }
+
+public function resetAll()
+{
+    StudyLog::where('user_id', Auth::id())->delete();
+    return back();
+}
 }
