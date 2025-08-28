@@ -10,18 +10,22 @@
     <h1 class="page-title fw-bold">EVALUATIONS — {{ $student->name }}</h1>
   </div>
 
+  <div class="profile-card">
+    
+
+
   <div class="card-container">
     @forelse ($feedbacks as $fb)
       <div class="feedback-card">
         <div class="profile">
-    @if (!empty($fb->teacher->profile_image))
-        <img src="{{ asset('storage/' . $fb->teacher->profile_image) }}"
-             alt="{{ $fb->teacher->name ?? 'Teacher' }}"
+    @if (!empty($fb->student->profile_image))
+        <img src="{{ asset('storage/' . $fb->student->profile_image) }}"
+             alt="{{ $fb->student->name ?? 'Teacher' }}"
              class="avatar">
     @else
         <i class="fa-solid fa-user fa-2x avatar" style="color:#c7cedc;"></i>
     @endif
-    <span>{{ $fb->teacher->name ?? 'Teacher' }}</span>
+    <span>{{ $fb->student->name ?? 'Teacher' }}</span>
 </div>
 
         <div class="date small">

@@ -50,7 +50,9 @@ class TeacherProfileController extends Controller
         $user->update($data);
 
         // return redirect()->route('teacher.profile.edit');
-       return redirect()->route('teacher.profile.show', ['id' => $user->id])
-                     ->with('status', 'Profile updated.');
+       return redirect()
+    ->route('teacher.profile.show', ['id' => $user->id])
+    ->with('status', 'Profile updated successfully!');
+
     }
 }

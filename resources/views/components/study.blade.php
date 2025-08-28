@@ -70,7 +70,7 @@
                 <form method="POST" action="{{ route('study.logs.store') }}" id="quickLogForm"
                     class="sl-inputbar__form">
                     @csrf
-                    <input type="hidden" name="date" value="{{ now()->toDateString() }}">
+                    <input type="hidden" name="studied_at" value="{{ now()->toDateString() }}">
 
                     <div class="sl-hm">
                         <input type="number" name="hours" min="0" step="1" class="sl-input sl-num"
@@ -85,16 +85,22 @@
                         <button type="button" class="sl-chip" data-min="15">+15</button>
                         <button type="button" class="sl-chip" data-min="30">+30</button>
                     </div>
-                </form>
+
             </div>
 
             <!-- ===== 下段：大きめボタン（画像準拠） ===== -->
             <div class="sl-actions">
-                <a href="{{ route('study.logs.create') }}" class="sl-bigbtn sl-bigbtn--primary">ADD LOG</a>
+                {{-- <form method="POST" action="{{ route('study.logs.store') }}" class="row g-3">
+                    @csrf --}}
+                <button type="submit" class="sl-bigbtn sl-bigbtn--secondary" id="resetAllBtn">ADD LOG</button>
+                </form>
 
-                <form method="POST" action="#" id="resetAllForm" class="m-0">
-                    @csrf @method('DELETE')
-                    <button type="submit" class="sl-bigbtn sl-bigbtn--secondary" id="resetAllBtn">RESET ALL</button>
+                <form method="POST" action="{{ route('study.logs.resetAll') }}" id="resetAllForm" class="m-0">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="sl-bigbtn sl-bigbtn--secondary" id="resetAllBtn">
+                        RESET ALL
+                    </button>
                 </form>
             </div>
         </div>
