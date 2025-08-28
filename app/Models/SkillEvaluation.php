@@ -7,7 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class SkillEvaluation extends Model
 {
     protected $fillable = [
-        'teacher_id',  'student_id', 'speaking', 'listening', 'reading', 'writing', 'grammar', 'comment',
+        'teacher_id',  'student_id', 'lesson', 'evaluated_at', 'speaking', 'listening', 'reading', 'writing', 'grammar', 'comment',
+    ];
+
+    protected $casts = [
+        'evaluated_at' => 'date',
     ];
 
     public function teacher()
@@ -19,4 +23,5 @@ class SkillEvaluation extends Model
     {
         return $this->belongsTo(User::class, 'student_id');
     }
+    
 }
