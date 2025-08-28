@@ -19,8 +19,6 @@
         <form class="blog-create-card" method="POST" action="{{ route('posts.update', $post->id) }}"
             enctype="multipart/form-data">
             @csrf
-          
-
 
             <div class="form-group">
                 <h2 for="title">TITLE</h2>
