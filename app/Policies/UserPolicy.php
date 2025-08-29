@@ -7,6 +7,20 @@ use Illuminate\Auth\Access\Response;
 
 class UserPolicy
 {
+    public function viewEmail(User $authUser, User $profileUser)
+    {
+        return $authUser->id === $profileUser->id;
+    }
+
+    public function viewPassword(User $authUser, User $passwordUser)
+    {
+       return $authUser->id === $passwordUser->id;
+    }
+    public function viewEdit(User $authUser, User $EditUser)
+    {
+       return $authUser->id === $EditUser->id;
+    }
+
     public function viewAllEvaluationsForStudent(User $user, User $student): bool
     {
         return $user->role === 'teacher' && $student->role === 'student';

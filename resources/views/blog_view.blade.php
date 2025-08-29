@@ -17,15 +17,17 @@
             </div>
             <!-- 投稿者 -->
             <div class="user-info">
-                <a href="{{ route('profile.show', $post->user->id) }}" class="d-flex align-items-center">
+                <a href="{{ route('profile.show', $post->user->id) }}"
+                    class="d-flex align-items-center text-decoration-none text-dark">
                     @if (optional($post->user)->profile_image)
                         <img class="blog-avatar new rounded-circle" data-user="{{ $post->user_id }}"
                             src="{{ asset('storage/' . optional($post->user)->profile_image) }}"
                             alt="{{ optional($post->user)->name ? $post->user->name . 'の投稿' : 'User' }}" loading="lazy">
                     @else
-                        <i class="fa-solid fa-user blog-avatar new rounded-circle" data-user="{{ $post->user_id }}"></i>
+                        <i class="fa-solid fa-user rounded-circle d-inline-flex align-items-center justify-content-center me-2"
+                            style="width:40px;height:40px;font-size:18px;color:#c7cedc;border:1px solid #888888;"></i>
                     @endif
-                    <span class="fw-bold">{{ $post->user->name }}</span>
+                    <span class="fw-bold ms-2">{{ $post->user->name }}</span>
                 </a>
             </div>
             <!-- 本文 -->
@@ -120,23 +122,23 @@
 
                 </div>
                 @can('update', $post)
-                <div class="menu-wrapper" style="position: relative; text-align: right;">
-                    <button onclick="toggleMenu()" class="menu-btn">⋯</button>
-                    <div id="menu-options" class="menu-options">
+                    <div class="menu-wrapper" style="position: relative; text-align: right;">
+                        <button onclick="toggleMenu()" class="menu-btn">⋯</button>
+                        <div id="menu-options" class="menu-options">
 
-                        <a href="{{ route('posts.edit', $post->id) }}"><i class="fa-solid fa-pen-to-square"></i>
-                            <span class="text-primary">Edit</span></a>
-                            @endcan
-                            @can('delete', $post)
-                        <form action="{{ route('posts.destroy', $post->id) }}" method="POST" style="display:inline;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger"
-                                onclick="return confirm('Do you want to delete it?')">
-                                <i class="fa-solid fa-trash"></i>
-                                <span class="text-danger">Delete</span>
-                            </button>
-                        </form>
+                            <a href="{{ route('posts.edit', $post->id) }}"><i class="fa-solid fa-pen-to-square"></i>
+                                <span class="text-primary">Edit</span></a>
+                        @endcan
+                        @can('delete', $post)
+                            <form action="{{ route('posts.destroy', $post->id) }}" method="POST" style="display:inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger"
+                                    onclick="return confirm('Do you want to delete it?')">
+                                    <i class="fa-solid fa-trash"></i>
+                                    <span class="text-danger">Delete</span>
+                                </button>
+                            </form>
                         @endcan
                     </div>
                 </div>

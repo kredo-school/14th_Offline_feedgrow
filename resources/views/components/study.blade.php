@@ -109,17 +109,39 @@
 
 <style>
     /* レイアウト */
+    /* レイアウト */
     .sl-grid {
         display: grid;
-        grid-template-columns: 1fr 180px;
-        /* 左は可変、右は固定 */
+        grid-template-columns: minmax(0, 1fr) 200px;
+        /* 左:縮め可 / 右:固定 */
         column-gap: 20px;
         row-gap: 14px;
         align-items: start;
     }
 
-    /* ===== タイトル & GOAL ===== */
+    /* カード/右カラム/リングはみ出しOK（切れ防止） */
+    .sl-card {
+        overflow: visible;
+    }
 
+    .sl-right {
+        grid-column: 2 / 3;
+        grid-row: 1 / 3;
+        display: grid;
+        place-items: center;
+        padding: 0;
+        justify-self: end;
+        overflow: visible;
+    }
+
+    .sl-ring {
+        width: 160px;
+        height: 160px;
+        margin-top: 35px;
+        overflow: visible;
+    }
+
+    /* ===== タイトル & GOAL ===== */
     .sl-goal {
         display: flex;
         align-items: center;
@@ -133,7 +155,6 @@
         letter-spacing: .04em;
     }
 
-    /* セレクト（小さめピル） */
     .sl-select-wrap {
         position: relative;
         display: inline-block;
@@ -165,16 +186,25 @@
     }
 
     /* ===== 時間（大きく） ===== */
+    .sl-left {
+        min-width: 0;
+    }
+
+    /* 左カラムを縮め可能に */
     .sl-time {
         display: flex;
         align-items: flex-end;
         gap: 10px;
         margin-top: 20px;
-        margin-left: 30px;
+        margin-left: 10px;
+        /* 30px→10pxで余白確保 */
+        white-space: nowrap;
+        /* 改行させない */
     }
 
     .sl-time__num {
-        font-size: 78px;
+        font-size: clamp(48px, 8vw, 78px);
+        /* 2桁で自動縮小 */
         font-weight: 900;
         line-height: 1;
     }
@@ -187,23 +217,7 @@
         margin-left: 10px;
     }
 
-    /* ===== リング（右上のボックスに近い見た目） ===== */
-    .sl-right {
-        grid-column: 2 / 3;
-        grid-row: 1 / 3;
-        display: grid;
-        place-items: center;
-        padding: 0px;
-        justify-self: end;
-        /* ← 右端に配置 */
-    }
-
-    .sl-ring {
-        width: 160px;
-        height: 160px;
-        margin-top: 35px;
-    }
-
+    /* ===== リング ===== */
     .sl-ring__bg {
         fill: none;
         stroke: rgba(255, 255, 255, .28);
@@ -225,29 +239,21 @@
         stroke: #DCBF7D;
     }
 
-    .sl-ring__text.done {
-        font-size: 9px;
-        font-weight: 900;
-        letter-spacing: .05em;
-        /* ← テキストも金色に */
-    }
-
     .sl-ring__text {
         fill: #cfe6ff;
         font-size: 18px;
         font-weight: 900;
-
     }
 
-    /* ===== 入力バー（横長の濃い帯） ===== */
+    .sl-ring__text.done {
+        font-size: 9px;
+        font-weight: 900;
+        letter-spacing: .05em;
+    }
+
+    /* ===== 入力バー ===== */
     .sl-inputbar {
         grid-column: 1 / -1;
-        /* カード幅いっぱい */
-        /* background: rgba(12, 48, 122, .38);
-        border: 1px solid rgba(255, 255, 255, .15);
-        border-radius: 10px; */
-
-        /* box-shadow: inset 0 1px 0 rgba(255, 255, 255, .12); */
     }
 
     .sl-inputbar__form {
@@ -310,7 +316,7 @@
         background: rgba(255, 255, 255, .18);
     }
 
-    /* ===== ボタン（大きめ） ===== */
+    /* ===== ボタン ===== */
     .sl-actions {
         grid-column: 1 / -1;
         display: flex;
@@ -331,7 +337,6 @@
         text-decoration: none;
         color: #fff;
         border: 1px solid rgba(255, 255, 255, .35);
-        /* box-shadow: 0 8px 20px rgba(0, 0, 0, .2), inset 0 1px 0 rgba(255, 255, 255, .25); */
         transition: transform .1s ease, box-shadow .15s ease, filter .15s ease;
     }
 
@@ -348,7 +353,7 @@
         filter: brightness(1.03);
     }
 
-    /* アニメ（増加時の数字ポップ） */
+    /* アニメ */
     .sl-pop {
         animation: slPop .28s ease;
     }
@@ -386,6 +391,7 @@
             min-width: 46%;
             flex: 1;
         }
+    }
     }
 </style>
 
