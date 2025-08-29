@@ -42,7 +42,7 @@
 
                     <div class="form-buttons">
                         {{-- <button type="submit" class="btn save-btn">EDIT</button> --}}
-                       <a href="{{ route('profile.edit') }}" class="btn save-btn">EDIT</a>
+                        <a href="{{ route('profile.edit') }}" class="btn save-btn">EDIT</a>
                     </div>
                 </div>
             </form>
@@ -50,58 +50,105 @@
 
 
 
-       <div class="my-posts">
-    @forelse($user->posts as $post)
-        <div class="post-card">
+        <div class="my-posts">
+            @forelse($user->posts as $post)
+                <div class="post-card">
 
-            {{-- 画像 --}}
-            @if ($post->image_path)
-                <img src="{{ asset('storage/' . $post->image_path) }}"
-                     alt="{{ $post->title }}"
-                     class="post-thumbnail">
-            @else
-                <img src="{{ asset('images/default-thumbnail.png') }}"
-                     alt="No Image"
-                     class="post-thumbnail">
-            @endif
+                    {{-- 画像 --}}
+                    @if ($post->image_path)
+                        <img src="{{ asset('storage/' . $post->image_path) }}" alt="{{ $post->title }}"
+                            class="post-thumbnail">
+                    @else
+                        <img src="{{ asset('images/default-thumbnail.png') }}" alt="No Image" class="post-thumbnail">
+                    @endif
 
-            {{-- タイトル --}}
-            <h3>
-                <a href="{{ route('posts.show', $post->id) }}">
-                    {{ $post->title }}
-                </a>
-            </h3>
+                    {{-- タイトル --}}
+                    <div class="post-header">
+                        <h3 class="post-title">
+                            <a href="{{ route('posts.show', $post->id) }}">
+                                {{ $post->title }}
+                            </a>
+                        </h3>
 
-            {{-- 権限がある場合だけ編集/削除メニューを表示 --}}
-            @can('update', $post)
-                <div class="menu-wrapper" style="position: relative; text-align: right;">
-                    <button onclick="toggleMenu()" class="menu-btn">⋯</button>
-                    <div id="menu-options" class="menu-options">
-                        <a href="{{ route('posts.edit', $post->id) }}">
-                            <i class="fa-solid fa-pen-to-square"></i>
-                            <span class="text-primary">Edit</span>
-                        </a>
+                        {{-- 権限がある場合だけ編集/削除メニューを表示 --}}
+                        {{-- @can('update', $post)
+                        <div class="menu-wrapper" style="position: relative; text-align: right;">
+                            <button onclick="toggleMenu()" class="menu-btn">⋯</button>
+                            <div id="menu-options" class="menu-options">
+                                <a href="{{ route('posts.edit', $post->id) }}">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                    <span class="text-primary">Edit</span>
+                                </a>
+                            </div>
+                        </div>
+                    @endcan
+
+                    @can('delete', $post)
+                        <form action="{{ route('posts.destroy', $post->id) }}" method="POST" style="display:inline;">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger" onclick="return confirm('Do you want to delete it?')">
+                                <i class="fa-solid fa-trash"></i>
+                                <span class="text-danger">Delete</span>
+                            </button>
+                        </form>
+                    @endcan --}}
+                        @canany(['update', 'delete'], $post)
+                            <div class="menu-wrapper" style="position: relative; text-align: right;">
+                                <!-- ⋯ ボタン -->
+                                <button onclick="toggleMenu(this)" type="button" class="menu-btn">⋯</button>
+
+                                <!-- メニュー -->
+                                <div class="menu-options">
+                                    @can('update', $post)
+                                        <a href="{{ route('posts.edit', $post->id) }}">
+                                            <i class="fa-solid fa-pen-to-square"></i>
+                                            <span class="text-primary">Edit</span>
+                                        </a>
+                                    @endcan
+
+                                    @can('delete', $post)
+                                        <form action="{{ route('posts.destroy', $post->id) }}" method="POST"
+                                            onsubmit="return confirm('Do you want to delete it?')">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="menu-item text-danger">
+                                                <i class="fa-solid fa-trash"></i>
+                                                Delete
+                                            </button>
+                                        </form>
+                                    @endcan
+                                </div>
+                            </div>
+                        @endcanany
                     </div>
                 </div>
-            @endcan
-
-            @can('delete', $post)
-                <form action="{{ route('posts.destroy', $post->id) }}"
-                      method="POST"
-                      style="display:inline;">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-danger"
-                        onclick="return confirm('Do you want to delete it?')">
-                        <i class="fa-solid fa-trash"></i>
-                        <span class="text-danger">Delete</span>
-                    </button>
-                </form>
-            @endcan
-
+            @empty
+                <p class="blog-yet">No blog posts yet.</p>
+            @endforelse
         </div>
-    @empty
-        <p>No blog posts yet.</p>
-    @endforelse
-</div>
+
+
+        <script>
+            function toggleMenu(button) {
+                const menu = button.nextElementSibling;
+                const isVisible = menu.style.display === "block";
+
+                // 全部閉じる
+                document.querySelectorAll(".menu-options").forEach(m => m.style.display = "none");
+
+                // 押したやつだけ開く
+                if (!isVisible) {
+                    menu.style.display = "block";
+                }
+            }
+
+            // 画面クリックしたら閉じる
+            document.addEventListener("click", (e) => {
+                if (!e.target.closest(".menu-wrapper")) {
+                    document.querySelectorAll(".menu-options").forEach(m => m.style.display = "none");
+                }
+            });
+        </script>
+
     @endsection

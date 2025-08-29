@@ -12,8 +12,8 @@
     </div>
   @endif
 
-  <form method="POST" action="{{ route('study.logs.store') }}" class="row g-3">
-    @csrf
+  {{-- <form method="POST" action="{{ route('study.logs.store') }}" class="row g-3">
+    @csrf --}}
     <div class="col-md-4">
       <label class="form-label">日付</label>
       <input type="date" name="studied_at" class="form-control" value="{{ old('studied_at', $today) }}" required>

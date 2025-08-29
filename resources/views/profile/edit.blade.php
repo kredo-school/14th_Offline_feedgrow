@@ -1,8 +1,12 @@
+{{-- resources/views/profile/edit.blade.php --}}
 @extends('layouts.app')
+
 @section('content')
-    <link rel="stylesheet" href="{{ asset('css/profile.css') }}">
-    <div class="profile-container">
-        <div class="profile-header">
+
+<link rel="stylesheet" href="{{ asset('css/profile.css') }}">
+
+<div class="profile-container">
+    <div class="profile-header">
             <a href="{{ route('student.home') }}" class="back-btn back-btn--pill">
                 <span class="chev">←</span> Back
             </a>
@@ -51,3 +55,6 @@
         </div>
     </div>
 @endsection
+
+
+

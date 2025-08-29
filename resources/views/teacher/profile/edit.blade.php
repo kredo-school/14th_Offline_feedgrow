@@ -3,7 +3,7 @@
     <link rel="stylesheet" href="{{ asset('css/profile.css') }}">
     <div class="profile-container">
         <div class="profile-header">
-            <a href="{{ route('student.home') }}" class="back-btn back-btn--pill">
+            <a href="{{ route('teacher.home') }}" class="back-btn back-btn--pill">
                 <span class="chev">←</span> Back
             </a>
             <h1 class="profile-title fw-bold">PROFILE</h1>

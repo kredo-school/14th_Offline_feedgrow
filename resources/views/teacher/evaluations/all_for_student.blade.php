@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="{{ asset('css/profile.css') }}">
     <div class="profile-container">
         <div class="profile-header">
-            <a href="{{ route('student.home') }}" class="back-btn back-btn--pill">
+            <a href="{{ route('teacher.home') }}" class="back-btn back-btn--pill">
                 <span class="chev">←</span> Back
             </a>
             <h1 class="profile-title fw-bold">PROFILE</h1>
@@ -34,20 +34,10 @@
                 </div>
             </form>
         </div>
-        <div class="main-section">
-            <div class="card-container">
-                @forelse ($feedbacks as $fb)
+        <div class="my-posts">
+            @forelse ($feedbacks as $fb)
+                <div class="post-card">
                     <div class="feedback-card">
-                        {{-- <div class="profile">
-                            @if (!empty($fb->teacher->profile_image))
-                                <img src="{{ asset('storage/' . $fb->teacher->profile_image) }}"
-                                    alt="{{ $fb->teacher->name ?? 'Teacher' }}" class="avatar">
-                            @else
-                                <i class="fa-solid fa-user fa-2x avatar" style="color:#c7cedc;"></i>
-                            @endif
-                            <span>{{ $fb->teacher->name ?? 'Teacher' }}</span>
-                        </div> --}}
-
                         <div class="date small">
                             {{ optional($fb->evaluated_at)->format('Y年n月j日 H:i') ?? $fb->created_at->format('Y年n月j日 H:i') }}
                         </div>
@@ -68,9 +58,10 @@
                             <div class="comment"><small>Comment:</small> {{ $fb->comment }}</div>
                         @endif
                     </div>
-                @empty
-                    <p>No evaluations have been recorded yet.</p>
-                @endforelse
-            </div>
+                </div>
+            @empty
+                <p>No evaluations have been recorded yet.</p>
+            @endforelse
         </div>
-    @endsection
+    </div>
+@endsection

@@ -116,9 +116,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/notifications/read-all', [NotificationController::class, 'readAll'])->name('notification.readAll');
 
     //Study
-    Route::get('/studylogs/create', [StudyController::class, 'createLog'])->name('study.logs.create');
-    Route::post('/study/goal', [StudyController::class, 'saveGoal'])->name('study.goal.save');
-    Route::post('/study/logs', [StudyController::class, 'storeLog'])->name('study.logs.store');
+    Route::post('/study/goal/save', [StudyController::class, 'saveGoal'])->name('study.goal.save');
+Route::post('/study/logs', [StudyController::class, 'storeLog'])->name('study.logs.store');
+Route::delete('/study/logs', [StudyController::class, 'resetAll'])->name('study.logs.resetAll');
 
     Route::get('/teacher/home', [TeacherHomeController::class, 'index'])
     ->name('teacher.home');
