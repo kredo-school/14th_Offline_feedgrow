@@ -46,9 +46,8 @@
                     <label>INTRODUCTION</label>
                     <div class="profile-textarea">{{ $user->introduction }}</div>
 
-                    @can('viewEdit', 'user')
+                    @can('viewEdit', $user)
                         <div class="form-buttons">
-                            {{-- <button type="submit" class="btn save-btn">EDIT</button> --}}
                             <a href="{{ route('profile.edit') }}" class="btn save-btn">EDIT</a>
                         </div>
                     @endcan

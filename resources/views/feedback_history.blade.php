@@ -32,7 +32,7 @@
 </div>
 
         <div class="date small">
-          {{ optional($feedback->evaluated_at)->format('Y年n月j日 H:i') ?? $feedback->created_at->format('Y年n月j日 H:i') }}
+          {{ optional($feedback->evaluated_at)->format('Y年n月j日') ?? $feedback->created_at->format('Y年n月j日') }}
         </div>
 
         <div class="lesson">
