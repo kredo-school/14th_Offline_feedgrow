@@ -26,82 +26,85 @@
                     <label>NAME</label>
                     <p>{{ $user->name }}</p>
 
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>EMAIL</label>
-                            <p>{{ $user->email }}</p>
+                    @can('viewEmail', $user)
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>EMAIL</label>
+                                <p>{{ $user->email }}</p>
+                            </div>
+                        @endcan
+
+                        @can('viewPassword', $user)
+                            <div class="form-group">
+                                <label>PASSWORD</label>
+                                <p>・・・・・・・・</p>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label>PASSWORD</label>
-                            <p>・・・・・・・・</p>
-                        </div>
-                    </div>
+                    @endcan
+
 
                     <label>INTRODUCTION</label>
                     <div class="profile-textarea">{{ $user->introduction }}</div>
 
-                    <div class="form-buttons">
-                        {{-- <button type="submit" class="btn save-btn">EDIT</button> --}}
-                       <a href="{{ route('profile.edit') }}" class="btn save-btn">EDIT</a>
-                    </div>
+                    @can('viewEdit', 'user')
+                        <div class="form-buttons">
+                            {{-- <button type="submit" class="btn save-btn">EDIT</button> --}}
+                            <a href="{{ route('profile.edit') }}" class="btn save-btn">EDIT</a>
+                        </div>
+                    @endcan
+
                 </div>
             </form>
         </div>
 
 
 
-       <div class="my-posts">
-    @forelse($user->posts as $post)
-        <div class="post-card">
+        <div class="my-posts">
+            @forelse($user->posts as $post)
+                <div class="post-card">
 
-            {{-- 画像 --}}
-            @if ($post->image_path)
-                <img src="{{ asset('storage/' . $post->image_path) }}"
-                     alt="{{ $post->title }}"
-                     class="post-thumbnail">
-            @else
-                <img src="{{ asset('images/default-thumbnail.png') }}"
-                     alt="No Image"
-                     class="post-thumbnail">
-            @endif
+                    {{-- 画像 --}}
+                    @if ($post->image_path)
+                        <img src="{{ asset('storage/' . $post->image_path) }}" alt="{{ $post->title }}"
+                            class="post-thumbnail">
+                    @else
+                        <img src="{{ asset('images/default-thumbnail.png') }}" alt="No Image" class="post-thumbnail">
+                    @endif
 
-            {{-- タイトル --}}
-            <h3>
-                <a href="{{ route('posts.show', $post->id) }}">
-                    {{ $post->title }}
-                </a>
-            </h3>
-
-            {{-- 権限がある場合だけ編集/削除メニューを表示 --}}
-            @can('update', $post)
-                <div class="menu-wrapper" style="position: relative; text-align: right;">
-                    <button onclick="toggleMenu()" class="menu-btn">⋯</button>
-                    <div id="menu-options" class="menu-options">
-                        <a href="{{ route('posts.edit', $post->id) }}">
-                            <i class="fa-solid fa-pen-to-square"></i>
-                            <span class="text-primary">Edit</span>
+                    {{-- タイトル --}}
+                    <h3>
+                        <a href="{{ route('posts.show', $post->id) }}">
+                            {{ $post->title }}
                         </a>
-                    </div>
+                    </h3>
+
+                    {{-- 権限がある場合だけ編集/削除メニューを表示 --}}
+                    @can('update', $post)
+                        <div class="menu-wrapper" style="position: relative; text-align: right;">
+                            <button onclick="toggleMenu()" class="menu-btn">⋯</button>
+                            <div id="menu-options" class="menu-options">
+                                <a href="{{ route('posts.edit', $post->id) }}">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                    <span class="text-primary">Edit</span>
+                                </a>
+                            </div>
+                        </div>
+                    @endcan
+
+                    @can('delete', $post)
+                        <form action="{{ route('posts.destroy', $post->id) }}" method="POST" style="display:inline;">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger" onclick="return confirm('Do you want to delete it?')">
+                                <i class="fa-solid fa-trash"></i>
+                                <span class="text-danger">Delete</span>
+                            </button>
+                        </form>
+                    @endcan
+
                 </div>
-            @endcan
-
-            @can('delete', $post)
-                <form action="{{ route('posts.destroy', $post->id) }}"
-                      method="POST"
-                      style="display:inline;">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-danger"
-                        onclick="return confirm('Do you want to delete it?')">
-                        <i class="fa-solid fa-trash"></i>
-                        <span class="text-danger">Delete</span>
-                    </button>
-                </form>
-            @endcan
-
+            @empty
+                <p>No blog posts yet.</p>
+            @endforelse
         </div>
-    @empty
-        <p>No blog posts yet.</p>
-    @endforelse
-</div>
     @endsection
