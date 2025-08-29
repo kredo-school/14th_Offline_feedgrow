@@ -60,7 +60,7 @@
                 @else
                     {{-- 通知ベル（生徒のみ） --}}
                     @if (Auth::user()->role === 'student')
-                        <div class="position-relative me-2 mt-1 dropdown">
+                        <div class="position-relative me-3 mt-1 dropdown">
                             <i class="fa-solid fa-bell fa-lg text-secondary"></i>
                             <a class="nav-link position-absolute top-0 start-0 w-100 h-100 p-0" href="#"
                                 role="button" data-bs-toggle="dropdown" aria-expanded="false"></a>
