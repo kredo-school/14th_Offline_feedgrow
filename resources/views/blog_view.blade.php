@@ -13,7 +13,10 @@
             <!-- 投稿タイトルと日付 -->
             <div class="title-wrapper">
                 <h2 class="post-title">{{ $post['title'] }}</h2>
-                <small class="text-muted post-date" style="font-size: 14px;">{{ $post['created_at'] }}</small>
+                {{-- <small class="text-muted post-date" style="font-size: 14px;">{{ $post['created_at'] }}</small> --}}
+                <div class="text-muted post-date" style="font-size:18px;">
+                    {{ $post->created_at->format('Y-m-d') }}
+                </div>
             </div>
             <!-- 投稿者 -->
             <div class="user-info">
