@@ -60,8 +60,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.show');
 
     //like
-    Route::post('/posts/{id}/like', [LikeController::class, 'store'])->name('likes.store');
-    Route::delete('/posts/{id}/like', [LikeController::class, 'destroy'])->name('likes.destroy');
+Route::post   ('/posts/{id}/likes', [LikeController::class, 'store'])->name('likes.store');
+Route::delete ('/posts/{id}/likes', [LikeController::class, 'destroy'])->name('likes.destroy');
+
 
     //comment
     Route::post('/posts/{id}/comments', [CommentController::class, 'store'])
