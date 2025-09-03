@@ -112,9 +112,6 @@
                                 @empty
                                     <li><span class="dropdown-item small text-muted">No unread messages</span></li>
                                 @endforelse
-
-                                <li><a class="dropdown-item" href="{{ route('notifications.index') }}">View all
-                                        notifications</a></li>
                             </ul>
                         </div>
                     @endif

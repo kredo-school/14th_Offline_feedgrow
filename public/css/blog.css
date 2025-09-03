@@ -36,6 +36,7 @@ html,body {
   box-shadow: 1px 1px 2px rgba(0,0,0,0.2);
   font-weight: 800;
   transition:.2s;
+
 }
 .back-btn--pill .chev{ display:inline-block; transform: translateX(0); transition:.2s; }
 .back-btn--pill:hover{ transform: translateY(-1px); box-shadow: 0 6px 14px rgba(0,0,0,.2);}
@@ -136,7 +137,7 @@ html,body {
         color: #444;
     }
 
-    .menu-btn {
+    /* .menu-btn {
     background: none;
     border: none;
     font-size: 24px;
@@ -180,7 +181,109 @@ html,body {
     .menu-options button:hover {
         background-color: #f0f0f0;
         border-radius: 4px;
+    } */
+
+    .comment-menu{
+    min-width: 360px;
+    max-height: 320px;
+    overflow-y: auto;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     }
+
+    /* 1件ぶん */
+    .cmt{ padding: 10px 2px 12px; }
+    .cmt + .cmt{
+    border-top: 1px solid #1D80E7;
+    margin-top: 8px; padding-top: 12px;
+    }
+
+    /* ヘッダー行 */
+    .cmt-avatar{
+    width: 45px; height: 45px; border-radius: 50%;
+    object-fit: cover; background: #e9eef9;
+    display: grid; place-items: center; font-size: 14px; color:#7a8aa6;
+    }
+    .cmt-name{ font-weight: 700; }
+    .cmt-time{ font-size: .75rem; color:#8aa0b6; }
+
+    /* 本文 */
+    .cmt-body{ margin-left: 38px; margin-top: 4px; white-space: pre-wrap; color:#222; }
+
+    /* ゴミ箱アイコンの削除ボタン */
+    .cmt-del{
+    border: 0; background: transparent; padding: 6px; border-radius: 10px;
+    }
+    .cmt-del i{
+    font-size: 16px; color:#aeb8c5; transition: color .15s, transform .1s;
+    }
+    .cmt-del:hover i{ color:#e23b3b; transform: translateY(-1px); }
+
+    /* 入力行 */
+    .comment-form{ display:flex; gap:8px; }
+    .comment-input{ border-radius: 10px; }
+    .comment-send{
+    padding: .48rem .9rem; border-radius: 12px; font-weight: 800; color:#fff;
+    border: 1px solid rgba(255,255,255,.35);
+    background: linear-gradient(180deg,#2F7EE5 0%, #1D5BCD 100%);
+    transition: transform .1s, filter .15s;
+    }
+    .comment-send:hover{ transform: translateY(-1px); filter: brightness(1.03); }
+
+
+    .menu-btn {
+  background: none; border: none; font-size: 24px; cursor: pointer; color: #333;
+    }
+
+    /* 閉じているときの基本 */
+    .menu-options {
+    display: none;                /* ← デフォルト非表示 */
+    position: absolute; right: 0; top: 30px;
+    background: #fff; border: 1px solid #ccc;
+    padding: 6px;                 /* 余白をまとめて管理 */
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    z-index: 10; width: 100px;
+    gap: 6px;                     /* アイコンの間隔 */
+    align-items: center;
+    justify-content: center;      /* 中央に横並び */
+    }
+
+    /* 開いている状態 */
+    .menu-options.is-open {
+    display: flex;                /* ← ここで表示 */
+    }
+
+    /* 子要素は横並びに必要最小だけ占める */
+    .menu-options a,
+    .menu-options form{
+    display: inline-block;        /* ← 幅100%を解除 */
+    margin: 0;
+    }
+
+    /* アイコンボタン共通（Edit/Del） */
+    .menu-options .icon-btn {
+    display: inline-grid; place-items: center;
+    width: 32px; height: 32px; padding: 0;
+    border: 0;margin-right: 3px;
+    background: transparent;      /* ← これを明示 */
+    box-shadow: none;             /* ← 影が残る場合 */
+    }
+
+    .menu-options .icon-btn i{ font-size: 16px; }
+
+    .icon-edit i{
+    font-size: 16px; color:#aeb8c5; transition: color .15s, transform .1s;
+    }
+    
+    .icon-edit:hover i{ color:#1D80E7; transform: translateY(-1px); }
+
+    .icon-danger i{
+    font-size: 16px; color:#aeb8c5; transition: color .15s, transform .1s;
+    }
+
+    .icon-danger:hover i{ color:#e23b3b; transform: translateY(-1px); }
+
+
 
 /* -------------------------------------------------------------------------------------------------------------------- */
 

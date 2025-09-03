@@ -2,7 +2,7 @@
 <div class="box blog-section">
     <div class="d-flex  justify-content-between align-items-center blog-header">
         <div class="d-flex">
-            <i class="fa-solid fa-blog fa-2x" style="color: white;"></i>
+            <i class="fa-solid fa-blog fa-2x mt-1" style="color: white;"></i>
             <h2 class="ms-2 fw-bold">BLOG</h2>
         </div>
         <button class="add-btn" onclick="window.location.href='{{ route('posts.create') }}'">

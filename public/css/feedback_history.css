@@ -96,3 +96,21 @@ html,body {
     padding: 0;
     margin-top: 10px;
 }
+
+.post-card.empty{
+  display: flex;
+  flex-direction: column;   /* アイコン＋テキスト縦並び */
+  justify-content: center;  /* 縦中央 */
+  align-items: center;      /* 横中央 */
+  min-height: 220px;
+  background: transparent;  /* ← 背景を透明に */
+  box-shadow: none;         /* ← カード影も消したい場合 */
+  border: 2px dashed #ccc;  /* 枠が欲しければ（任意） */
+  color: #fff;
+}
+
+.post-card.empty .empty-inner{
+  text-align:center;
+  padding:0;
+}
+.post-card.empty i{ opacity:.6; margin-bottom:6px; }
