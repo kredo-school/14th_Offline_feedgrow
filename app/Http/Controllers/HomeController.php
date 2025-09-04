@@ -40,22 +40,22 @@ class HomeController extends Controller
 
         $materials = match ($level) {
             'Beginner' => [
-                'speaking'  => 'Beginner speaking',
-                'writing'   => 'Beginner writing',
-                'listening' => 'Beginner listening',
-                'reading'   => 'Beginner reading',
+                'speaking'  => 'Basic English',
+                'writing'   => 'New Topic Conversation',
+                'listening' => 'New Daily English',
+                'reading'   => 'Vocabulary Builder',
             ],
             'Intermediate' => [
-                'speaking'  => 'Intermediate speaking',
-                'writing'   => 'Intermediate writing',
-                'listening' => 'Intermediate listening',
-                'reading'   => 'Intermediate reading',
+                'speaking'  => 'Conversation (Intermediate)',
+                'writing'   => 'Business English (Intermediate)',
+                'listening' => 'English Grammar (Intermediate)',
+                'reading'   => 'Intermediate Pronunciation',
             ],
             default => [
-                'speaking'  => 'Advanced speaking',
-                'writing'   => 'Advanced writing',
-                'listening' => 'Advanced listening',
-                'reading'   => 'Advanced reading',
+                'speaking'  => 'Conversation (Advanced)',
+                'writing'   => 'Business English (Advanced)',
+                'listening' => 'English Grammar (Advanced)',
+                'reading'   => 'Advanced Pronunciation',
             ],
         };
 
@@ -72,50 +72,68 @@ class HomeController extends Controller
 
         $posts = Post::with('user')->orderByDesc('created_at')->take(30)->get();
 
-$weekStart = Carbon::now()->startOfWeek(Carbon::MONDAY);
-    $weekEnd   = (clone $weekStart)->endOfWeek(Carbon::SUNDAY);
+        $weekStart = Carbon::now()->startOfWeek(Carbon::MONDAY);
+        $weekEnd   = (clone $weekStart)->endOfWeek(Carbon::SUNDAY);
 
-    $goal = StudyGoal::where('user_id', $studentId)
-        ->where('week_start_date', $weekStart->toDateString())
-        ->first();
+        $goal = StudyGoal::where('user_id', $studentId)
+            ->where('week_start_date', $weekStart->toDateString())
+            ->first();
 
-    $weekMinutes = StudyLog::where('user_id', $studentId)
-        ->whereBetween('studied_at', [$weekStart->toDateString(), $weekEnd->toDateString()])
-        ->sum('minutes');
+        $weekMinutes = StudyLog::where('user_id', $studentId)
+            ->whereBetween('studied_at', [$weekStart->toDateString(), $weekEnd->toDateString()])
+            ->sum('minutes');
 
-    $totalMinutes = StudyLog::where('user_id', $studentId)->sum('minutes');
+        $totalMinutes = StudyLog::where('user_id', $studentId)->sum('minutes');
 
-    $target   = $goal?->target_minutes ?? 0;
-    $progress = $target > 0 ? floor($weekMinutes * 100 / $target) : 0;
-    if ($progress > 100) $progress = 100;
-    $remaining = max(0, $target - $weekMinutes);
+        $target   = $goal?->target_minutes ?? 0;
+        $progress = $target > 0 ? floor($weekMinutes * 100 / $target) : 0;
+        if ($progress > 100) $progress = 100;
+        $remaining = max(0, $target - $weekMinutes);
 
-    $logs = StudyLog::where('user_id', $studentId)
-        ->orderBy('studied_at','desc')->orderBy('created_at','desc')
-        ->paginate(20);
+        $logs = StudyLog::where('user_id', $studentId)
+            ->orderBy('studied_at', 'desc')->orderBy('created_at', 'desc')
+            ->paginate(20);
 
-    // 専用ビューに“両方”渡す
-    return view('home', compact(
-        // 英語スキル
-        'speakingAvg','writingAvg','listeningAvg','readingAvg','grammarAvg',
-        'overallAvg','level','materials','progressRatio','todayCount','dailyTarget','posts',
-        // 学習
-        'goal','weekStart','weekEnd','weekMinutes','totalMinutes','progress','remaining','target','logs'
-    ));
-}
+        // 専用ビューに“両方”渡す
+        return view('home', compact(
+            // 英語スキル
+            'speakingAvg',
+            'writingAvg',
+            'listeningAvg',
+            'readingAvg',
+            'grammarAvg',
+            'overallAvg',
+            'level',
+            'materials',
+            'progressRatio',
+            'todayCount',
+            'dailyTarget',
+            'posts',
+            // 学習
+            'goal',
+            'weekStart',
+            'weekEnd',
+            'weekMinutes',
+            'totalMinutes',
+            'progress',
+            'remaining',
+            'target',
+            'logs'
+        ));
+    }
 
 
     // 先生用ダッシュボード
     public function teacherHome()
-{
-    // role=student のユーザーを evaluations リレーション込みで取得
-    $students = \App\Models\User::where('role', 'student')
-        ->with(['evaluations' => function($q){
-            $q->orderByDesc('evaluated_at')
-              ->orderByDesc('created_at'); // 新しい順に
-        }])
-        ->get();
+    {
+        // role=student のユーザーを evaluations リレーション込みで取得
+        $students = \App\Models\User::where('role', 'student')
+            ->with(['evaluations' => function ($q) {
+                $q->orderByDesc('evaluated_at')
+                    ->orderByDesc('created_at'); // 新しい順に
+            }])
+            ->get();
 
-    return view('teacher.evaluations.home', compact('students'));
-}
+        return view('teacher.evaluations.home', compact('students'));
+    }
 }

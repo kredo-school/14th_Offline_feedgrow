@@ -46,12 +46,29 @@
                     <!-- レッスン -->
                     <div class="form-group">
                         <div class="feedback-label">LESSON</div>
-                        <select class="feedback-select" name="lesson" aria-label="Lesson">
+                        <select class="feedback-select @error('lesson') is-invalid @enderror" name="lesson"
+                            aria-label="Lesson">
                             <option value="">lesson</option>
-                            <option value="Intermediate Listening & Speaking" @selected(old('lesson') === 'Intermediate Listening & Speaking')>Intermediate Listening & Speaking</option>
-                            <option value="Business Email" @selected(old('lesson') === 'Business Email')>Business Email</option>
-                            <option value="Pronunciation" @selected(old('lesson') === 'Pronunciation')>Pronunciation</option>
+                            <option value="Basic English" @selected(old('lesson') === 'Basic English')>Basic English
+                            </option>
+                            <option value="New Topic Conversation" @selected(old('lesson') === 'New Topic Conversation')>New Topic Conversation
+                            </option>
+                            <option value="New Daily English" @selected(old('lesson') === 'New Daily English')>New Daily English</option>
+                            <option value="Vocabulary Builder" @selected(old('lesson') === 'Vocabulary Builder')>Vocabulary Builder</option>
+                            <option value="Conversation (Intermediate)" @selected(old('lesson') === 'Conversation (Intermediate)')>Conversation
+                                (Intermediate)</option>
+                            <option value="Business English (Intermediate)" @selected(old('lesson') === 'Business English (Intermediate)')>Business English
+                                (Intermediate)</option>
+                            <option value="English Grammar (Intermediate)" @selected(old('lesson') === 'English Grammar (Intermediate)')>English Grammar
+                                (Intermediate)</option>
+                            <option value="Intermediate Pronunciation" @selected(old('lesson') === 'Intermediate Pronunciation')>Intermediate Pronunciation</option>
+                             <option value="Conversation (Advanced)" @selected(old('lesson') === 'Conversation (Advanced)')>Conversation (Advanced)</option>
+                             <option value="Business English (Advanced)" @selected(old('lesson') === 'Business English (Advanced)')>Business English (Advanced)</option>
+                             <option value="English Grammar (Advanced)" @selected(old('lesson') === 'English Grammar (Advanced)')>English Grammar (Advanced)</option>
+                             <option value="Advanced Pronunciation" @selected(old('lesson') === 'Advanced Pronunciation')>Advanced Pronunciation</option>
+
                         </select>
+
                         @error('lesson')
                             <div class="text-danger small">{{ $message }}</div>
                         @enderror
@@ -66,7 +83,11 @@
                         @for ($i = 1; $i <= 5; $i++)
                             <option value="{{ $i }}" @selected(old('speaking') == $i)>{{ $i }}</option>
                         @endfor
+                        @error('speaking')
+                            <div class="text-danger small">{{ $message }}</div>
+                        @enderror
                     </select>
+
 
                     <div class="feedback-rating-label">Writing</div>
                     <select class="feedback-select" name="writing">
@@ -74,7 +95,11 @@
                         @for ($i = 1; $i <= 5; $i++)
                             <option value="{{ $i }}" @selected(old('writing') == $i)>{{ $i }}</option>
                         @endfor
+                        @error('writing')
+                            <div class="text-danger small">{{ $message }}</div>
+                        @enderror
                     </select>
+
 
                     <div class="feedback-rating-label">Listening</div>
                     <select class="feedback-select" name="listening">
@@ -82,7 +107,11 @@
                         @for ($i = 1; $i <= 5; $i++)
                             <option value="{{ $i }}" @selected(old('listening') == $i)>{{ $i }}</option>
                         @endfor
+                        @error('Listening')
+                            <div class="text-danger small">{{ $message }}</div>
+                        @enderror
                     </select>
+
 
                     <div class="feedback-rating-label">Reading</div>
                     <select class="feedback-select" name="reading">
@@ -90,7 +119,11 @@
                         @for ($i = 1; $i <= 5; $i++)
                             <option value="{{ $i }}" @selected(old('reading') == $i)>{{ $i }}</option>
                         @endfor
+                        @error('reading')
+                            <div class="text-danger small">{{ $message }}</div>
+                        @enderror
                     </select>
+
 
                     <div class="feedback-rating-label">Grammar</div>
                     <select class="feedback-select" name="grammar">
@@ -99,7 +132,11 @@
                             <option value="{{ $i }}" @selected(old('grammar') == $i)>{{ $i }}</option>
                         @endfor
                     </select>
+                    @error('grammar')
+                        <div class="text-danger small">{{ $message }}</div>
+                    @enderror
                 </div>
+
 
                 <!-- コメント -->
                 <div class="feedback-field" style="margin-top:6px;">
