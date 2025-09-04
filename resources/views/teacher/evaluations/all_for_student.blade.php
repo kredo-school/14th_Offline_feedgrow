@@ -19,7 +19,7 @@
                         @if (!empty($user->profile_image))
                             <img src="{{ asset('storage/' . $user->profile_image) }}" alt="User Avatar" class="avatar">
                         @else
-                             <i class="fa-solid fa-user avatar rounded-circle"></i>
+                            <i class="fa-solid fa-user avatar rounded-circle"></i>
                         @endif
 
                     </div>
@@ -39,7 +39,7 @@
                 <div class="post-card">
                     <div class="feedback-card">
                         <div class="date small">
-                            {{ optional($fb->evaluated_at)->format('Y年n月j日 H:i') ?? $fb->created_at->format('Y年n月j日 H:i') }}
+                            {{ $fb->created_at->format('Y-m-d') }}
                         </div>
 
                         @if (!empty($fb->lesson))
