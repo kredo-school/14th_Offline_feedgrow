@@ -1,6 +1,7 @@
 @extends('layouts.app')
 @section('title', 'Blog View')
 @section('content')
+<meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="{{ asset('css/blog.css') }}">
     <div class="blog-wrapper">
         <div class="blog-header">
@@ -13,7 +14,10 @@
             <!-- 投稿タイトルと日付 -->
             <div class="title-wrapper">
                 <h2 class="post-title">{{ $post['title'] }}</h2>
-                <small class="text-muted post-date" style="font-size: 14px;">{{ $post['created_at'] }}</small>
+                {{-- <small class="text-muted post-date" style="font-size: 14px;">{{ $post['created_at'] }}</small> --}}
+                <div class="text-muted post-date" style="font-size:18px;">
+                    {{ $post->created_at->format('Y-m-d') }}
+                </div>
             </div>
             <!-- 投稿者 -->
             <div class="user-info">
@@ -41,25 +45,12 @@
             <!-- アイコン -->
             <div class="icons">
                 <div>
-                    <form
-                        action="{{ $post->likes()->where('user_id', Auth::id())->exists()
-                            ? route('likes.destroy', $post->id)
-                            : route('likes.store', $post->id) }}"
-                        method="POST" style="display:inline;">
-                        @csrf
-                        @if ($post->likes()->where('user_id', Auth::id())->exists())
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-like">
-                                <i class="fas fa-heart text-danger"></i>
-                                <span>{{ $post->likes()->count() }}</span> {{-- いいね数 --}}
-                            </button>
-                        @else
-                            <button type="submit" class="btn btn-like">
-                                <i class="far fa-heart"></i>
-                                <span>{{ $post->likes()->count() }}</span> {{-- いいね数 --}}
-                            </button>
-                        @endif
-                    </form>
+                    <button type="button" class="btn btn-like" data-post-id="{{ $post->id }}"
+                        data-liked="{{ $post->likes()->where('user_id', Auth::id())->exists() ? '1' : '0' }}">
+                        <i
+                            class="{{ $post->likes()->where('user_id', Auth::id())->exists() ? 'fas text-danger' : 'far' }} fa-heart"></i>
+                        <span class="like-count">{{ $post->likes()->count() }}</span>
+                    </button>
 
                     <div class="dropdown d-inline-block">
                         {{-- コメントアイコン＋件数 --}}
@@ -178,4 +169,38 @@
         if (!menu) return;
         menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
     }
+
+document.addEventListener('click', async (e) => {
+  const btn = e.target.closest('.btn-like');
+  if (!btn) return;
+
+  const postId = btn.dataset.postId;
+  const liked  = btn.dataset.liked === '1';
+  const url    = liked ? `/posts/${postId}/likes` : `/posts/${postId}/likes`;
+  const method = liked ? 'DELETE' : 'POST';
+
+  try {
+    const res = await fetch(url, {
+      method,
+      headers: {
+        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+        'Accept': 'application/json',
+      },
+    });
+    if (!res.ok) throw new Error('Network error');
+    const data = await res.json(); // { liked: boolean, count: number }
+
+    // UI 反映（アイコンと色）
+    const icon = btn.querySelector('i.fa-heart');
+    icon.className = (data.liked ? 'fas text-danger' : 'far') + ' fa-heart';
+
+    // 数更新
+    btn.querySelector('.like-count').textContent = data.count;
+
+    // 状態保存
+    btn.dataset.liked = data.liked ? '1' : '0';
+  } catch (err) {
+    console.error(err);
+  }
+});
 </script>
