@@ -27,6 +27,8 @@
                                     <tr>
                                         <td>
                                             <div class="d-flex align-items-center">
+                                                <a href="{{ route('teacher.evaluations.all_for_student', $student->id) }}"
+                                                class="d-flex align-items-center gap-3 text-decoration-none text-body">
                                                 @if ($student->profile_image)
                                                     <img class="avatar rounded-circle"
                                                         src="{{ asset('storage/' . $student->profile_image) }}"
@@ -38,6 +40,7 @@
                                                         style="width:50px;height:50px;font-size:30px;color:#c7cedc;border:1px solid #888888;"></i>
                                                 @endif
                                                 <span class="ms-4">{{ $student->name }}</span>
+                                                </a>
                                             </div>
                                         </td>
                                         <td>{{ $student->email }}</td>
