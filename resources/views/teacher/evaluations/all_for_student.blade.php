@@ -12,8 +12,6 @@
 
   <div class="profile-card">
     
-
-
   <div class="card-container">
     @forelse ($feedbacks as $fb)
       <div class="feedback-card">
@@ -28,8 +26,8 @@
     <span>{{ $fb->student->name ?? 'Teacher' }}</span>
 </div>
 
-        <div class="date small">
-          {{ optional($fb->evaluated_at)->format('Y年n月j日 H:i') ?? $fb->created_at->format('Y年n月j日 H:i') }}
+       <div class="date small">
+         {{ $fb->created_at->format('Y-m-d') }}
         </div>
 
         @if (!empty($fb->lesson))

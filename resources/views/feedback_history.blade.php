@@ -32,7 +32,7 @@
 </div>
 
         <div class="date small">
-         {{ $post->created_at->format('Y-m-d') }}
+         {{ $feedback->created_at->format('Y-m-d') }}
         </div>
 
         <div class="lesson">
