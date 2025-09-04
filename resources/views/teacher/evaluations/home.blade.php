@@ -79,10 +79,9 @@
                                     </td>
 
                                     <td class="text-end">
-                                        {{ optional(
-                                            $student->evaluations->first()?->evaluated_at ?? $student->evaluations->first()?->created_at,
-                                        )?->format('Y-m-d') ?? '―' }}
+                                        {{ optional($student->last_evaluated_at)->format('Y-m-d') ?? '—' }}
                                     </td>
+
 
                                 </tr>
                             @empty
