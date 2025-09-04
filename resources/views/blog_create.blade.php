@@ -28,7 +28,8 @@
 
             <div class="form-group">
                 <label for="published_at">DATE</label>
-                <input type="date" name="published_at" id="published_at" value="{{ old('published_at') }}" class="blog-date">
+                <input type="date" name="published_at" id="published_at" value="{{ old('published_at') }}"
+                    class="blog-date">
                 @error('published_at')
                     <div class="text-danger small">{{ $message }}</div>
                 @enderror
@@ -54,14 +55,27 @@
         </form>
     </div>
 
-     {{-- FlatpickrのJS --}}
+    {{-- FlatpickrのJS --}}
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script>
         flatpickr("#published_at", {
             dateFormat: "Y-m-d", // 例: 2025-08-16
-            locale: "en"        // 英語表示に固定
+            locale: "en" // 英語表示に固定
+        });
+    </script>
+
+    <script>
+        function toggleMenu(button) {
+            const menu = button.nextElementSibling;
+            const isVisible = menu.style.display === "block";
+            document.querySelectorAll(".menu-options").forEach(m => m.style.display = "none");
+            if (!isVisible) menu.style.display = "block";
+        }
+        document.addEventListener("click", (e) => {
+            if (!e.target.closest(".menu-wrapper")) {
+                document.querySelectorAll(".menu-options").forEach(m => m.style.display = "none");
+            }
         });
     </script>
 
 @endsection
-

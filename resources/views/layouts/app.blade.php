@@ -60,7 +60,7 @@
                 @else
                     {{-- 通知ベル（生徒のみ） --}}
                     @if (Auth::user()->role === 'student')
-                        <div class="position-relative me-2 mt-1 dropdown">
+                        <div class="position-relative me-3 mt-1 dropdown">
                             <i class="fa-solid fa-bell fa-lg text-secondary"></i>
                             <a class="nav-link position-absolute top-0 start-0 w-100 h-100 p-0" href="#"
                                 role="button" data-bs-toggle="dropdown" aria-expanded="false"></a>
@@ -112,9 +112,6 @@
                                 @empty
                                     <li><span class="dropdown-item small text-muted">No unread messages</span></li>
                                 @endforelse
-
-                                <li><a class="dropdown-item" href="{{ route('notifications.index') }}">View all
-                                        notifications</a></li>
                             </ul>
                         </div>
                     @endif
@@ -127,7 +124,7 @@
                                 style="width:40px;height:40px;object-fit:cover;border:1px solid #888888;">
                         @else
                             <i class="fa-solid fa-user rounded-circle d-inline-flex align-items-center justify-content-center me-2"
-                                style="width:40px;height:40px;font-size:18px;color:#c7cedc;border:1px solid #888888;"></i>
+                                style="width:40px;height:40px;font-size:21px;color:#c7cedc;border:1px solid #888888;"></i>
                         @endif
                     </a>
 

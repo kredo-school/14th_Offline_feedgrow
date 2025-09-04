@@ -20,7 +20,7 @@
             <!-- 左エリア -->
             <div class="sl-left">
                 <div class="d-flex align-items-center">
-                    <i class="fa-solid fa-bookmark fa-2x" style="color: white;"></i>
+                    <i class="fa-solid fa-bookmark fa-2x mb-1" style="color: white;"></i>
                     <h2 class="ms-2 fw-bold">STUDY LOG</h2>
                 </div>
 

@@ -54,7 +54,16 @@
         @endif
       </div>
     @empty
-      <p>No feedback has been provided yet.</p>
+      {{-- <p>No feedback has been provided yet.</p> --}}
+      {{-- <p>No blog posts yet.</p> --}}
+                <div class="post-card empty">
+                    <div class="empty-inner">
+                        <i class="fa-regular fa-file-lines fa-2x"></i>
+                        <p>No feedback has been sent yet.</p>
+                        {{-- 置きたいなら作成ボタンも --}}
+                        {{-- <a href="{{ route('posts.create') }}" class="btn btn-primary mt-2">Write your first post</a> --}}
+                    </div>
+                </div>
     @endforelse
   </div>
 </div>
