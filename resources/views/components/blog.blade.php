@@ -17,7 +17,8 @@
                         src="{{ asset('storage/' . optional($post->user)->profile_image) }}" {{-- 可能なら Storage::url(...) 推奨 --}}
                         alt="{{ optional($post->user)->name ? $post->user->name . 'の投稿' : 'User' }}" loading="lazy">
                 @else
-                    <img src="{{ asset('images/User-avatar.png') }}" class="blog-avatar new rounded-circle"  data-user="{{ $post->user_id }}">
+                    {{-- <img src="{{ asset('images/User-avatar3.png') }}" class="blog-avatar new rounded-circle"  data-user="{{ $post->user_id }}"> --}}
+                    <i class="fa-solid fa-user blog-avatar new rounded-circle" data-user="{{ $post->user_id }}"></i>
                 @endif
                 <p class="post-name">{{$post->user->name}}</p>
             </a>

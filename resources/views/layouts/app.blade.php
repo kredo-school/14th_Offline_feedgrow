@@ -124,7 +124,7 @@
                                 style="width:40px;height:40px;object-fit:cover;border:1px solid #888888;">
                         @else
                             <i class="fa-solid fa-user rounded-circle d-inline-flex align-items-center justify-content-center me-2"
-                                style="width:40px;height:40px;font-size:18px;color:#c7cedc;border:1px solid #888888;"></i>
+                                style="width:40px;height:40px;font-size:21px;color:#c7cedc;border:1px solid #888888;"></i>
                         @endif
                     </a>
 

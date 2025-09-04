@@ -25,7 +25,7 @@
                             alt="{{ optional($post->user)->name ? $post->user->name . 'の投稿' : 'User' }}" loading="lazy">
                     @else
                         <i class="fa-solid fa-user rounded-circle d-inline-flex align-items-center justify-content-center me-2"
-                            style="width:40px;height:40px;font-size:18px;color:#c7cedc;border:1px solid #888888;"></i>
+                            style="width:40px;height:40px;font-size:21px;color:#c7cedc;border:1px solid #888888;"></i>
                     @endif
                     <span class="fw-bold ms-2">{{ $post->user->name }}</span>
                 </a>
@@ -90,8 +90,11 @@
                                                 alt="{{ optional($comment->user)->name ? $comment->user->name . 'の投稿' : 'User' }}"
                                                 loading="lazy">
                                         @else
-                                            <i class="fa-solid fa-user blog-avatar new rounded-circle"
+                                            <i class="fa-solid fa-user rounded-circle d-inline-flex align-items-center justify-content-center me-2"
+                                                style="width:40px;height:40px;font-size:21px;color:#c7cedc;border:1px solid #888888;"
                                                 data-user="{{ $comment->user_id }}"></i>
+                                            {{-- <i class="fa-solid fa-user blog-avatar new rounded-circle"
+                                                data-user="{{ $comment->user_id }}"></i> --}}
                                         @endif
 
                                         <span class="cmt-name ms-2">{{ $u->name ?? 'User' }}</span>
@@ -140,7 +143,8 @@
                             {{-- <a href="{{ route('posts.edit', $post->id) }}"><i class="fa-solid fa-pen-to-square"></i>
                                 <span class="text-primary">Edit</span></a> --}}
                             {{-- Edit --}}
-                            <a href="{{ route('posts.edit', $post->id) }}" class="icon-btn icon-edit" title="Edit" aria-label="Edit">
+                            <a href="{{ route('posts.edit', $post->id) }}" class="icon-btn icon-edit" title="Edit"
+                                aria-label="Edit">
                                 <i class="fa-regular fa-pen-to-square"></i>
                             </a>
                         @endcan

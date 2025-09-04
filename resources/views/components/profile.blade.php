@@ -21,22 +21,25 @@
 </style>
 
 <div class="profile-section">
-  <div class="study-progress-container text-center">
-    <div class="profile-progress">
-      <svg class="progress-ring" width="340" height="340" data-progress="{{ $progressRatio ?? 0 }}">
-        <circle class="progress-bg"  r="160" cx="170" cy="170" />
-        <circle class="progress-bar" r="160" cx="170" cy="170" />
-      </svg>
+    <div class="study-progress-container text-center">
+        <div class="profile-progress">
+            <svg class="progress-ring" width="340" height="340" data-progress="{{ $progressRatio ?? 0 }}">
+                <circle class="progress-bg" r="160" cx="170" cy="170" />
+                <circle class="progress-bar" r="160" cx="170" cy="170" />
+            </svg>
 
-      @if (!empty(Auth::user()->profile_image))
-  <img src="{{ asset('storage/' . Auth::user()->profile_image) }}"
-       alt="User Avatar"
-       class="avatar rounded-circle">
-@else
-  <i class="fa-solid fa-user avatar rounded-circle"></i>
-@endif
+            <div class="profile-image">
+            @if (!empty(Auth::user()->profile_image))
+                <img src="{{ asset('storage/' . Auth::user()->profile_image) }}" alt="User Avatar"
+                    class="avatar rounded-circle">
+            @else
+                {{-- <i class="fa-solid fa-user avatar rounded-circle"></i> --}}
+                {{-- <img src="{{ asset('images/User-avatar2.png') }}" class="non-avatar rounded-circle"> --}}
+                <i class="fa-solid fa-user avatar rounded-circle"></i>
+            @endif
+        </div>
     </div>
-  </div>
+</div>
 </div>
 
 <script>

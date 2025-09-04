@@ -19,7 +19,7 @@
                         @if (!empty($user->profile_image))
                             <img src="{{ asset('storage/' . $user->profile_image) }}" alt="User Avatar" class="avatar">
                         @else
-                            <i class="fa-solid fa-user fa-8x avatar pt-4" style="color:#c7cedc;"></i>
+                             <i class="fa-solid fa-user avatar rounded-circle"></i>
                         @endif
 
                     </div>

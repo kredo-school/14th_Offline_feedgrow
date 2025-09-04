@@ -31,7 +31,7 @@
                         <thead class="text-muted">
                             <tr>
                                 <th scope="col">Student</th>
-                                <th scope="col" class="text-center">Feedback</th>
+                                <th scope="col" class="text-start">Feedback</th>
                                 <th scope="col">Evaluation date</th>
 
                             </tr>
@@ -49,10 +49,10 @@
                                                         src="{{ asset('storage/' . $student->profile_image) }}"
                                                         alt="{{ $student->name }}">
                                                 @else
-                                                    <i class="fa-solid fa-user avatar rounded-circle"
-                                                        style="font-size:32px; color:#ccc;"></i>
+                                                    <i class="fa-solid fa-user rounded-circle d-inline-flex align-items-center justify-content-center me-2"
+                                                        style="width:50px;height:50px;font-size:30px;color:#c7cedc;border:1px solid #888888;"></i>
                                                 @endif
-                                                <div class="fw-semibold">{{ $student->name }}</div>
+                                                <div>{{ $student->name }}</div>
                                             </a>
                                         @else
                                             <div class="d-flex align-items-center gap-3">
@@ -61,16 +61,16 @@
                                                         src="{{ asset('storage/' . $student->profile_image) }}"
                                                         alt="{{ $student->name }}">
                                                 @else
-                                                    <i class="fa-solid fa-user avatar rounded-circle"
-                                                        style="font-size:32px; color:#ccc;"></i>
+                                                    <i class="fa-solid fa-user rounded-circle d-inline-flex align-items-center justify-content-center me-2"
+                                                        style="width:50px;height:50px;font-size:30px;color:#c7cedc;border:1px solid #888888;"></i>
                                                 @endif
-                                                <div class="fw-semibold">{{ $student->name }}</div>
+                                                <div>{{ $student->name }}</div>
                                             </div>
                                         @endcan
                                     </td>
 
                                     <!-- フィードバック作成ボタン -->
-                                    <td class="text-center">
+                                    <td class="text-start">
                                         <a href="{{ route('evaluations.create', $student->id) }}"
                                             class="btn btn-primary feedback-btn-sm">
                                             <span class="ic-tile-sm"><i class="bi bi-clipboard-check"></i></span>
@@ -78,7 +78,7 @@
                                         </a>
                                     </td>
 
-                                    <td class="text-end">
+                                    <td class="text-start">
                                         {{ optional(
                                             $student->evaluations->first()?->evaluated_at ?? $student->evaluations->first()?->created_at,
                                         )?->format('Y-m-d') ?? '―' }}

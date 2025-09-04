@@ -84,8 +84,8 @@
                                 class="rounded-circle"
                                 style="width:40px; height:40px; object-fit:cover; border: 1px solid #888888;">
                         @else
-                            <i class="fa-solid fa-user rounded-circle d-inline-block text-center"
-                                style="width:40px; height:40px; font-size:28px; line-height:50px; color:#c7cedc; border:1px solid #888888;">
+                            <i class="fa-solid fa-user rounded-circle d-inline-flex align-items-center justify-content-center me-2"
+                                style="width:40px; height:40px; font-size:21px; line-height:50px; color:#c7cedc; border:1px solid #888888;">
                             </i>
                         @endif
 
