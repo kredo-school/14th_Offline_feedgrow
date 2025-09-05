@@ -60,16 +60,23 @@
                 @else
                     {{-- 通知ベル（生徒のみ） --}}
                     @if (Auth::user()->role === 'student')
-                        <div class="position-relative me-3 mt-1 dropdown">
-                            <i class="fa-solid fa-bell fa-lg text-secondary"></i>
-                            <a class="nav-link position-absolute top-0 start-0 w-100 h-100 p-0" href="#"
-                                role="button" data-bs-toggle="dropdown" aria-expanded="false"></a>
+    <div class="dropdown me-2 mt-1">
+        <div class="position-relative d-inline-block" style="width:24px; height:24px;">
+            <i class="fa-solid fa-bell fa-lg text-secondary"
+           style="line-height:32px; font-size:20px;"></i>
+            <a class="stretched-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"></a>
 
-                            @php $unreads = Auth::user()->unreadNotifications->count(); @endphp
-                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-pink"
-                                style="font-size:10px;">
-                                {{ $unreads > 99 ? '99+' : $unreads }}
-                            </span>
+            @php
+                $unreads = Auth::user()->unreadNotifications()->count();
+            @endphp
+
+            @if ($unreads > 0)
+                <span class="badge rounded-pill bg-pink"
+                      style="position:absolute; top:-6px; right:-6px; font-size:10px;">
+                    {{ $unreads > 99 ? '99+' : $unreads }}
+                </span>
+            @endif
+        </div>
 
                             {{-- ▼ 通知メニュー（相手のアイコン＋名前＋文面） --}}
                             <ul class="dropdown-menu dropdown-menu-end" style="min-width:320px;">
