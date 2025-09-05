@@ -1,5 +1,6 @@
 html,body {
-            background-color: #1D80E7;
+            /* background-color: #1D80E7; */
+            background:linear-gradient(180deg,#1D80E7 0%, #87baf4b1 100%);
             font-family: 'M PLUS 1p', sans-serif;
             font-weight: 700;
             color: white;
