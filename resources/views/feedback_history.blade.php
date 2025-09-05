@@ -3,59 +3,63 @@
 @section('title', 'Feedback History')
 
 @section('content')
-<link rel="stylesheet" href="{{ asset('css/feedback_history.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/feedback_history.css') }}">
 
-<div class="main-section">
-  <div class="feedback-header">
-    <a href="{{ route('student.home') }}" class="back-btn back-btn--pill">
-      <span class="chev">←</span> Back
-    </a>
-    <h1 class="page-title fw-bold">FEEDBACK HISTORY</h1>
-  </div>
-
-  @if (session('success'))
-    <div class="alert alert-success">{{ session('success') }}</div>
-  @endif
-
-  <div class="card-container">
-    @forelse ($feedbacks as $feedback)
-      <div class="feedback-card">
-        <div class="profile">
-    @if (!empty($feedback->teacher->profile_image))
-        <img src="{{ asset('storage/' . $feedback->teacher->profile_image) }}"
-             alt="{{ $feedback->teacher->name ?? 'Teacher' }}"
-             class="avatar">
-    @else
-        <i class="fa-solid fa-user fa-2x avatar" style="color:#c7cedc;"></i>
-    @endif
-    <span>{{ $feedback->teacher->name ?? 'Teacher' }}</span>
-</div>
-
-        <div class="date small">
-         {{ $feedback->created_at->format('Y-m-d') }}
+    <div class="main-section">
+        <div class="feedback-header">
+            <a href="{{ route('student.home') }}" class="back-btn back-btn--pill">
+                <span class="chev">←</span> Back
+            </a>
+            <h1 class="page-title fw-bold">FEEDBACK HISTORY</h1>
         </div>
 
-        <div class="lesson">
-          <small>Lesson:</small> {{ $feedback->lesson ?? '―' }}
-        </div>
-
-        <ul class="scores">
-          <li><span class="small">Speaking:</span>  {{ $feedback->speaking  ?? '―' }}</li>
-          <li><span class="small">Listening:</span> {{ $feedback->listening ?? '―' }}</li>
-          <li><span class="small">Reading:</span>   {{ $feedback->reading  ?? '―' }}</li>
-          <li><span class="small">Writing:</span>   {{ $feedback->writing  ?? '―' }}</li>
-          <li><span class="small">Grammar:</span>   {{ $feedback->grammar  ?? '―' }}</li>
-        </ul>
-
-        @if (!empty($feedback->comment))
-          <div class="comment">
-            <small>Comment:</small> {{ $feedback->comment }}
-          </div>
+        @if (session('success'))
+            <div class="alert alert-success">{{ session('success') }}</div>
         @endif
-      </div>
-    @empty
-      {{-- <p>No feedback has been provided yet.</p> --}}
-      {{-- <p>No blog posts yet.</p> --}}
+
+        <div class="card-container">
+            @forelse ($feedbacks as $feedback)
+                <article class="fh-card2">
+                    <div class="fh2-left"></div>
+
+                    <div class="fh2-body">
+                        <header class="fh2-head">
+                            <div class="fh2-teacher">
+                                @if (!empty($feedback->teacher->profile_image))
+                                    <img src="{{ asset('storage/' . $feedback->teacher->profile_image) }}"
+                                        alt="{{ $feedback->teacher->name ?? 'Teacher' }}" style="width:40px;height:40px;font-size:21px;color:#c7cedc;border:1px solid #888888;">
+                                @else
+                                    {{-- <i class="fa-solid fa-user fa-lg fallback-avatar"></i> --}}
+                                    <i class="fa-solid fa-user rounded-circle d-inline-flex align-items-center justify-content-center me-2"
+                                style="width:40px;height:40px;font-size:21px;color:#c7cedc;border:1px solid #888888;"></i>
+                                @endif
+                                <span class="fh2-name">{{ $feedback->teacher->name ?? 'Teacher' }}</span>
+                            </div>
+
+                            <div class="fh2-meta">
+                                <time class="fh2-date">
+                                    {{ ($feedback->created_at ?? now())->format('Y-m-d') }}
+                                </time>
+                                <span class="fh2-lesson">{{ $feedback->lesson ?? '―' }}</span>
+                            </div>
+                        </header>
+
+                        <div class="fh2-chips">
+                            <span class="fh2-chip"><b>S</b>{{ $feedback->speaking ?? '―' }}</span>
+                            <span class="fh2-chip"><b>L</b>{{ $feedback->listening ?? '―' }}</span>
+                            <span class="fh2-chip"><b>R</b>{{ $feedback->reading ?? '―' }}</span>
+                            <span class="fh2-chip"><b>W</b>{{ $feedback->writing ?? '―' }}</span>
+                            <span class="fh2-chip"><b>G</b>{{ $feedback->grammar ?? '―' }}</span>
+                        </div>
+
+                        @if (!empty($feedback->comment))
+                            <p class="fh2-cmt">“{{ $feedback->comment }}”</p>
+                        @endif
+                    </div>
+                </article>
+            @empty
+                {{-- <p>No feedback has been provided yet.</p> --}}
+                {{-- <p>No blog posts yet.</p> --}}
                 <div class="post-card empty">
                     <div class="empty-inner">
                         <i class="fa-regular fa-file-lines fa-2x"></i>
@@ -64,7 +68,7 @@
                         {{-- <a href="{{ route('posts.create') }}" class="btn btn-primary mt-2">Write your first post</a> --}}
                     </div>
                 </div>
-    @endforelse
-  </div>
-</div>
+            @endforelse
+        </div>
+    </div>
 @endsection
