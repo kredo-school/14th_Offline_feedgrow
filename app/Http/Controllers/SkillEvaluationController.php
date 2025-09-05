@@ -58,7 +58,7 @@ class SkillEvaluationController extends Controller
     {
         $data = $request->validate([
             'student_id'   => 'required|exists:users,id',
-            'lesson'       => 'required|string|in:Conversation A,Business Email,Pronunciation',
+            'lesson' => 'required|string|max:100',
             'evaluated_at' => 'required|date',
             'speaking'     => 'required|integer|between:1,5',
             'listening'    => 'required|integer|between:1,5',

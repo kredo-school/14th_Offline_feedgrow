@@ -19,7 +19,7 @@
     const myChart = new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: ['S', 'W', 'L', 'R', 'G / V'],
+            labels: ['S', 'W', 'L', 'R', 'G'],
             datasets: [{
                 label: 'Score',
                 data: [

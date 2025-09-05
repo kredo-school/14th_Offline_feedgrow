@@ -141,9 +141,9 @@
                 <!-- コメント -->
                 <div class="feedback-field" style="margin-top:6px;">
                     <div class="feedback-label">COMMENT
-                        <span class="feedback-subtle" style="font-size:12px;margin-left:6px;">(optional)</span>
+                        <span class="feedback-subtle" style="font-size:12px;margin-left:6px;"></span>
                     </div>
-                    <textarea class="feedback-input" rows="4" name="comment" placeholder="Good progress ...">{{ old('comment') }}</textarea>
+                    <textarea class="feedback-input mt-3" rows="4" name="comment" placeholder="Good progress ...">{{ old('comment') }}</textarea>
                     @error('comment')
                         <div class="text-danger small">{{ $message }}</div>
                     @enderror

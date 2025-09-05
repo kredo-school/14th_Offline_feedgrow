@@ -249,6 +249,7 @@
         font-size: 9px;
         font-weight: 900;
         letter-spacing: .05em;
+        fill: #cfe6ff;
     }
 
     /* ===== 入力バー ===== */

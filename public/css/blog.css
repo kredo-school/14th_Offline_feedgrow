@@ -12,6 +12,8 @@ html,body {
         min-height: 100vh;
     }
 
+    
+
     .blog-header {
     display: grid;
     grid-template-columns: 1fr auto 1fr; /* 左=空き/Back, 中央=タイトル, 右=空き */
@@ -274,7 +276,7 @@ html,body {
     .icon-edit i{
     font-size: 16px; color:#aeb8c5; transition: color .15s, transform .1s;
     }
-    
+
     .icon-edit:hover i{ color:#1D80E7; transform: translateY(-1px); }
 
     .icon-danger i{

@@ -18,40 +18,6 @@
         @endif
 
         <div class="card-container">
-            {{-- @forelse ($feedbacks as $feedback)
-                <div class="feedback-card">
-                    <div class="profile">
-                        @if (!empty($feedback->teacher->profile_image))
-                            <img src="{{ asset('storage/' . $feedback->teacher->profile_image) }}"
-                                alt="{{ $feedback->teacher->name ?? 'Teacher' }}" class="avatar">
-                        @else
-                            <i class="fa-solid fa-user fa-2x avatar" style="color:#c7cedc;"></i>
-                        @endif
-                        <span>{{ $feedback->teacher->name ?? 'Teacher' }}</span>
-                    </div>
-
-                    <div class="date small">
-                        {{ $feedback->created_at->format('Y-m-d') }}
-                    </div>
-
-                    <div class="lesson">
-                        <small>Lesson:</small> {{ $feedback->lesson ?? '―' }}
-                    </div>
-
-                    <ul class="scores">
-                        <li><span class="small">Speaking:</span> {{ $feedback->speaking ?? '―' }}</li>
-                        <li><span class="small">Listening:</span> {{ $feedback->listening ?? '―' }}</li>
-                        <li><span class="small">Reading:</span> {{ $feedback->reading ?? '―' }}</li>
-                        <li><span class="small">Writing:</span> {{ $feedback->writing ?? '―' }}</li>
-                        <li><span class="small">Grammar:</span> {{ $feedback->grammar ?? '―' }}</li>
-                    </ul>
-
-                    @if (!empty($feedback->comment))
-                        <div class="comment">
-                            <small>Comment:</small> {{ $feedback->comment }}
-                        </div>
-                    @endif
-                </div> --}}
             @forelse ($feedbacks as $feedback)
                 <article class="fh-card2">
                     <div class="fh2-left"></div>
@@ -61,9 +27,11 @@
                             <div class="fh2-teacher">
                                 @if (!empty($feedback->teacher->profile_image))
                                     <img src="{{ asset('storage/' . $feedback->teacher->profile_image) }}"
-                                        alt="{{ $feedback->teacher->name ?? 'Teacher' }}">
+                                        alt="{{ $feedback->teacher->name ?? 'Teacher' }}" style="width:40px;height:40px;font-size:21px;color:#c7cedc;border:1px solid #888888;">
                                 @else
-                                    <i class="fa-solid fa-user fa-lg fallback-avatar"></i>
+                                    {{-- <i class="fa-solid fa-user fa-lg fallback-avatar"></i> --}}
+                                    <i class="fa-solid fa-user rounded-circle d-inline-flex align-items-center justify-content-center me-2"
+                                style="width:40px;height:40px;font-size:21px;color:#c7cedc;border:1px solid #888888;"></i>
                                 @endif
                                 <span class="fh2-name">{{ $feedback->teacher->name ?? 'Teacher' }}</span>
                             </div>
