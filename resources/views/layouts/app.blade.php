@@ -60,68 +60,68 @@
                 @else
                     {{-- 通知ベル（生徒のみ） --}}
                     @if (Auth::user()->role === 'student')
-    <div class="dropdown me-2 mt-1">
-        <div class="position-relative d-inline-block" style="width:24px; height:24px;">
-            <i class="fa-solid fa-bell fa-lg text-secondary"
+<div class="dropdown me-2 mt-1">
+    <a href="#" class="position-relative d-inline-block"
+       role="button" data-bs-toggle="dropdown" aria-expanded="false"
+       style="width:24px; height:24px;">
+        <i class="fa-solid fa-bell fa-lg text-secondary"
            style="line-height:32px; font-size:20px;"></i>
-            <a class="stretched-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"></a>
 
+        @php
+            $unreads = Auth::user()->unreadNotifications()->count();
+        @endphp
+
+        @if ($unreads > 0)
+            <span class="badge rounded-pill bg-pink"
+                  style="position:absolute; top:-6px; right:-6px; font-size:10px;">
+                {{ $unreads > 99 ? '99+' : $unreads }}
+            </span>
+        @endif
+    </a>
+
+    {{-- ▼ 通知メニュー --}}
+    <ul class="dropdown-menu dropdown-menu-end" style="min-width:320px;">
+        @forelse(Auth::user()->unreadNotifications->take(5) as $n)
             @php
-                $unreads = Auth::user()->unreadNotifications()->count();
+                $d = $n->data ?? [];
+                $name = $d['actor'] ?? 'User';
+                $avatar = $d['actor_avatar_url'] ?? asset('images/User-avatar.png');
+                $type = $d['type'] ?? null;
             @endphp
-
-            @if ($unreads > 0)
-                <span class="badge rounded-pill bg-pink"
-                      style="position:absolute; top:-6px; right:-6px; font-size:10px;">
-                    {{ $unreads > 99 ? '99+' : $unreads }}
-                </span>
-            @endif
-        </div>
-
-                            {{-- ▼ 通知メニュー（相手のアイコン＋名前＋文面） --}}
-                            <ul class="dropdown-menu dropdown-menu-end" style="min-width:320px;">
-                                @forelse(Auth::user()->unreadNotifications->take(5) as $n)
-                                    @php
-                                        $d = $n->data ?? [];
-                                        $name = $d['actor'] ?? 'User';
-                                        $avatar = $d['actor_avatar_url'] ?? asset('images/User-avatar.png');
-                                        $type = $d['type'] ?? null;
-                                    @endphp
-                                    <li>
-                                        <a class="dropdown-item small py-2"
-                                            href="{{ route('notifications.read', $n->id) }}">
-                                            <div class="d-flex align-items-start">
-                                                <img src="{{ $avatar }}" alt="{{ $name }} avatar"
-                                                    class="rounded-circle me-2 flex-shrink-0"
-                                                    style="width:32px;height:32px;object-fit:cover;border:1px solid #888;"
-                                                    onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-flex';">
-                                                <div class="min-w-0">
-                                                    <p class="mb-0 text-truncate">
-                                                        <span class="fw-bold me-1">{{ $name }}</span>
-                                                        @if ($type === 'like')
-                                                            liked your post.
-                                                        @elseif($type === 'comment')
-                                                            commented on your post.
-                                                        @elseif($type === 'evaluation')
-                                                            sent you a feedback.
-                                                        @else
-                                                            {{ $d['message'] ?? 'There is a notification' }}
-                                                        @endif
-                                                    </p>
-                                                    <small class="text-muted">{{ $n->created_at->diffForHumans() }}</small>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <hr class="dropdown-divider">
-                                    </li>
-                                @empty
-                                    <li><span class="dropdown-item small text-muted">No unread messages</span></li>
-                                @endforelse
-                            </ul>
+            <li>
+                <a class="dropdown-item small py-2"
+                   href="{{ route('notifications.read', $n->id) }}">
+                    <div class="d-flex align-items-start">
+                        <img src="{{ $avatar }}" alt="{{ $name }} avatar"
+                             class="rounded-circle me-2 flex-shrink-0"
+                             style="width:32px;height:32px;object-fit:cover;border:1px solid #888;"
+                             onerror="this.style.display='none';">
+                        <div class="min-w-0">
+                            <p class="mb-0 text-truncate">
+                                <span class="fw-bold me-1">{{ $name }}</span>
+                                @if ($type === 'like')
+                                    liked your post.
+                                @elseif($type === 'comment')
+                                    commented on your post.
+                                @elseif($type === 'evaluation')
+                                    sent you a feedback.
+                                @else
+                                    {{ $d['message'] ?? 'There is a notification' }}
+                                @endif
+                            </p>
+                            <small class="text-muted">{{ $n->created_at->diffForHumans() }}</small>
                         </div>
-                    @endif
+                    </div>
+                </a>
+            </li>
+            <li><hr class="dropdown-divider"></li>
+        @empty
+            <li><span class="dropdown-item small text-muted">No unread messages</span></li>
+        @endforelse
+        
+    </ul>
+</div>
+@endif
 
                     {{-- 自分のプロフィールアイコン（ユーザー名の横） --}}
                     <a href="{{ route('profile.show', Auth::id()) }}" class="d-flex align-items-center">
