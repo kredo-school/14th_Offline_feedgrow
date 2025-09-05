@@ -68,26 +68,12 @@
                                 @php $u = optional($comment->user); @endphp
                                 <div class="cmt">
                                     <div class="cmt-head d-flex align-items-center gap-2">
-                                        {{-- @if ($u?->profile_image)
+                                        @if ($u?->profile_image)
                                             <img class="cmt-avatar" src="{{ asset('storage/' . $u->profile_image) }}"
                                                 alt="">
                                         @else
                                             <div class="cmt-avatar"><i class="fa-solid fa-user"></i></div>
-                                        @endif --}}
-                                        @if (optional($comment->user)->profile_image)
-                                            <img class="blog-avatar new rounded-circle" data-user="{{ $comment->user_id }}"
-                                                src="{{ asset('storage/' . optional($comment->user)->profile_image) }}"
-                                                {{-- 可能なら Storage::url(...) 推奨 --}}
-                                                alt="{{ optional($comment->user)->name ? $comment->user->name . 'の投稿' : 'User' }}"
-                                                loading="lazy">
-                                        @else
-                                            <i class="fa-solid fa-user rounded-circle d-inline-flex align-items-center justify-content-center me-2"
-                                                style="width:40px;height:40px;font-size:21px;color:#c7cedc;border:1px solid #888888;"
-                                                data-user="{{ $comment->user_id }}"></i>
-                                            {{-- <i class="fa-solid fa-user blog-avatar new rounded-circle"
-                                                data-user="{{ $comment->user_id }}"></i> --}}
                                         @endif
-
                                         <span class="cmt-name ms-2">{{ $u->name ?? 'User' }}</span>
                                         <small class="cmt-time ms-auto text-muted">
                                             {{ $comment->created_at->diffForHumans() }}

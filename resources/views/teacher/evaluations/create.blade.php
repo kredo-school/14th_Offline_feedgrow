@@ -66,7 +66,6 @@
                              <option value="Business English (Advanced)" @selected(old('lesson') === 'Business English (Advanced)')>Business English (Advanced)</option>
                              <option value="English Grammar (Advanced)" @selected(old('lesson') === 'English Grammar (Advanced)')>English Grammar (Advanced)</option>
                              <option value="Advanced Pronunciation" @selected(old('lesson') === 'Advanced Pronunciation')>Advanced Pronunciation</option>
-
                         </select>
 
                         @error('lesson')
