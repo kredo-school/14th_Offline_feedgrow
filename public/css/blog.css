@@ -274,7 +274,7 @@ html,body {
     .icon-edit i{
     font-size: 16px; color:#aeb8c5; transition: color .15s, transform .1s;
     }
-    
+
     .icon-edit:hover i{ color:#1D80E7; transform: translateY(-1px); }
 
     .icon-danger i{
