@@ -1,6 +1,7 @@
 @extends('layouts.app')
 @section('content')
     <link rel="stylesheet" href="{{ asset('css/profile.css') }}">
+
     <div class="profile-container">
         <div class="profile-header">
             <a href="{{ route('student.home') }}" class="back-btn back-btn--pill">
@@ -81,7 +82,7 @@
                             </a>
                         </h3>
 
-                        @canany(['update', 'delete'], $post)
+                        {{-- @canany(['update', 'delete'], $post)
                             <div class="menu-wrapper">
                                 <button onclick="toggleMenu(this)" type="button" class="menu-btn">⋯</button>
                                 <div class="menu-options">
@@ -100,6 +101,29 @@
                                             <button type="submit" class="menu-item text-danger">
                                                 <i class="fa-solid fa-trash"></i>
                                                 Delete
+                                            </button>
+                                        </form>
+                                    @endcan
+                                </div>
+                            </div>
+                        @endcanany --}}
+                        @canany(['update', 'delete'], $post)
+                            <div class="menu-wrapper"  style="position: relative; text-align: right;">
+                                <button onclick="toggleMenu(this)" type="button" class="menu-btn">⋯</button>
+                                <div class="menu-options">
+                                    @can('update', $post)
+                                        <a href="{{ route('posts.edit', $post->id) }}" class="icon-btn icon-edit" title="Edit"
+                                            aria-label="Edit">
+                                            <i class="fa-regular fa-pen-to-square"></i>
+                                        </a>
+                                    @endcan
+
+                                    @can('delete', $post)
+                                        <form action="{{ route('posts.destroy', $post->id) }}" method="POST"
+                                            style="display:inline;" onsubmit="return confirm('Do you want to delete it?')">
+                                            @csrf @method('DELETE')
+                                            <button type="submit" class="icon-btn icon-danger" title="Delete" aria-label="Delete">
+                                                <i class="fa-regular fa-trash-can"></i>
                                             </button>
                                         </form>
                                     @endcan

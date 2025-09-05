@@ -11,7 +11,7 @@
 
     <div class="blog-wrapper">
         <div class="blog-create-header">
-            <a href="{{ route('student.home') }}" class="back-btn-create back-btn-create--pill">
+            <a href="{{ route('posts.show', $post->id) }}" class="back-btn-create back-btn-create--pill">
                 <span class="chev">←</span> Back
             </a>
 

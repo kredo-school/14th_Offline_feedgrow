@@ -49,6 +49,6 @@ class ProfileController extends Controller
         $user = Auth::user();
         $user->update($data);
 
-        return redirect()->route('profile.edit');
+        return redirect()->route('profile.show', $user->id);
     }
 }

@@ -57,7 +57,7 @@
                         style="stroke-dasharray: {{ $C }}; stroke-dashoffset: {{ $offset }};" />
                     <text x="32" y="38" text-anchor="middle" class="sl-ring__text {{ $pct >= 100 ? 'done' : '' }}">
                         @if ($pct >= 100)
-                            ACHIEVE
+                            ✔︎
                         @else
                             {{ $pct }}%
                         @endif
@@ -236,7 +236,7 @@
     }
 
     .sl-ring__fg.is-done {
-        stroke: #DCBF7D;
+        stroke: #f7c758d6;
     }
 
     .sl-ring__text {
@@ -246,10 +246,10 @@
     }
 
     .sl-ring__text.done {
-        font-size: 9px;
+        font-size: 20px;
         font-weight: 900;
         letter-spacing: .05em;
-        fill: #cfe6ff;
+        fill: #f7c758d6;
     }
 
     /* ===== 入力バー ===== */
@@ -393,7 +393,7 @@
             flex: 1;
         }
     }
-    }
+
 </style>
 
 <script>

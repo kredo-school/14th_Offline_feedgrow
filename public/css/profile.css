@@ -283,7 +283,7 @@ html,body {
   text-align: right;
 }
 
-.menu-options{
+/* .menu-options{
   display: none;
   position: absolute;
   right: 0;
@@ -314,7 +314,7 @@ html,body {
 .menu-options .menu-item:hover{
   background: #f3f4f6;
 }
-.menu-options .text-danger{ color:#d73333; }
+.menu-options .text-danger{ color:#d73333; } */
 
 .post-card.empty{
   display: flex;
@@ -334,3 +334,55 @@ html,body {
 }
 .post-card.empty i{ opacity:.6; margin-bottom:6px; }
 
+.menu-btn {
+  background: none; border: none; font-size: 24px; cursor: pointer; color: #333;
+    }
+
+    /* 閉じているときの基本 */
+    .menu-options {
+    display: none;                /* ← デフォルト非表示 */
+    position: absolute; right: 0; top: 30px;
+    background: #fff; border: 1px solid #ccc;
+    padding: 6px;                 /* 余白をまとめて管理 */
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    z-index: 10; width: 100px;
+    gap: 6px;                     /* アイコンの間隔 */
+    align-items: center;
+    justify-content: center;      /* 中央に横並び */
+    }
+
+    /* 開いている状態 */
+    .menu-options.is-open {
+    display: flex;                /* ← ここで表示 */
+    }
+
+    /* 子要素は横並びに必要最小だけ占める */
+    .menu-options a,
+    .menu-options form{
+    display: inline-block;        /* ← 幅100%を解除 */
+    margin: 0;
+    }
+
+    /* アイコンボタン共通（Edit/Del） */
+    .menu-options .icon-btn {
+    display: inline-grid; place-items: center;
+    width: 32px; height: 32px; padding: 0;
+    border: 0;margin-right: 3px;
+    background: transparent;      /* ← これを明示 */
+    box-shadow: none;             /* ← 影が残る場合 */
+    }
+
+    .menu-options .icon-btn i{ font-size: 16px; }
+
+    .icon-edit i{
+    font-size: 16px; color:#aeb8c5; transition: color .15s, transform .1s;
+    }
+
+    .icon-edit:hover i{ color:#1D80E7; transform: translateY(-1px); }
+
+    .icon-danger i{
+    font-size: 16px; color:#aeb8c5; transition: color .15s, transform .1s;
+    }
+
+    .icon-danger:hover i{ color:#e23b3b; transform: translateY(-1px); }
