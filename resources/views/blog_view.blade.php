@@ -29,7 +29,7 @@
                             alt="{{ optional($post->user)->name ? $post->user->name . 'の投稿' : 'User' }}" loading="lazy">
                     @else
                         <i class="fa-solid fa-user rounded-circle d-inline-flex align-items-center justify-content-center me-2"
-                            style="width:40px;height:40px;font-size:18px;color:#c7cedc;border:1px solid #888888;"></i>
+                            style="width:40px;height:40px;font-size:21px;color:#c7cedc;border:1px solid #888888;"></i>
                     @endif
                     <span class="fw-bold ms-2">{{ $post->user->name }}</span>
                 </a>
@@ -61,37 +61,38 @@
                         </a>
 
                         {{-- ドロップダウンメニュー --}}
-                        <div class="dropdown-menu dropdown-menu-end p-3"
-                            style="min-width: 320px; max-height: 300px; overflow-y: auto;">
+                        <div class="dropdown-menu dropdown-menu-end comment-menu p-3" data-bs-auto-close="outside">
 
                             {{-- コメント一覧 --}}
                             @forelse($post->comments()->latest()->get() as $comment)
-                                <div class="mb-2 border-bottom pb-1">
-                                    <div class="user-info">
-                                        @if (optional($comment->user)->profile_image)
-                                            <img class="blog-avatar new rounded-circle" data-user="{{ $comment->user_id }}"
-                                                src="{{ asset('storage/' . optional($comment->user)->profile_image) }}"
-                                                {{-- 可能なら Storage::url(...) 推奨 --}}
-                                                alt="{{ optional($comment->user)->name ? $comment->user->name . 'の投稿' : 'User' }}"
-                                                loading="lazy">
+                                @php $u = optional($comment->user); @endphp
+                                <div class="cmt">
+                                    <div class="cmt-head d-flex align-items-center gap-2">
+                                        @if ($u?->profile_image)
+                                            <img class="cmt-avatar" src="{{ asset('storage/' . $u->profile_image) }}"
+                                                alt="">
                                         @else
-                                            <i class="fa-solid fa-user blog-avatar new rounded-circle"
-                                                data-user="{{ $comment->user_id }}"></i>
+                                            <div class="cmt-avatar"><i class="fa-solid fa-user"></i></div>
                                         @endif
-                                        <span class="fw-bold">{{ $comment['user']['name'] }}</span>
-                                    </div>
-                                    <div class="small">{{ $comment->body }}</div>
+                                        <span class="cmt-name ms-2">{{ $u->name ?? 'User' }}</span>
+                                        <small class="cmt-time ms-auto text-muted">
+                                            {{ $comment->created_at->diffForHumans() }}
+                                        </small>
 
-                                    {{-- 自分のコメントなら削除ボタン --}}
-                                    @if (Auth::id() === $comment->user_id)
-                                        <form action="{{ route('comments.destroy', $comment->id) }}" method="POST"
-                                            class="mt-1" onsubmit="return confirm('Delete this comment?')">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit"
-                                                class="btn btn-outline-danger btn-sm py-0 px-2">Delete</button>
-                                        </form>
-                                    @endif
+                                        {{-- 自分のコメント or 投稿者なら削除可 --}}
+                                        @if (Auth::id() === $comment->user_id || Auth::id() === $post->user_id)
+                                            <form action="{{ route('comments.destroy', $comment->id) }}" method="POST"
+                                                class="ms-1">
+                                                @csrf @method('DELETE')
+                                                <button type="submit" class="cmt-del mt-3" title="Delete"
+                                                    aria-label="Delete">
+                                                    <i class="fa-regular fa-trash-can"></i>
+                                                </button>
+                                            </form>
+                                        @endif
+                                    </div>
+
+                                    <div class="cmt-body">{{ $comment->body }}</div>
                                 </div>
                             @empty
                                 <div class="text-muted small">No comments yet.</div>
@@ -99,13 +100,12 @@
 
                             {{-- 新規コメントフォーム --}}
                             @auth
-                                <form action="{{ route('comments.store', $post->id) }}" method="POST" class="mt-2">
+                                <form action="{{ route('comments.store', $post->id) }}" method="POST"
+                                    class="comment-form mt-2">
                                     @csrf
-                                    <div class="mb-2">
-                                        <textarea name="body" rows="2" class="form-control form-control-sm" placeholder="Write a comment..."
-                                            maxlength="255" required></textarea>
-                                    </div>
-                                    <button type="submit" class="btn btn-primary btn-sm w-100">Comment</button>
+                                    <input name="body" class="form-control comment-input" placeholder="Write a comment..."
+                                        maxlength="255" required>
+                                    <button type="submit" class="comment-send">Comment</button>
                                 </form>
                             @endauth
                         </div>
@@ -117,17 +117,29 @@
                         <button onclick="toggleMenu()" class="menu-btn">⋯</button>
                         <div id="menu-options" class="menu-options">
 
-                            <a href="{{ route('posts.edit', $post->id) }}"><i class="fa-solid fa-pen-to-square"></i>
-                                <span class="text-primary">Edit</span></a>
+                            {{-- <a href="{{ route('posts.edit', $post->id) }}"><i class="fa-solid fa-pen-to-square"></i>
+                                <span class="text-primary">Edit</span></a> --}}
+                            {{-- Edit --}}
+                            <a href="{{ route('posts.edit', $post->id) }}" class="icon-btn icon-edit" title="Edit"
+                                aria-label="Edit">
+                                <i class="fa-regular fa-pen-to-square"></i>
+                            </a>
                         @endcan
                         @can('delete', $post)
-                            <form action="{{ route('posts.destroy', $post->id) }}" method="POST" style="display:inline;">
+                            {{-- <form action="{{ route('posts.destroy', $post->id) }}" method="POST" style="display:inline;">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger"
                                     onclick="return confirm('Do you want to delete it?')">
                                     <i class="fa-solid fa-trash"></i>
                                     <span class="text-danger">Delete</span>
+                                </button>
+                            </form> --}}
+                            <form action="{{ route('posts.destroy', $post->id) }}" method="POST" style="display:inline;"
+                                onsubmit="return confirm('Do you want to delete it?')">
+                                @csrf @method('DELETE')
+                                <button type="submit" class="icon-btn icon-danger" title="Delete" aria-label="Delete">
+                                    <i class="fa-regular fa-trash-can"></i>
                                 </button>
                             </form>
                         @endcan

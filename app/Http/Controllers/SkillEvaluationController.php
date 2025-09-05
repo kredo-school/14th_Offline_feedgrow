@@ -39,7 +39,7 @@ class SkillEvaluationController extends Controller
         $students = User::where('role', 'student')
             ->where(function ($query) use ($q) {
                 $query->where('name', 'like', "%{$q}%")
-                      ->orWhere('email', 'like', "%{$q}%");
+                    ->orWhere('email', 'like', "%{$q}%");
             })
             ->get();
 
@@ -58,14 +58,14 @@ class SkillEvaluationController extends Controller
     {
         $data = $request->validate([
             'student_id'   => 'required|exists:users,id',
-            'lesson'       => 'nullable|string|max:100',
-            'evaluated_at' => 'nullable|date',
-            'speaking'     => 'nullable|integer|min:1|max:5',
-            'listening'    => 'nullable|integer|min:1|max:5',
-            'reading'      => 'nullable|integer|min:1|max:5',
-            'writing'      => 'nullable|integer|min:1|max:5',
-            'grammar'      => 'nullable|integer|min:1|max:5',
-            'comment'      => 'nullable|string',
+            'lesson' => 'required|string|max:100',
+            'evaluated_at' => 'required|date',
+            'speaking'     => 'required|integer|between:1,5',
+            'listening'    => 'required|integer|between:1,5',
+            'reading'      => 'required|integer|between:1,5',
+            'writing'      => 'required|integer|between:1,5',
+            'grammar'      => 'required|integer|between:1,5',
+            'comment'      => 'required|string',
         ]);
 
         $evaluation = SkillEvaluation::create([
@@ -100,6 +100,6 @@ class SkillEvaluationController extends Controller
             ->orderByDesc(DB::raw('COALESCE(evaluated_at, created_at)'))
             ->get();
 
-            return view('teacher.evaluations.all_for_student', compact('student','feedbacks'));
+        return view('teacher.evaluations.all_for_student', compact('student', 'feedbacks'));
     }
 }

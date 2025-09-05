@@ -1,11 +1,10 @@
 <div class="box graph-section">
     <div class="d-flex justify-content-between align-items-center">
         <div class="d-flex align-items-center">
-            <i class="fa-solid fa-chart-simple fa-2x" style="color: white;"></i>
+            <i class="fa-solid fa-chart-simple fa-2x mb-2" style="color: white;"></i>
             <h2 class="ms-2 fw-bold">GRAPH</h2>
         </div>
-        <a href="{{ route('feedbackhistory') }}" class="btn btn-sm btn-info fw-bold btn-history"
-            style="color: white; border-radius: 15px; background-color: #1D80E7;">
+        <a href="{{ route('feedbackhistory') }}" class="btn-history sl-bigbtn sl-bigbtn--secondary">
             HISTORY
         </a>
     </div>
@@ -20,7 +19,7 @@
     const myChart = new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: ['S', 'W', 'L', 'R', 'G / V'],
+            labels: ['S', 'W', 'L', 'R', 'G'],
             datasets: [{
                 label: 'Score',
                 data: [
@@ -31,11 +30,11 @@
                     {{ $grammarAvg }}, // G
                 ],
                 backgroundColor: [
-                    '#72ADF5',
-                    '#CEEA87',
-                    '#D98AD9',
-                    '#E59494',
-                    '#93ECE1'
+                    '#1E73E6',
+                    '#2B86FF',
+                    '#4DA3FF',
+                    '#7CC9FF',
+                    '#A7E8FF'
                 ],
                 borderSkipped: false,
 

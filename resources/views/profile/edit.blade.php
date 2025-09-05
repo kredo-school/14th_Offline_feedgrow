@@ -1,9 +1,13 @@
+{{-- resources/views/profile/edit.blade.php --}}
 @extends('layouts.app')
+
 @section('content')
-    <link rel="stylesheet" href="{{ asset('css/profile.css') }}">
-    <div class="profile-container">
-        <div class="profile-header">
-            <a href="{{ route('student.home') }}" class="back-btn back-btn--pill">
+
+<link rel="stylesheet" href="{{ asset('css/profile.css') }}">
+
+<div class="profile-container">
+    <div class="profile-header">
+            <a href="{{ route('profile.show', Auth::id()) }}" class="back-btn back-btn--pill">
                 <span class="chev">←</span> Back
             </a>
             <h1 class="profile-title fw-bold">PROFILE</h1>
@@ -16,7 +20,8 @@
                         @if (!empty($user->profile_image))
                             <img src="{{ asset('storage/' . $user->profile_image) }}" alt="User Avatar" class="avatar">
                         @else
-                            <i class="fa-solid fa-user fa-8x avatar pt-4" style="color:#c7cedc;"></i>
+                            {{-- <i class="fa-solid fa-user fa-8x avatar pt-4" style="color:#c7cedc;"></i> --}}
+                            <i class="fa-solid fa-user avatar rounded-circle"></i>
                         @endif
                         <label for="profile_image" class="edit-icon">
                             <i class="fa-solid fa-pen-to-square me-3 fa-2x"></i>
@@ -51,3 +56,6 @@
         </div>
     </div>
 @endsection
+
+
+

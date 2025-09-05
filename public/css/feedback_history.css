@@ -57,9 +57,9 @@ html,body {
     grid-column: 2;
 }
 
-.card-container {
+/* .card-container {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);  /* ← 固定で3列 */
+    grid-template-columns: repeat(3, 1fr);
     gap: 20px 40px;
     padding: 0 40px;
     max-width: 1000px;
@@ -95,4 +95,89 @@ html,body {
     list-style: none;
     padding: 0;
     margin-top: 10px;
+} */
+
+ .card-container{
+  display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px 40px;
+    padding: 0 40px;
+    max-width: 1000px;
+    margin: 0 auto;
 }
+
+/* ===== Design #2: 左ストライプ＋チップ ===== */
+.fh-card2{
+  display:flex;
+  background:#fff;
+  border-radius:16px;
+  overflow:hidden;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  transition:transform .15s ease, box-shadow .25s ease;
+  color: black;
+}
+.fh-card2:hover{ transform:translateY(-2px); box-shadow:0 16px 36px rgba(0,0,0,.12); }
+
+.fh2-left{
+  width:10px;
+  background:linear-gradient(180deg,#2b86ff 0%, #0056b3 100%);
+}
+
+.fh2-body{ flex:1; padding:16px 18px; }
+
+.fh2-head{
+  display:flex; align-items:center; justify-content:space-between;
+  gap:12px; flex-wrap:wrap; margin-bottom:8px;
+}
+
+/* teacher */
+.fh2-teacher{ display:flex; align-items:center; gap:10px; min-width:180px; }
+.fh2-teacher img{ width:36px; height:36px; border-radius:50%; object-fit:cover; box-shadow:0 6px 18px rgba(0,0,0,.12); }
+.fh2-teacher .fallback-avatar{ color:#c7cedc; width:36px; height:36px; display:inline-grid; place-items:center; }
+.fh2-name{ font-weight:800; }
+
+/* date + lesson */
+.fh2-meta{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+.fh2-date{ font-weight:800; color:#2c3b4e; }
+.fh2-lesson{
+  padding:6px 12px; border-radius:999px;
+  background:#eef5ff; color:#1D80E7; font-weight:800; font-size:12px;
+  box-shadow:0 6px 14px rgba(29,128,231,.18);
+}
+
+/* skill chips */
+.fh2-chips{ display:flex; flex-wrap:wrap; gap:8px 10px; margin:10px 0 6px; }
+.fh2-chip{
+  display:inline-flex; align-items:center; gap:8px;
+  padding:8px 12px; border-radius:999px; background:#f3f6fb; font-weight:800;
+}
+.fh2-chip b{
+  display:inline-grid; place-items:center;
+  width:26px; height:26px; border-radius:50%;
+  background:#1D80E7; color:#fff; font-weight:900;
+}
+
+/* comment */
+.fh2-cmt{ margin-top:6px; color:#3a4755; background:#f7f9fc; border:1px solid #edf1f7; border-radius:12px; padding:10px 12px; }
+
+/* 余白調整（既存ヘッダーと合わせる） */
+.feedback-header{ margin-bottom:16px; }
+.page-title{ color:#fff; }
+
+.post-card.empty{
+  display: flex;
+  flex-direction: column;   /* アイコン＋テキスト縦並び */
+  justify-content: center;  /* 縦中央 */
+  align-items: center;      /* 横中央 */
+  min-height: 220px;
+  background: transparent;  /* ← 背景を透明に */
+  box-shadow: none;         /* ← カード影も消したい場合 */
+  border: 2px dashed #ccc;  /* 枠が欲しければ（任意） */
+  color: #fff;
+}
+
+.post-card.empty .empty-inner{
+  text-align:center;
+  padding:0;
+}
+.post-card.empty i{ opacity:.6; margin-bottom:6px; }

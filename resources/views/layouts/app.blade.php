@@ -94,7 +94,7 @@
                                                 <img src="{{ $avatar }}" alt="{{ $name }} avatar"
                                                     class="rounded-circle me-2 flex-shrink-0"
                                                     style="width:32px;height:32px;object-fit:cover;border:1px solid #888;"
-                                                    onerror="this.onerror=null;this.src='{{ asset('images/User-avatar.png') }}';">
+                                                    onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-flex';">
                                                 <div class="min-w-0">
                                                     <p class="mb-0 text-truncate">
                                                         <span class="fw-bold me-1">{{ $name }}</span>
@@ -103,7 +103,7 @@
                                                         @elseif($type === 'comment')
                                                             commented on your post.
                                                         @elseif($type === 'evaluation')
-                                                            sent you an evaluation.
+                                                            sent you a feedback.
                                                         @else
                                                             {{ $d['message'] ?? 'There is a notification' }}
                                                         @endif
@@ -119,9 +119,6 @@
                                 @empty
                                     <li><span class="dropdown-item small text-muted">No unread messages</span></li>
                                 @endforelse
-
-                                <li><a class="dropdown-item" href="{{ route('notifications.index') }}">View all
-                                        notifications</a></li>
                             </ul>
                         </div>
                     @endif
@@ -134,7 +131,7 @@
                                 style="width:40px;height:40px;object-fit:cover;border:1px solid #888888;">
                         @else
                             <i class="fa-solid fa-user rounded-circle d-inline-flex align-items-center justify-content-center me-2"
-                                style="width:40px;height:40px;font-size:18px;color:#c7cedc;border:1px solid #888888;"></i>
+                                style="width:40px;height:40px;font-size:21px;color:#c7cedc;border:1px solid #888888;"></i>
                         @endif
                     </a>
 
