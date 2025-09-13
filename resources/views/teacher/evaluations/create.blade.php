@@ -160,10 +160,12 @@
         /* ---------- layout ---------- */
         html,
         body {
-            background-color: #1D80E7;
+            background:linear-gradient(180deg,#1D80E7 0%, #87baf4b1 100%);
+            background-repeat: no-repeat;
+            background-size: cover; /* ページ全体をカバー */
             font-family: 'M PLUS 1p', sans-serif;
             font-weight: 700;
-            height: 100%;
+            min-height: 100vh;
             margin: 0;
         }
 
@@ -174,7 +176,6 @@
             flex-direction: column;
             align-items: center;
             padding: 24px 16px 72px;
-            background: linear-gradient(180deg, #2b86ff 0%, #1D80E7 100%);
         }
 
         .feedback-header {
