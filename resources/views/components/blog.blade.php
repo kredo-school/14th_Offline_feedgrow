@@ -11,46 +11,49 @@
     </div>
     <div class="mt-3 d-flex flex-wrap gap-4 blog-content ms-2">
         @forelse($posts as $post)
-            <a href="{{ route('posts.show', $post->id) }}" class="text-decoration-none blog-item">
+            <a href="{{ route('posts.show', $post->id) }}" class="text-decoration-none blog-item"
+                data-post-id="{{ $post->id }}" data-owner="{{ (int) ($post->user_id === Auth::id()) }}">
                 @if (optional($post->user)->profile_image)
-                    <img class="blog-avatar new rounded-circle" data-user="{{ $post->user_id }}"
-                        src="{{ asset('storage/' . optional($post->user)->profile_image) }}" {{-- 可能なら Storage::url(...) 推奨 --}}
+                    <img class="blog-avatar rounded-circle"
+                        src="{{ asset('storage/' . optional($post->user)->profile_image) }}"
                         alt="{{ optional($post->user)->name ? $post->user->name . 'の投稿' : 'User' }}" loading="lazy">
                 @else
-                    {{-- <img src="{{ asset('images/User-avatar3.png') }}" class="blog-avatar new rounded-circle"  data-user="{{ $post->user_id }}"> --}}
-                    <i class="fa-solid fa-user blog-avatar new rounded-circle" data-user="{{ $post->user_id }}"></i>
+                    <i class="fa-solid fa-user blog-avatar rounded-circle"></i>
                 @endif
-                <p class="post-name">{{$post->user->name}}</p>
+                <p class="post-name">{{ $post->user->name }}</p>
             </a>
         @empty
             <div class="text-muted">No Post</div>
         @endforelse
     </div>
+    <script>
+  window.JUST_POSTED_ID = @json(session('just_posted_id'));
+</script>
 </div>
 
 <script>
-    window.addEventListener = () => {
-        const readUsers = JSON.parse(localStorage.getItem('readUsers') || '[]');
-        document.querySelectorAll('.blog-avatar').forEach(avatar => {
-            const user = avatar.dataset.user;
-            if (readUsers.includes(user)) {
-                avatar.classList.remove('new');
-                avatar.classList.add('read');
-            }
+window.addEventListener('DOMContentLoaded', () => {
+  const justId = window.JUST_POSTED_ID;
+  console.log('JUST_POSTED_ID:', justId);   // ← ここでIDが出るか
 
-            avatar.addEventListener('click', () => {
-                avatar.classList.remove('new');
-                avatar.classList.add('read');
-                markAsRead(user);
-            });
-        });
-    };
+  if (!justId) return;
 
-    function markAsRead(user) {
-        let readUsers = JSON.parse(localStorage.getItem('readUsers') || '[]');
-        if (!readUsers.includes(user)) {
-            readUsers.push(user);
-            localStorage.setItem('readUsers', JSON.stringify(readUsers));
-        }
-    }
+  const key = 'viewed_post_' + justId;
+  if (localStorage.getItem(key)) {
+    console.log('already viewed, skip');
+    return;
+  }
+
+  const sel = `[data-post-id="${justId}"][data-owner="1"] .blog-avatar`;
+  const avatar = document.querySelector(sel);
+  console.log('selector:', sel, 'avatar:', avatar); // ← 要素が拾えてるか
+
+  if (!avatar) return;
+
+  avatar.classList.add('glow-once');
+  avatar.addEventListener('click', () => {
+    localStorage.setItem(key, '1');
+    avatar.classList.remove('glow-once');
+  }, { capture: true });
+});
 </script>
