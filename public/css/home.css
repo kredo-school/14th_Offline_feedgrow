@@ -193,10 +193,10 @@ html,body {
             border-radius: 50%;
             border: 2px solid transparent;
             transition: border 0.3s;
-            background-color: #ffffff;
+
         }
 
-        .
+
 
         .blog-avatar.new {
             border: 3px solid #4DC9C6;
@@ -219,6 +219,14 @@ html,body {
             text-align: center;
             color: #c7cedc;
         }
+
+        /* アイコン（丸）を光らせる */
+.blog-avatar.glow-once {
+  border-radius: 50%;
+border: 3px solid #4DC9C6;
+  animation: glowPulse 1.2s ease-in-out infinite;
+}
+
 
 
 /* -------------------------------------------------------------------------------------------------------------------- */
