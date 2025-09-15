@@ -37,9 +37,9 @@ class PostController extends Controller
 
         $post = Post::create($data);
 
-        return redirect()
-    ->route('student.home')   // ← 一覧へ
-    ->with('just_posted_id', $post->id);
+         // 作成後の遷移はお好みで
+        return redirect()->route('posts.show', $post->id);
+        // return redirect()->route('student.home');
     }
 
     public function edit(Post $post)

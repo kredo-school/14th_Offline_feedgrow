@@ -191,19 +191,8 @@ html,body {
             height: 90px;
             object-fit: cover;
             border-radius: 50%;
-            border: 2px solid transparent;
             transition: border 0.3s;
-
-        }
-
-
-
-        .blog-avatar.new {
-            border: 3px solid #4DC9C6;
-        }
-
-        .blog-avatar.read {
-            border: 3px solid #888888; /* グレー枠 */
+            border: 2px solid #888888; /* グレー枠 */
         }
 
         .post-name {
@@ -218,15 +207,8 @@ html,body {
             line-height: 90px;      /* 垂直中央 */
             text-align: center;
             color: #c7cedc;
+            background-color: #ffffff;
         }
-
-        /* アイコン（丸）を光らせる */
-.blog-avatar.glow-once {
-  border-radius: 50%;
-border: 3px solid #4DC9C6;
-  animation: glowPulse 1.2s ease-in-out infinite;
-}
-
 
 
 /* -------------------------------------------------------------------------------------------------------------------- */

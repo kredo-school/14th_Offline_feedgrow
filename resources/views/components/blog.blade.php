@@ -26,34 +26,9 @@
             <div class="text-muted">No Post</div>
         @endforelse
     </div>
-    <script>
-  window.JUST_POSTED_ID = @json(session('just_posted_id'));
-</script>
 </div>
 
 <script>
-window.addEventListener('DOMContentLoaded', () => {
-  const justId = window.JUST_POSTED_ID;
-  console.log('JUST_POSTED_ID:', justId);   // ← ここでIDが出るか
 
-  if (!justId) return;
-
-  const key = 'viewed_post_' + justId;
-  if (localStorage.getItem(key)) {
-    console.log('already viewed, skip');
-    return;
-  }
-
-  const sel = `[data-post-id="${justId}"][data-owner="1"] .blog-avatar`;
-  const avatar = document.querySelector(sel);
-  console.log('selector:', sel, 'avatar:', avatar); // ← 要素が拾えてるか
-
-  if (!avatar) return;
-
-  avatar.classList.add('glow-once');
-  avatar.addEventListener('click', () => {
-    localStorage.setItem(key, '1');
-    avatar.classList.remove('glow-once');
-  }, { capture: true });
-});
+    
 </script>
