@@ -16,8 +16,8 @@
                 @csrf
                 <div class="profile-left">
                     <div class="avatar-container">
-                        @if (!empty($user->profile_image))
-                            <img src="{{ asset('storage/' . $user->profile_image) }}" alt="User Avatar" class="avatar">
+                        @if (!empty($student->profile_image))
+                            <img src="{{ asset('storage/' . $student->profile_image) }}" alt="User Avatar" class="avatar">
                         @else
                             <i class="fa-solid fa-user avatar rounded-circle"></i>
                         @endif
